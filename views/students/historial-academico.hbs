@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Historial Académico — Sistema de Matrícula</title>
+<link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+<div class="app-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Portal Estudiantil</div></div></div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-seccion">General</div>
+      <a href="dashboard-estudiante.html"><span class="icono">🏠</span> Mi portal</a>
+      <div class="sidebar-seccion">Matrícula</div>
+      <a href="../enrollment/buscar-cursos.html"><span class="icono">🔍</span> Buscar cursos</a>
+      <a href="../enrollment/mi-matricula.html"><span class="icono">✏️</span> Mi matrícula</a>
+      <a href="../enrollment/comprobante.html"><span class="icono">🖨️</span> Comprobante</a>
+      <div class="sidebar-seccion">Mi información</div>
+      <a href="mi-perfil.html"><span class="icono">👤</span> Mi perfil</a>
+      <a href="historial-academico.html" class="activo"><span class="icono">📊</span> Historial académico</a>
+      <div class="sidebar-seccion">Finanzas</div>
+      <a href="../billing/estado-cuenta.html"><span class="icono">📄</span> Estado de cuenta</a>
+      <a href="../billing/mis-facturas.html"><span class="icono">🧾</span> Mis facturas</a>
+      <a href="../billing/realizar-pago.html"><span class="icono">💳</span> Realizar pago</a>
+      <div class="sidebar-seccion">Comunicaciones</div>
+      <a href="../notifications/notificaciones-lista.html"><span class="icono">🔔</span> Notificaciones</a>
+    </nav>
+    <div class="sidebar-footer"><a href="../auth/login.html">🚪 Cerrar sesión</a></div>
+  </aside>
+  <div class="contenido-principal">
+    <header class="navbar">
+      <div><div class="navbar-titulo">Historial Académico</div><div class="navbar-breadcrumb"><a href="dashboard-estudiante.html">Inicio</a><span class="separador"></span><span class="actual">Historial académico</span></div></div>
+      <div class="navbar-acciones">
+        <button class="btn btn-secundario btn-sm">🖨️ Imprimir</button>
+        <div class="navbar-usuario"><div class="avatar">LJ</div><div><div class="navbar-usuario-nombre">Laura Jiménez</div><div class="navbar-usuario-rol">Estudiante · 2024-0312</div></div></div>
+      </div>
+    </header>
+    <main class="area-pagina">
+      <div class="encabezado-pagina">
+        <div><h1>Mi historial académico</h1><p>Ingeniería en Sistemas · Plan IS-2020 · Carné 2024-0312</p></div>
+      </div>
+      <div class="grid-4 mb-4">
+        <div style="background:var(--fondo-carta);border:1px solid var(--gris-linea);border-radius:var(--radio-borde);padding:1.25rem;text-align:center;">
+          <div style="font-size:1.75rem;font-weight:700;color:var(--verde-principal);">48</div><div class="texto-pequeno">Créditos aprobados</div>
+        </div>
+        <div style="background:var(--fondo-carta);border:1px solid var(--gris-linea);border-radius:var(--radio-borde);padding:1.25rem;text-align:center;">
+          <div style="font-size:1.75rem;font-weight:700;color:var(--gris-oscuro);">160</div><div class="texto-pequeno">Créditos del plan</div>
+        </div>
+        <div style="background:var(--fondo-carta);border:1px solid var(--gris-linea);border-radius:var(--radio-borde);padding:1.25rem;text-align:center;">
+          <div style="font-size:1.75rem;font-weight:700;color:var(--azul-info);">14</div><div class="texto-pequeno">Cursos aprobados</div>
+        </div>
+        <div style="background:var(--fondo-carta);border:1px solid var(--gris-linea);border-radius:var(--radio-borde);padding:1.25rem;text-align:center;">
+          <div style="font-size:1.75rem;font-weight:700;color:var(--cyan-exito);">8.6</div><div class="texto-pequeno">Promedio general</div>
+        </div>
+      </div>
+      <div class="carta mb-4">
+        <div class="carta-cabecera"><div class="carta-titulo">Progreso del plan de estudio</div></div>
+        <div class="carta-cuerpo">
+          <div style="margin-bottom:1rem;">
+            <div style="display:flex;justify-content:space-between;font-size:.9rem;margin-bottom:.5rem;"><span>Avance general</span><span style="font-weight:700;">48 / 160 créditos (30%)</span></div>
+            <div class="progreso-contenedor" style="height:12px;"><div class="progreso-barra" style="width:30%;"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="carta">
+        <div class="carta-cabecera"><div class="carta-titulo">Cursos por periodo</div></div>
+        <div class="carta-cuerpo" style="padding:0;">
+          <div style="padding:1rem 1.5rem;background:var(--gris-fondo);border-bottom:1px solid var(--gris-linea);font-weight:700;">II Semestre 2024</div>
+          <div class="tabla-contenedor">
+            <table class="tabla">
+              <thead><tr><th>Código</th><th>Curso</th><th>Créditos</th><th>Calificación</th><th>Estado</th></tr></thead>
+              <tbody>
+                <tr><td style="font-family:monospace;color:var(--verde-principal);font-weight:700;">IS-1101</td><td>Fundamentos de Programación</td><td style="text-align:center;">4</td><td style="text-align:center;font-weight:700;color:var(--verde-principal);">9.2</td><td><span class="badge badge-confirmado">Aprobado</span></td></tr>
+                <tr><td style="font-family:monospace;color:var(--verde-principal);font-weight:700;">IS-1102</td><td>Matemáticas Discretas</td><td style="text-align:center;">4</td><td style="text-align:center;font-weight:700;color:var(--verde-principal);">8.4</td><td><span class="badge badge-confirmado">Aprobado</span></td></tr>
+                <tr><td style="font-family:monospace;color:var(--verde-principal);font-weight:700;">MAT-0501</td><td>Precálculo</td><td style="text-align:center;">4</td><td style="text-align:center;font-weight:700;color:var(--cyan-exito);">7.8</td><td><span class="badge badge-confirmado">Aprobado</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="padding:1rem 1.5rem;background:var(--gris-fondo);border-bottom:1px solid var(--gris-linea);border-top:1px solid var(--gris-linea);font-weight:700;">I Semestre 2024</div>
+          <div class="tabla-contenedor">
+            <table class="tabla">
+              <tbody>
+                <tr><td style="font-family:monospace;color:var(--verde-principal);font-weight:700;">GEN-0101</td><td>Estudios Generales I</td><td style="text-align:center;">3</td><td style="text-align:center;font-weight:700;color:var(--verde-principal);">8.9</td><td><span class="badge badge-confirmado">Aprobado</span></td></tr>
+                <tr><td style="font-family:monospace;color:var(--verde-principal);font-weight:700;">ING-0501</td><td>Inglés Comunicativo I</td><td style="text-align:center;">3</td><td style="text-align:center;font-weight:700;color:var(--cyan-exito);">7.5</td><td><span class="badge badge-confirmado">Aprobado</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="padding:1rem 1.5rem;border-top:1px solid var(--gris-linea);display:flex;justify-content:flex-end;gap:2rem;font-size:.875rem;">
+            <span class="texto-gris">Promedio acumulado: <strong style="color:var(--verde-principal);">8.6</strong></span>
+            <span class="texto-gris">Total créditos aprobados: <strong>48</strong></span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+</body>
+</html>

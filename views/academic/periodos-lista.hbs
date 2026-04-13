@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Periodos Académicos — Sistema de Matrícula</title>
+<link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+<div class="app-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Panel Administrativo</div></div></div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-seccion">General</div>
+      <a href="../admin/dashboard-admin.html"><span class="icono">📊</span> Dashboard</a>
+      <div class="sidebar-seccion">Usuarios</div>
+      <a href="../admin/usuarios-lista.html"><span class="icono">👥</span> Usuarios</a>
+      <a href="../admin/roles-permisos.html"><span class="icono">🔐</span> Roles y permisos</a>
+      <div class="sidebar-seccion">Académico</div>
+      <a href="programas-lista.html"><span class="icono">🏛️</span> Programas académicos</a>
+      <a href="planes-lista.html"><span class="icono">📋</span> Planes de estudio</a>
+      <a href="cursos-lista.html"><span class="icono">📚</span> Cursos</a>
+      <a href="periodos-lista.html" class="activo"><span class="icono">📅</span> Periodos académicos</a>
+      <div class="sidebar-seccion">Oferta</div>
+      <a href="secciones-lista.html"><span class="icono">🗂️</span> Secciones</a>
+      <a href="aulas-lista.html"><span class="icono">🏫</span> Aulas</a>
+      <div class="sidebar-seccion">Estudiantes</div>
+      <a href="../students/estudiantes-lista.html"><span class="icono">🎓</span> Estudiantes</a>
+      <a href="../enrollment/matriculas-lista.html"><span class="icono">✏️</span> Matrículas</a>
+      <div class="sidebar-seccion">Finanzas</div>
+      <a href="../billing/facturas-lista.html"><span class="icono">🧾</span> Facturas</a>
+      <a href="../billing/pagos-lista.html"><span class="icono">💳</span> Pagos</a>
+      <div class="sidebar-seccion">Sistema</div>
+      <a href="../notifications/notificaciones-lista.html"><span class="icono">🔔</span> Notificaciones</a>
+      <a href="../reports/reportes.html"><span class="icono">📈</span> Reportes</a>
+      <a href="../audit/bitacora.html"><span class="icono">🔍</span> Bitácora</a>
+    </nav>
+    <div class="sidebar-footer"><a href="../auth/login.html">🚪 Cerrar sesión</a></div>
+  </aside>
+
+  <div class="contenido-principal">
+    <header class="navbar">
+      <div>
+        <div class="navbar-titulo">Periodos Académicos</div>
+        <div class="navbar-breadcrumb"><span>Inicio</span><span class="separador"></span><span class="actual">Periodos académicos</span></div>
+      </div>
+      <div class="navbar-acciones">
+        <div class="navbar-usuario"><div class="avatar">AM</div><div><div class="navbar-usuario-nombre">Ana Mora</div><div class="navbar-usuario-rol">Administradora TI</div></div></div>
+      </div>
+    </header>
+
+    <main class="area-pagina">
+      <div class="encabezado-pagina">
+        <div><h1>Periodos académicos</h1><p>Gestiona los semestres, cuatrimestres y la apertura de matrícula.</p></div>
+        <div class="acciones-encabezado"><button class="btn btn-primario">+ Nuevo periodo</button></div>
+      </div>
+
+      <!-- Periodo activo destacado -->
+      <div style="background:var(--verde-principal);border-radius:var(--radio-grande);padding:1.5rem 2rem;margin-bottom:1.5rem;color:#fff;">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+          <div>
+            <div style="font-size:.875rem;opacity:.8;margin-bottom:.25rem;">⚡ Periodo activo</div>
+            <div style="font-size:1.375rem;font-weight:700;margin-bottom:.25rem;">I Semestre 2025</div>
+            <div style="font-size:.875rem;opacity:.85;">Código: 2025-I • Tipo: Semestral</div>
+          </div>
+          <div style="display:flex;gap:2rem;text-align:center;">
+            <div><div style="font-size:1.5rem;font-weight:700;">18 feb – 30 jun</div><div style="font-size:.8125rem;opacity:.8;">Período lectivo</div></div>
+            <div style="width:1px;background:rgba(255,255,255,.3);"></div>
+            <div><div style="font-size:1.5rem;font-weight:700;">15 – 28 ene</div><div style="font-size:.8125rem;opacity:.8;">Ventana de matrícula</div></div>
+            <div style="width:1px;background:rgba(255,255,255,.3);"></div>
+            <div><div style="font-size:1.5rem;font-weight:700;">20</div><div style="font-size:.8125rem;opacity:.8;">Límite de créditos</div></div>
+          </div>
+          <div style="display:flex;gap:.75rem;">
+            <button class="btn" style="background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.4);">Cerrar matrícula</button>
+            <button class="btn" style="background:#fff;color:var(--verde-principal);">Editar periodo</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="carta">
+        <div class="carta-cabecera"><div class="carta-titulo">Historial de periodos</div></div>
+        <div class="tabla-contenedor">
+          <table class="tabla">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Periodo lectivo</th>
+                <th>Ventana matrícula</th>
+                <th>Lím. créditos</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="background:var(--verde-bg);">
+                <td><span style="font-family:monospace;font-weight:700;color:var(--verde-principal);">2025-I</span></td>
+                <td><div class="nombre-principal">I Semestre 2025</div></td>
+                <td class="texto-muted">Semestral</td>
+                <td class="texto-muted">18 feb – 30 jun 2025</td>
+                <td class="texto-muted">15 – 28 ene 2025</td>
+                <td><span style="font-weight:700;">20</span></td>
+                <td><span class="badge badge-activo">Activo</span></td>
+                <td><div class="acciones-fila"><button class="btn btn-secundario btn-sm">Editar</button></div></td>
+              </tr>
+              <tr>
+                <td><span style="font-family:monospace;font-weight:700;color:var(--gris-suave);">2024-II</span></td>
+                <td><div class="nombre-principal">II Semestre 2024</div></td>
+                <td class="texto-muted">Semestral</td>
+                <td class="texto-muted">12 ago – 06 dic 2024</td>
+                <td class="texto-muted">15 – 28 jul 2024</td>
+                <td>20</td>
+                <td><span class="badge badge-inactivo">Cerrado</span></td>
+                <td><div class="acciones-fila"><button class="btn btn-secundario btn-sm">Ver</button></div></td>
+              </tr>
+              <tr>
+                <td><span style="font-family:monospace;font-weight:700;color:var(--gris-suave);">2024-I</span></td>
+                <td><div class="nombre-principal">I Semestre 2024</div></td>
+                <td class="texto-muted">Semestral</td>
+                <td class="texto-muted">19 feb – 01 jul 2024</td>
+                <td class="texto-muted">15 – 27 ene 2024</td>
+                <td>20</td>
+                <td><span class="badge badge-inactivo">Cerrado</span></td>
+                <td><div class="acciones-fila"><button class="btn btn-secundario btn-sm">Ver</button></div></td>
+              </tr>
+              <tr>
+                <td><span style="font-family:monospace;font-weight:700;color:var(--gris-suave);">2023-VER</span></td>
+                <td><div class="nombre-principal">Verano 2023</div></td>
+                <td class="texto-muted">Verano</td>
+                <td class="texto-muted">08 ene – 17 feb 2023</td>
+                <td class="texto-muted">02 – 07 ene 2023</td>
+                <td>8</td>
+                <td><span class="badge badge-inactivo">Cerrado</span></td>
+                <td><div class="acciones-fila"><button class="btn btn-secundario btn-sm">Ver</button></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+</body>
+</html>

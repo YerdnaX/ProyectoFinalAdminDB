@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pagos — Sistema de Matrícula</title>
+<link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+<div class="app-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Panel Administrativo</div></div></div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-seccion">General</div>
+      <a href="../admin/dashboard-admin.html"><span class="icono">📊</span> Dashboard</a>
+      <div class="sidebar-seccion">Usuarios</div>
+      <a href="../admin/usuarios-lista.html"><span class="icono">👥</span> Usuarios</a>
+      <a href="../admin/roles-permisos.html"><span class="icono">🔐</span> Roles y permisos</a>
+      <div class="sidebar-seccion">Académico</div>
+      <a href="../academic/programas-lista.html"><span class="icono">🏛️</span> Programas académicos</a>
+      <a href="../academic/planes-lista.html"><span class="icono">📋</span> Planes de estudio</a>
+      <a href="../academic/cursos-lista.html"><span class="icono">📚</span> Cursos</a>
+      <a href="../academic/periodos-lista.html"><span class="icono">📅</span> Periodos académicos</a>
+      <div class="sidebar-seccion">Oferta</div>
+      <a href="../academic/secciones-lista.html"><span class="icono">🗂️</span> Secciones</a>
+      <a href="../academic/aulas-lista.html"><span class="icono">🏫</span> Aulas</a>
+      <div class="sidebar-seccion">Estudiantes</div>
+      <a href="../students/estudiantes-lista.html"><span class="icono">🎓</span> Estudiantes</a>
+      <a href="../enrollment/matriculas-lista.html"><span class="icono">✏️</span> Matrículas</a>
+      <div class="sidebar-seccion">Finanzas</div>
+      <a href="facturas-lista.html"><span class="icono">🧾</span> Facturas</a>
+      <a href="pagos-lista.html" class="activo"><span class="icono">💳</span> Pagos</a>
+      <div class="sidebar-seccion">Sistema</div>
+      <a href="../notifications/notificaciones-lista.html"><span class="icono">🔔</span> Notificaciones</a>
+      <a href="../reports/reportes.html"><span class="icono">📈</span> Reportes</a>
+      <a href="../audit/bitacora.html"><span class="icono">🔍</span> Bitácora</a>
+    </nav>
+    <div class="sidebar-footer"><a href="../auth/login.html">🚪 Cerrar sesión</a></div>
+  </aside>
+
+  <div class="contenido-principal">
+    <header class="navbar">
+      <div>
+        <div class="navbar-titulo">Registro de Pagos</div>
+        <div class="navbar-breadcrumb"><span>Inicio</span><span class="separador"></span><span class="actual">Pagos</span></div>
+      </div>
+      <div class="navbar-acciones">
+        <div class="navbar-usuario"><div class="avatar">AM</div><div><div class="navbar-usuario-nombre">Ana Mora</div><div class="navbar-usuario-rol">Administradora TI</div></div></div>
+      </div>
+    </header>
+
+    <main class="area-pagina">
+      <div class="encabezado-pagina">
+        <div><h1>Historial de pagos</h1><p>Consulta todos los pagos registrados en el sistema.</p></div>
+        <div class="acciones-encabezado">
+          <button class="btn btn-secundario">Exportar</button>
+          <button class="btn btn-primario">+ Registrar pago manual</button>
+        </div>
+      </div>
+
+      <div class="grid-3 mb-4">
+        <div class="carta-metrica"><div class="metrica-icono">💵</div><div class="metrica-etiqueta">Recaudado hoy</div><div class="metrica-valor">₡8.2M</div><div class="metrica-cambio positivo">▲ 42 transacciones</div></div>
+        <div class="carta-metrica"><div class="metrica-icono">📆</div><div class="metrica-etiqueta">Recaudado este mes</div><div class="metrica-valor">₡284M</div><div class="metrica-cambio positivo">▲ 73% de la meta</div></div>
+        <div class="carta-metrica azul"><div class="metrica-icono">💳</div><div class="metrica-etiqueta">Pagos en línea</div><div class="metrica-valor">89%</div><div class="metrica-cambio positivo">▲ vs 71% año anterior</div></div>
+      </div>
+
+      <div class="carta">
+        <div class="carta-cabecera">
+          <div class="barra-filtros" style="margin:0;flex:1;">
+            <div class="barra-busqueda"><span class="icono-buscar">🔍</span><input type="text" placeholder="Buscar por referencia, estudiante o factura..."></div>
+            <select class="filtro-select"><option>Todos los métodos</option><option>Tarjeta de crédito</option><option>Tarjeta de débito</option><option>Transferencia</option><option>Caja</option></select>
+            <select class="filtro-select"><option>Todos los estados</option><option>Completado</option><option>Pendiente</option><option>Rechazado</option><option>Reembolsado</option></select>
+          </div>
+        </div>
+        <div class="tabla-contenedor">
+          <table class="tabla">
+            <thead>
+              <tr>
+                <th>Fecha / hora</th>
+                <th>Estudiante</th>
+                <th>Factura</th>
+                <th>Método</th>
+                <th>Referencia</th>
+                <th style="text-align:right;">Monto</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><div class="nombre-principal">22 ene 2025</div><div class="detalle-secundario">14:32</div></td>
+                <td><div class="nombre-principal">María Castillo</div><div class="detalle-secundario">2022-0784</div></td>
+                <td><span style="font-family:monospace;font-size:.875rem;">F-2025-00811</span></td>
+                <td>💳 Tarjeta crédito</td>
+                <td><span style="font-family:monospace;font-size:.8rem;color:var(--gris-suave);">TXN-48271-VISA</span></td>
+                <td style="text-align:right;font-weight:700;color:var(--cyan-exito);">₡168,000</td>
+                <td><span class="badge badge-activo">Completado</span></td>
+                <td><button class="btn btn-secundario btn-sm">Ver</button></td>
+              </tr>
+              <tr>
+                <td><div class="nombre-principal">22 ene 2025</div><div class="detalle-secundario">11:18</div></td>
+                <td><div class="nombre-principal">Pablo Gutiérrez</div><div class="detalle-secundario">2021-0456</div></td>
+                <td><span style="font-family:monospace;font-size:.875rem;">F-2025-00805</span></td>
+                <td>🏦 Transferencia</td>
+                <td><span style="font-family:monospace;font-size:.8rem;color:var(--gris-suave);">SINPE-CR-09182</span></td>
+                <td style="text-align:right;font-weight:700;color:var(--cyan-exito);">₡140,000</td>
+                <td><span class="badge badge-activo">Completado</span></td>
+                <td><button class="btn btn-secundario btn-sm">Ver</button></td>
+              </tr>
+              <tr>
+                <td><div class="nombre-principal">21 ene 2025</div><div class="detalle-secundario">09:44</div></td>
+                <td><div class="nombre-principal">Andrés Quesada</div><div class="detalle-secundario">2023-0891</div></td>
+                <td><span style="font-family:monospace;font-size:.875rem;">F-2025-00798</span></td>
+                <td>💳 Tarjeta débito</td>
+                <td><span style="font-family:monospace;font-size:.8rem;color:var(--rojo-peligro);">TXN-47901-ERR</span></td>
+                <td style="text-align:right;font-weight:700;color:var(--rojo-peligro);">₡195,000</td>
+                <td><span class="badge badge-error">Rechazado</span></td>
+                <td><div class="acciones-fila"><button class="btn btn-secundario btn-sm">Ver</button><button class="btn btn-peligro btn-sm">Gestionar</button></div></td>
+              </tr>
+              <tr>
+                <td><div class="nombre-principal">21 ene 2025</div><div class="detalle-secundario">08:15</div></td>
+                <td><div class="nombre-principal">Sofía Ramírez</div><div class="detalle-secundario">2024-0056</div></td>
+                <td><span style="font-family:monospace;font-size:.875rem;">F-2025-00790</span></td>
+                <td>🏢 Caja</td>
+                <td><span style="font-family:monospace;font-size:.8rem;color:var(--gris-suave);">CAJ-2025-0041</span></td>
+                <td style="text-align:right;font-weight:700;color:var(--cyan-exito);">₡155,000</td>
+                <td><span class="badge badge-activo">Completado</span></td>
+                <td><button class="btn btn-secundario btn-sm">Ver</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="paginacion">
+          <span class="paginacion-info">Mostrando 1–4 de 2,999 pagos</span>
+          <div class="paginacion-botones">
+            <button class="btn-pagina" disabled>←</button>
+            <button class="btn-pagina activa">1</button>
+            <button class="btn-pagina">2</button>
+            <button class="btn-pagina">3</button>
+            <button class="btn-pagina">→</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+</body>
+</html>

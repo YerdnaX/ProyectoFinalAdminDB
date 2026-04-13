@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programas Académicos — Sistema de Matrícula</title>
+<link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+<div class="app-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Panel Administrativo</div></div></div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-seccion">General</div>
+      <a href="../admin/dashboard-admin.html"><span class="icono">📊</span> Dashboard</a>
+      <div class="sidebar-seccion">Usuarios</div>
+      <a href="../admin/usuarios-lista.html"><span class="icono">👥</span> Usuarios</a>
+      <a href="../admin/roles-permisos.html"><span class="icono">🔐</span> Roles y permisos</a>
+      <div class="sidebar-seccion">Académico</div>
+      <a href="programas-lista.html" class="activo"><span class="icono">🏛️</span> Programas académicos</a>
+      <a href="planes-lista.html"><span class="icono">📋</span> Planes de estudio</a>
+      <a href="cursos-lista.html"><span class="icono">📚</span> Cursos</a>
+      <a href="periodos-lista.html"><span class="icono">📅</span> Periodos académicos</a>
+      <div class="sidebar-seccion">Oferta</div>
+      <a href="secciones-lista.html"><span class="icono">🗂️</span> Secciones</a>
+      <a href="aulas-lista.html"><span class="icono">🏫</span> Aulas</a>
+      <div class="sidebar-seccion">Estudiantes</div>
+      <a href="../students/estudiantes-lista.html"><span class="icono">🎓</span> Estudiantes</a>
+      <a href="../enrollment/matriculas-lista.html"><span class="icono">✏️</span> Matrículas</a>
+      <div class="sidebar-seccion">Finanzas</div>
+      <a href="../billing/facturas-lista.html"><span class="icono">🧾</span> Facturas</a>
+      <a href="../billing/pagos-lista.html"><span class="icono">💳</span> Pagos</a>
+      <div class="sidebar-seccion">Sistema</div>
+      <a href="../notifications/notificaciones-lista.html"><span class="icono">🔔</span> Notificaciones</a>
+      <a href="../reports/reportes.html"><span class="icono">📈</span> Reportes</a>
+      <a href="../audit/bitacora.html"><span class="icono">🔍</span> Bitácora</a>
+    </nav>
+    <div class="sidebar-footer"><a href="../auth/login.html">🚪 Cerrar sesión</a></div>
+  </aside>
+
+  <div class="contenido-principal">
+    <header class="navbar">
+      <div>
+        <div class="navbar-titulo">Programas Académicos</div>
+        <div class="navbar-breadcrumb"><span>Inicio</span><span class="separador"></span><span class="actual">Programas académicos</span></div>
+      </div>
+      <div class="navbar-acciones">
+        <div class="navbar-usuario"><div class="avatar">AM</div><div><div class="navbar-usuario-nombre">Ana Mora</div><div class="navbar-usuario-rol">Administradora TI</div></div></div>
+      </div>
+    </header>
+
+    <main class="area-pagina">
+      <div class="encabezado-pagina">
+        <div><h1>Programas académicos</h1><p>Gestiona las carreras y posgrados ofertados por la universidad.</p></div>
+        <div class="acciones-encabezado"><button class="btn btn-primario">+ Nuevo programa</button></div>
+      </div>
+
+      <div class="barra-filtros">
+        <div class="barra-busqueda"><span class="icono-buscar">🔍</span><input type="text" placeholder="Buscar programa..."></div>
+        <select class="filtro-select"><option>Todos los niveles</option><option>Bachillerato</option><option>Licenciatura</option><option>Maestría</option><option>Doctorado</option></select>
+        <select class="filtro-select"><option>Todos los estados</option><option>Activo</option><option>Inactivo</option></select>
+      </div>
+
+      <div class="grid-3">
+        <div class="carta">
+          <div class="carta-cuerpo">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem;">
+              <div style="width:48px;height:48px;background:var(--azul-info-bg);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">💻</div>
+              <span class="badge badge-activo">Activo</span>
+            </div>
+            <div style="font-size:.75rem;font-weight:700;color:var(--verde-principal);letter-spacing:.05em;margin-bottom:.25rem;">ING-SIS</div>
+            <h3 style="font-size:1.0625rem;margin-bottom:.25rem;">Ingeniería en Sistemas</h3>
+            <div class="texto-pequeno" style="margin-bottom:1rem;">Bachillerato universitario</div>
+            <div style="display:flex;gap:1.5rem;font-size:.8125rem;color:var(--gris-suave);margin-bottom:1.25rem;">
+              <div>📋 <strong style="color:var(--gris-oscuro);">3</strong> planes</div>
+              <div>🎓 <strong style="color:var(--gris-oscuro);">842</strong> estudiantes</div>
+            </div>
+            <div style="display:flex;gap:.5rem;">
+              <a href="planes-lista.html" class="btn btn-secundario btn-sm" style="flex:1;justify-content:center;">Ver planes</a>
+              <button class="btn btn-secundario btn-sm btn-icono">✏️</button>
+            </div>
+          </div>
+        </div>
+        <div class="carta">
+          <div class="carta-cuerpo">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem;">
+              <div style="width:48px;height:48px;background:#FEF3C7;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">💼</div>
+              <span class="badge badge-activo">Activo</span>
+            </div>
+            <div style="font-size:.75rem;font-weight:700;color:var(--verde-principal);letter-spacing:.05em;margin-bottom:.25rem;">ADM-EMP</div>
+            <h3 style="font-size:1.0625rem;margin-bottom:.25rem;">Administración de Empresas</h3>
+            <div class="texto-pequeno" style="margin-bottom:1rem;">Licenciatura</div>
+            <div style="display:flex;gap:1.5rem;font-size:.8125rem;color:var(--gris-suave);margin-bottom:1.25rem;">
+              <div>📋 <strong style="color:var(--gris-oscuro);">2</strong> planes</div>
+              <div>🎓 <strong style="color:var(--gris-oscuro);">1,204</strong> estudiantes</div>
+            </div>
+            <div style="display:flex;gap:.5rem;">
+              <a href="planes-lista.html" class="btn btn-secundario btn-sm" style="flex:1;justify-content:center;">Ver planes</a>
+              <button class="btn btn-secundario btn-sm btn-icono">✏️</button>
+            </div>
+          </div>
+        </div>
+        <div class="carta">
+          <div class="carta-cuerpo">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem;">
+              <div style="width:48px;height:48px;background:#F0FDF4;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">⚕️</div>
+              <span class="badge badge-activo">Activo</span>
+            </div>
+            <div style="font-size:.75rem;font-weight:700;color:var(--verde-principal);letter-spacing:.05em;margin-bottom:.25rem;">ENF-GEN</div>
+            <h3 style="font-size:1.0625rem;margin-bottom:.25rem;">Enfermería General</h3>
+            <div class="texto-pequeno" style="margin-bottom:1rem;">Bachillerato universitario</div>
+            <div style="display:flex;gap:1.5rem;font-size:.8125rem;color:var(--gris-suave);margin-bottom:1.25rem;">
+              <div>📋 <strong style="color:var(--gris-oscuro);">1</strong> plan</div>
+              <div>🎓 <strong style="color:var(--gris-oscuro);">562</strong> estudiantes</div>
+            </div>
+            <div style="display:flex;gap:.5rem;">
+              <a href="planes-lista.html" class="btn btn-secundario btn-sm" style="flex:1;justify-content:center;">Ver planes</a>
+              <button class="btn btn-secundario btn-sm btn-icono">✏️</button>
+            </div>
+          </div>
+        </div>
+        <div class="carta">
+          <div class="carta-cuerpo">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem;">
+              <div style="width:48px;height:48px;background:#EFF6FF;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">⚖️</div>
+              <span class="badge badge-activo">Activo</span>
+            </div>
+            <div style="font-size:.75rem;font-weight:700;color:var(--verde-principal);letter-spacing:.05em;margin-bottom:.25rem;">DER-CIV</div>
+            <h3 style="font-size:1.0625rem;margin-bottom:.25rem;">Derecho</h3>
+            <div class="texto-pequeno" style="margin-bottom:1rem;">Licenciatura</div>
+            <div style="display:flex;gap:1.5rem;font-size:.8125rem;color:var(--gris-suave);margin-bottom:1.25rem;">
+              <div>📋 <strong style="color:var(--gris-oscuro);">2</strong> planes</div>
+              <div>🎓 <strong style="color:var(--gris-oscuro);">734</strong> estudiantes</div>
+            </div>
+            <div style="display:flex;gap:.5rem;">
+              <a href="planes-lista.html" class="btn btn-secundario btn-sm" style="flex:1;justify-content:center;">Ver planes</a>
+              <button class="btn btn-secundario btn-sm btn-icono">✏️</button>
+            </div>
+          </div>
+        </div>
+        <div class="carta">
+          <div class="carta-cuerpo">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem;">
+              <div style="width:48px;height:48px;background:#FEF2F2;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🔬</div>
+              <span class="badge badge-inactivo">Inactivo</span>
+            </div>
+            <div style="font-size:.75rem;font-weight:700;color:var(--gris-suave);letter-spacing:.05em;margin-bottom:.25rem;">BIO-MOL</div>
+            <h3 style="font-size:1.0625rem;margin-bottom:.25rem;">Biología Molecular</h3>
+            <div class="texto-pequeno" style="margin-bottom:1rem;">Maestría</div>
+            <div style="display:flex;gap:1.5rem;font-size:.8125rem;color:var(--gris-suave);margin-bottom:1.25rem;">
+              <div>📋 <strong style="color:var(--gris-oscuro);">1</strong> plan</div>
+              <div>🎓 <strong style="color:var(--gris-oscuro);">0</strong> estudiantes</div>
+            </div>
+            <div style="display:flex;gap:.5rem;">
+              <button class="btn btn-secundario btn-sm" style="flex:1;">Reactivar</button>
+              <button class="btn btn-secundario btn-sm btn-icono">✏️</button>
+            </div>
+          </div>
+        </div>
+        <!-- Nueva tarjeta -->
+        <div class="carta" style="border:2px dashed var(--gris-borde);display:flex;align-items:center;justify-content:center;cursor:pointer;min-height:200px;transition:all var(--trans-base);" onmouseover="this.style.borderColor='var(--verde-principal)';this.style.background='var(--verde-bg)'" onmouseout="this.style.borderColor='var(--gris-borde)';this.style.background=''">
+          <div style="text-align:center;">
+            <div style="font-size:2rem;margin-bottom:.75rem;opacity:.4;">+</div>
+            <div style="font-size:.9375rem;font-weight:600;color:var(--gris-suave);">Nuevo programa</div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+</body>
+</html>

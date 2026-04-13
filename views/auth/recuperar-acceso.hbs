@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recuperar Acceso — Sistema de Matrícula</title>
+<link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--fondo-principal);padding:2rem;">
+  <div style="width:100%;max-width:440px;">
+    <div style="text-align:center;margin-bottom:2rem;">
+      <div style="width:56px;height:56px;background:var(--verde-principal);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto 1rem;">🔑</div>
+      <h1 style="font-size:1.5rem;margin-bottom:.375rem;">Recuperar acceso</h1>
+      <p>Ingresa tu correo institucional y te enviaremos las instrucciones.</p>
+    </div>
+
+    <div class="carta" style="padding:2rem;">
+      <div class="alerta alerta-alerta">
+        <span class="alerta-icono">⚠️</span>
+        <div>El sistema usa SSO institucional. Si olvidaste tu contraseña, debes restablecerla a través del portal de TI.</div>
+      </div>
+
+      <div class="campo mt-3">
+        <label for="correo">Correo institucional <span class="requerido">*</span></label>
+        <input class="campo-input" type="email" id="correo" placeholder="usuario@universidad.ac.cr">
+        <span class="campo-ayuda">Usa el correo con el que te registraste en el sistema.</span>
+      </div>
+
+      <button class="btn btn-primario w-full" style="margin-top:.5rem;">Enviar instrucciones</button>
+      <a href="login.html" class="btn btn-secundario w-full" style="margin-top:.75rem;display:flex;align-items:center;justify-content:center;gap:.5rem;">← Volver al inicio de sesión</a>
+    </div>
+
+    <div style="margin-top:1.5rem;background:var(--fondo-carta);border:1px solid var(--gris-linea);border-radius:var(--radio-grande);padding:1.25rem;">
+      <h4 style="margin-bottom:.75rem;font-size:.9375rem;">Opciones de soporte</h4>
+      <div style="display:flex;flex-direction:column;gap:.625rem;">
+        <div style="display:flex;align-items:center;gap:.75rem;font-size:.875rem;color:var(--gris-oscuro);">
+          <span style="color:var(--verde-principal);">📧</span>
+          <span>soporte@universidad.ac.cr</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:.75rem;font-size:.875rem;color:var(--gris-oscuro);">
+          <span style="color:var(--verde-principal);">📞</span>
+          <span>+506 2234-5678 ext. 101</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:.75rem;font-size:.875rem;color:var(--gris-oscuro);">
+          <span style="color:var(--verde-principal);">🕐</span>
+          <span>Lunes a Viernes, 7:00 am – 5:00 pm</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

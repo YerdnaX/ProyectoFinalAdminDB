@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bitácora de Auditoría — Sistema de Matrícula</title>
+<link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+<div class="app-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Panel Administrativo</div></div></div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-seccion">General</div>
+      <a href="../admin/dashboard-admin.html"><span class="icono">📊</span> Dashboard</a>
+      <div class="sidebar-seccion">Usuarios</div>
+      <a href="../admin/usuarios-lista.html"><span class="icono">👥</span> Usuarios</a>
+      <a href="../admin/roles-permisos.html"><span class="icono">🔐</span> Roles y permisos</a>
+      <div class="sidebar-seccion">Académico</div>
+      <a href="../academic/programas-lista.html"><span class="icono">🏛️</span> Programas académicos</a>
+      <a href="../academic/planes-lista.html"><span class="icono">📋</span> Planes de estudio</a>
+      <a href="../academic/cursos-lista.html"><span class="icono">📚</span> Cursos</a>
+      <a href="../academic/periodos-lista.html"><span class="icono">📅</span> Periodos académicos</a>
+      <div class="sidebar-seccion">Oferta</div>
+      <a href="../academic/secciones-lista.html"><span class="icono">🗂️</span> Secciones</a>
+      <a href="../academic/aulas-lista.html"><span class="icono">🏫</span> Aulas</a>
+      <div class="sidebar-seccion">Estudiantes</div>
+      <a href="../students/estudiantes-lista.html"><span class="icono">🎓</span> Estudiantes</a>
+      <a href="../enrollment/matriculas-lista.html"><span class="icono">✏️</span> Matrículas</a>
+      <div class="sidebar-seccion">Finanzas</div>
+      <a href="../billing/facturas-lista.html"><span class="icono">🧾</span> Facturas</a>
+      <a href="../billing/pagos-lista.html"><span class="icono">💳</span> Pagos</a>
+      <div class="sidebar-seccion">Sistema</div>
+      <a href="../notifications/notificaciones-lista.html"><span class="icono">🔔</span> Notificaciones</a>
+      <a href="../reports/reportes.html"><span class="icono">📈</span> Reportes</a>
+      <a href="bitacora.html" class="activo"><span class="icono">🔍</span> Bitácora</a>
+    </nav>
+    <div class="sidebar-footer"><a href="../auth/login.html">🚪 Cerrar sesión</a></div>
+  </aside>
+
+  <div class="contenido-principal">
+    <header class="navbar">
+      <div>
+        <div class="navbar-titulo">Bitácora de Auditoría</div>
+        <div class="navbar-breadcrumb"><span>Inicio</span><span class="separador"></span><span class="actual">Bitácora</span></div>
+      </div>
+      <div class="navbar-acciones">
+        <div class="navbar-usuario"><div class="avatar">AM</div><div><div class="navbar-usuario-nombre">Ana Mora</div><div class="navbar-usuario-rol">Administradora TI</div></div></div>
+      </div>
+    </header>
+
+    <main class="area-pagina">
+      <div class="encabezado-pagina">
+        <div><h1>Bitácora de auditoría</h1><p>Registro completo de eventos y acciones críticas del sistema.</p></div>
+        <div class="acciones-encabezado">
+          <button class="btn btn-secundario">Exportar CSV</button>
+        </div>
+      </div>
+
+      <!-- Filtros avanzados -->
+      <div class="carta mb-4">
+        <div class="carta-cuerpo">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:1rem;align-items:end;">
+            <div class="campo" style="margin:0;">
+              <label>Buscar</label>
+              <div class="barra-busqueda" style="min-width:0;"><span class="icono-buscar">🔍</span><input type="text" placeholder="Entidad, usuario, IP..."></div>
+            </div>
+            <div class="campo" style="margin:0;">
+              <label>Entidad</label>
+              <select class="campo-input"><option>Todas</option><option>usuario</option><option>matricula</option><option>factura</option><option>pago</option><option>seccion</option><option>periodo</option></select>
+            </div>
+            <div class="campo" style="margin:0;">
+              <label>Acción</label>
+              <select class="campo-input"><option>Todas</option><option>INSERT</option><option>UPDATE</option><option>DELETE</option><option>LOGIN</option><option>LOGOUT</option></select>
+            </div>
+            <div class="campo" style="margin:0;">
+              <label>Desde</label>
+              <input class="campo-input" type="date" value="2025-01-22">
+            </div>
+            <div class="campo" style="margin:0;">
+              <label>Hasta</label>
+              <input class="campo-input" type="date" value="2025-01-22">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="carta">
+        <div class="carta-cabecera">
+          <div><div class="carta-titulo">Eventos registrados</div><div class="carta-subtitulo">22 de enero de 2025 — 1,284 eventos hoy</div></div>
+        </div>
+        <div class="tabla-contenedor">
+          <table class="tabla">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Fecha / hora</th>
+                <th>Usuario</th>
+                <th>Entidad</th>
+                <th>Acción</th>
+                <th>Descripción</th>
+                <th>IP origen</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="texto-muted" style="font-family:monospace;font-size:.8rem;">104821</td>
+                <td><div class="nombre-principal">22/01/2025</div><div class="detalle-secundario">15:42:18</div></td>
+                <td><div class="nombre-principal">Laura Jiménez</div><div class="detalle-secundario">ljr-2024-0312</div></td>
+                <td><span class="badge badge-verde">matricula</span></td>
+                <td><span class="badge badge-activo">INSERT</span></td>
+                <td style="max-width:280px;font-size:.8125rem;">Matrícula registrada. ID: 8842. Periodo: I-2025. Cursos: IS-2201, IS-2202, MAT-1501, ING-1001. Total: 12 créditos.</td>
+                <td><span style="font-family:monospace;font-size:.8rem;color:var(--gris-suave);">190.168.1.52</span></td>
+              </tr>
+              <tr>
+                <td class="texto-muted" style="font-family:monospace;font-size:.8rem;">104820</td>
+                <td><div class="nombre-principal">22/01/2025</div><div class="detalle-secundario">14:35:07</div></td>
+                <td><div class="nombre-principal">Ana Mora</div><div class="detalle-secundario">amv-admin-0002</div></td>
+                <td><span class="badge badge-info">usuario</span></td>
+                <td><span class="badge badge-activo">INSERT</span></td>
+                <td style="max-width:280px;font-size:.8125rem;">Nuevo usuario creado. ID: 981. Nombre: Dr. Carlos Ugalde. Rol: Docente.</td>
+                <td><span style="font-family:monospace;font-size:.8rem;color:var(--gris-suave);">172.16.0.5</span></td>
+              </tr>
+              <tr>
+                <td class="texto-muted" style="font-family:monospace;font-size:.8rem;">104819</td>
+                <td><div class="nombre-principal">22/01/2025</div><div class="detalle-secundario">14:32:51</div></td>
+                <td><div class="nombre-principal">María Castillo</div><div class="detalle-secundario">mc-2022-0784</div></td>
+                <td><span class="badge badge-pendiente">pago</span></td>
+                <td><span class="badge badge-activo">INSERT</span></td>
+                <td style="max-width:280px;font-size:.8125rem;">Pago registrado. Factura: F-2025-00811. Monto: ₡168,000. Método: Tarjeta VISA. Ref: TXN-48271.</td>
+                <td><span style="font-family:monospace;font-size:.8rem;color:var(--gris-suave);">200.48.122.8</span></td>
+              </tr>
+              <tr>
+                <td class="texto-muted" style="font-family:monospace;font-size:.8rem;">104818</td>
+                <td><div class="nombre-principal">22/01/2025</div><div class="detalle-secundario">13:15:34</div></td>
+                <td><div class="nombre-principal">Sistema</div><div class="detalle-secundario">sys-scheduler</div></td>
+                <td><span class="badge badge-error">estudiante</span></td>
+                <td><span class="badge badge-pendiente">UPDATE</span></td>
+                <td style="max-width:280px;font-size:.8125rem;">Bloqueo financiero activado automáticamente. Estudiante: 2023-1145. Saldo vencido: ₡420,000.</td>
+                <td><span style="font-family:monospace;font-size:.8rem;color:var(--gris-suave);">127.0.0.1</span></td>
+              </tr>
+              <tr>
+                <td class="texto-muted" style="font-family:monospace;font-size:.8rem;">104817</td>
+                <td><div class="nombre-principal">22/01/2025</div><div class="detalle-secundario">10:00:00</div></td>
+                <td><div class="nombre-principal">Ana Mora</div><div class="detalle-secundario">amv-admin-0002</div></td>
+                <td><span class="badge badge-info">periodo</span></td>
+                <td><span class="badge badge-activo">UPDATE</span></td>
+                <td style="max-width:280px;font-size:.8125rem;">Periodo I-2025 activado. Matrícula abierta. Ventana: 15 al 28 de enero de 2025.</td>
+                <td><span style="font-family:monospace;font-size:.8rem;color:var(--gris-suave);">172.16.0.5</span></td>
+              </tr>
+              <tr>
+                <td class="texto-muted" style="font-family:monospace;font-size:.8rem;">104816</td>
+                <td><div class="nombre-principal">22/01/2025</div><div class="detalle-secundario">09:31:12</div></td>
+                <td><div class="nombre-principal">Laura Jiménez</div><div class="detalle-secundario">ljr-2024-0312</div></td>
+                <td><span class="badge badge-inactivo">auth</span></td>
+                <td><span class="badge badge-info">LOGIN</span></td>
+                <td style="max-width:280px;font-size:.8125rem;">Inicio de sesión exitoso via SSO. Rol: Estudiante.</td>
+                <td><span style="font-family:monospace;font-size:.8rem;color:var(--gris-suave);">190.168.1.52</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="paginacion">
+          <span class="paginacion-info">Mostrando 1–6 de 1,284 eventos hoy</span>
+          <div class="paginacion-botones">
+            <button class="btn-pagina" disabled>←</button>
+            <button class="btn-pagina activa">1</button>
+            <button class="btn-pagina">2</button>
+            <button class="btn-pagina">3</button>
+            <span style="padding:0 .25rem;color:var(--gris-suave);">...</span>
+            <button class="btn-pagina">215</button>
+            <button class="btn-pagina">→</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+</body>
+</html>

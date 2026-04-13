@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crear Usuario — Sistema de Matrícula</title>
+<link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+<div class="app-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Panel Administrativo</div></div></div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-seccion">General</div>
+      <a href="dashboard-admin.html"><span class="icono">📊</span> Dashboard</a>
+      <div class="sidebar-seccion">Usuarios</div>
+      <a href="usuarios-lista.html" class="activo"><span class="icono">👥</span> Usuarios</a>
+      <a href="roles-permisos.html"><span class="icono">🔐</span> Roles y permisos</a>
+      <div class="sidebar-seccion">Académico</div>
+      <a href="../academic/programas-lista.html"><span class="icono">🏛️</span> Programas académicos</a>
+      <a href="../academic/planes-lista.html"><span class="icono">📋</span> Planes de estudio</a>
+      <a href="../academic/cursos-lista.html"><span class="icono">📚</span> Cursos</a>
+      <a href="../academic/periodos-lista.html"><span class="icono">📅</span> Periodos académicos</a>
+      <div class="sidebar-seccion">Oferta</div>
+      <a href="../academic/secciones-lista.html"><span class="icono">🗂️</span> Secciones</a>
+      <a href="../academic/aulas-lista.html"><span class="icono">🏫</span> Aulas</a>
+      <div class="sidebar-seccion">Estudiantes</div>
+      <a href="../students/estudiantes-lista.html"><span class="icono">🎓</span> Estudiantes</a>
+      <a href="../enrollment/matriculas-lista.html"><span class="icono">✏️</span> Matrículas</a>
+      <div class="sidebar-seccion">Finanzas</div>
+      <a href="../billing/facturas-lista.html"><span class="icono">🧾</span> Facturas</a>
+      <a href="../billing/pagos-lista.html"><span class="icono">💳</span> Pagos</a>
+      <div class="sidebar-seccion">Sistema</div>
+      <a href="../notifications/notificaciones-lista.html"><span class="icono">🔔</span> Notificaciones</a>
+      <a href="../reports/reportes.html"><span class="icono">📈</span> Reportes</a>
+      <a href="../audit/bitacora.html"><span class="icono">🔍</span> Bitácora</a>
+    </nav>
+    <div class="sidebar-footer"><a href="../auth/login.html">🚪 Cerrar sesión</a></div>
+  </aside>
+
+  <div class="contenido-principal">
+    <header class="navbar">
+      <div>
+        <div class="navbar-titulo">Crear Usuario</div>
+        <div class="navbar-breadcrumb"><span>Inicio</span><span class="separador"></span><a href="usuarios-lista.html">Usuarios</a><span class="separador"></span><span class="actual">Nuevo usuario</span></div>
+      </div>
+      <div class="navbar-acciones">
+        <div class="navbar-usuario"><div class="avatar">AM</div><div><div class="navbar-usuario-nombre">Ana Mora</div><div class="navbar-usuario-rol">Administradora TI</div></div></div>
+      </div>
+    </header>
+
+    <main class="area-pagina">
+      <div class="encabezado-pagina">
+        <div><h1>Nuevo usuario</h1><p>Complete todos los campos requeridos para registrar un usuario en el sistema.</p></div>
+        <div class="acciones-encabezado">
+          <a href="usuarios-lista.html" class="btn btn-secundario">Cancelar</a>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 300px;gap:1.5rem;" class="gap-col">
+        <div>
+          <!-- Datos personales -->
+          <div class="carta mb-4">
+            <div class="carta-cabecera"><div class="carta-titulo">Datos personales</div></div>
+            <div class="carta-cuerpo">
+              <div class="campo-fila">
+                <div class="campo">
+                  <label>Nombre <span class="requerido">*</span></label>
+                  <input class="campo-input" type="text" placeholder="Ej: María">
+                </div>
+                <div class="campo">
+                  <label>Apellido <span class="requerido">*</span></label>
+                  <input class="campo-input" type="text" placeholder="Ej: Rodríguez Mora">
+                </div>
+              </div>
+              <div class="campo">
+                <label>Correo institucional <span class="requerido">*</span></label>
+                <input class="campo-input" type="email" placeholder="usuario@universidad.ac.cr">
+                <span class="campo-ayuda">Debe ser un correo institucional válido. Se usará para notificaciones.</span>
+              </div>
+              <div class="campo">
+                <label>Identificador SSO <span class="requerido">*</span></label>
+                <input class="campo-input" type="text" placeholder="Ej: mrodriguez-2024">
+                <span class="campo-ayuda">Identificador único para autenticación. No se puede cambiar después.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rol y acceso -->
+          <div class="carta mb-4">
+            <div class="carta-cabecera"><div class="carta-titulo">Rol y acceso</div></div>
+            <div class="carta-cuerpo">
+              <div class="campo">
+                <label>Rol <span class="requerido">*</span></label>
+                <select class="campo-input">
+                  <option value="">Selecciona un rol...</option>
+                  <option>Estudiante</option>
+                  <option>Docente</option>
+                  <option>Registro Académico</option>
+                  <option>Tesorería</option>
+                  <option>Administrador TI</option>
+                  <option>Auditor institucional</option>
+                </select>
+              </div>
+              <div class="alerta alerta-info">
+                <span class="alerta-icono">ℹ️</span>
+                <div>Si el rol es <strong>Estudiante</strong>, deberás completar adicionalmente los datos académicos en la sección de Gestión de Estudiantes.</div>
+              </div>
+              <div class="campo">
+                <label class="campo-checkbox">
+                  <input type="checkbox" checked> Cuenta activa al crear
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel lateral -->
+        <div>
+          <div class="carta mb-4">
+            <div class="carta-cabecera"><div class="carta-titulo">Resumen</div></div>
+            <div class="carta-cuerpo">
+              <div style="text-align:center;padding:1rem 0;">
+                <div class="avatar avatar-lg" style="margin:0 auto 1rem;">?</div>
+                <div style="font-size:.875rem;color:var(--gris-suave);">El nombre aparecerá aquí</div>
+              </div>
+              <hr class="divisor">
+              <div style="font-size:.875rem;display:flex;flex-direction:column;gap:.625rem;">
+                <div class="flex-entre"><span class="texto-gris">Rol:</span><span class="semibold">—</span></div>
+                <div class="flex-entre"><span class="texto-gris">Estado:</span><span class="badge badge-activo">Activo</span></div>
+                <div class="flex-entre"><span class="texto-gris">Fecha:</span><span class="semibold">Hoy</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="carta">
+            <div class="carta-cuerpo">
+              <button class="btn btn-primario w-full mb-2">Crear usuario</button>
+              <a href="usuarios-lista.html" class="btn btn-secundario w-full" style="display:flex;align-items:center;justify-content:center;">Cancelar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema de Matrícula Universitaria — Inicio</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body style="background:var(--fondo-principal);min-height:100vh;padding:3rem 2rem;">
+  <div style="max-width:960px;margin:0 auto;">
+    <!-- Header -->
+    <div style="text-align:center;margin-bottom:3rem;">
+      <div style="width:72px;height:72px;background:var(--verde-principal);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:2.25rem;margin:0 auto 1.25rem;">🎓</div>
+      <h1 style="margin-bottom:.5rem;">Sistema de Matrícula Universitaria</h1>
+      <p style="font-size:1.0625rem;">Mapa de navegación — Todas las ventanas del sistema</p>
+    </div>
+
+    <!-- Portales de acceso -->
+    <div class="grid-2 mb-5">
+      <a href="views/auth/login.html" style="display:block;background:var(--gris-oscuro);color:#fff;border-radius:var(--radio-grande);padding:2rem;text-decoration:none;transition:transform var(--trans-base);" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+        <div style="font-size:2.5rem;margin-bottom:1rem;">🔐</div>
+        <h2 style="color:#fff;margin-bottom:.5rem;">Acceso al sistema</h2>
+        <p style="color:rgba(255,255,255,.6);margin:0;">Página de inicio de sesión institucional</p>
+      </a>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <a href="views/admin/dashboard-admin.html" style="display:flex;align-items:center;gap:1rem;background:var(--verde-principal);color:#fff;border-radius:var(--radio-borde);padding:1.25rem;text-decoration:none;">
+          <span style="font-size:1.5rem;">📊</span><div><div style="font-weight:700;">Portal Administrativo</div><div style="font-size:.8125rem;opacity:.85;">Dashboard principal del administrador</div></div>
+        </a>
+        <a href="views/students/dashboard-estudiante.html" style="display:flex;align-items:center;gap:1rem;background:var(--azul-info);color:#fff;border-radius:var(--radio-borde);padding:1.25rem;text-decoration:none;">
+          <span style="font-size:1.5rem;">🎓</span><div><div style="font-weight:700;">Portal Estudiantil</div><div style="font-size:.8125rem;opacity:.85;">Dashboard del estudiante</div></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Mapa completo de ventanas -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem;">
+
+      <div class="carta">
+        <div class="carta-cabecera" style="background:var(--gris-oscuro);border-radius:var(--radio-grande) var(--radio-grande) 0 0;"><div class="carta-titulo" style="color:#fff;">🔐 Acceso y Seguridad</div></div>
+        <div class="carta-cuerpo" style="padding:1rem;">
+          <div style="display:flex;flex-direction:column;gap:.375rem;">
+            <a href="views/auth/login.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">🔑 Iniciar sesión</a>
+            <a href="views/auth/recuperar-acceso.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">🔓 Recuperar acceso</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="carta">
+        <div class="carta-cabecera" style="background:var(--verde-principal);border-radius:var(--radio-grande) var(--radio-grande) 0 0;"><div class="carta-titulo" style="color:#fff;">📊 Dashboards</div></div>
+        <div class="carta-cuerpo" style="padding:1rem;">
+          <div style="display:flex;flex-direction:column;gap:.375rem;">
+            <a href="views/admin/dashboard-admin.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">🏛️ Dashboard administrativo</a>
+            <a href="views/students/dashboard-estudiante.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">🎓 Dashboard estudiante</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="carta">
+        <div class="carta-cabecera" style="background:#374151;border-radius:var(--radio-grande) var(--radio-grande) 0 0;"><div class="carta-titulo" style="color:#fff;">👥 Usuarios y Roles</div></div>
+        <div class="carta-cuerpo" style="padding:1rem;">
+          <div style="display:flex;flex-direction:column;gap:.375rem;">
+            <a href="views/admin/usuarios-lista.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">📋 Lista de usuarios</a>
+            <a href="views/admin/usuario-crear.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">➕ Crear usuario</a>
+            <a href="views/admin/usuario-detalle.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">👤 Detalle de usuario</a>
+            <a href="views/admin/roles-permisos.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">🔐 Roles y permisos</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="carta">
+        <div class="carta-cabecera" style="background:var(--azul-info);border-radius:var(--radio-grande) var(--radio-grande) 0 0;"><div class="carta-titulo" style="color:#fff;">🏛️ Gestión Académica</div></div>
+        <div class="carta-cuerpo" style="padding:1rem;">
+          <div style="display:flex;flex-direction:column;gap:.375rem;">
+            <a href="views/academic/programas-lista.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">🏛️ Programas académicos</a>
+            <a href="views/academic/planes-lista.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">📋 Planes de estudio</a>
+            <a href="views/academic/cursos-lista.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">📚 Catálogo de cursos</a>
+            <a href="views/academic/periodos-lista.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">📅 Periodos académicos</a>
+            <a href="views/academic/secciones-lista.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">🗂️ Secciones</a>
+            <a href="views/academic/aulas-lista.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">🏫 Aulas</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="carta">
+        <div class="carta-cabecera" style="background:#059669;border-radius:var(--radio-grande) var(--radio-grande) 0 0;"><div class="carta-titulo" style="color:#fff;">🎓 Estudiantes</div></div>
+        <div class="carta-cuerpo" style="padding:1rem;">
+          <div style="display:flex;flex-direction:column;gap:.375rem;">
+            <a href="views/students/estudiantes-lista.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">📋 Lista de estudiantes</a>
+            <a href="views/students/estudiante-perfil.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">👤 Perfil del estudiante</a>
+            <a href="views/students/dashboard-estudiante.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">🏠 Portal estudiantil</a>
+            <a href="views/students/historial-academico.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">📊 Historial académico</a>
+            <a href="views/students/mi-perfil.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">👤 Mi perfil</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="carta">
+        <div class="carta-cabecera" style="background:#7C3AED;border-radius:var(--radio-grande) var(--radio-grande) 0 0;"><div class="carta-titulo" style="color:#fff;">✏️ Proceso de Matrícula</div></div>
+        <div class="carta-cuerpo" style="padding:1rem;">
+          <div style="display:flex;flex-direction:column;gap:.375rem;">
+            <a href="views/enrollment/buscar-cursos.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">🔍 Buscar cursos</a>
+            <a href="views/enrollment/mi-matricula.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">📋 Resumen de matrícula</a>
+            <a href="views/enrollment/comprobante.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">🖨️ Comprobante</a>
+            <a href="views/enrollment/matriculas-lista.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">📊 Lista matrículas (admin)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="carta">
+        <div class="carta-cabecera" style="background:#D97706;border-radius:var(--radio-grande) var(--radio-grande) 0 0;"><div class="carta-titulo" style="color:#fff;">💳 Facturación y Pagos</div></div>
+        <div class="carta-cuerpo" style="padding:1rem;">
+          <div style="display:flex;flex-direction:column;gap:.375rem;">
+            <a href="views/billing/estado-cuenta.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">📄 Estado de cuenta</a>
+            <a href="views/billing/mis-facturas.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">🧾 Mis facturas (estudiante)</a>
+            <a href="views/billing/realizar-pago.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">💳 Realizar pago</a>
+            <a href="views/billing/facturas-lista.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">📋 Facturas (admin)</a>
+            <a href="views/billing/pagos-lista.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">💰 Pagos (admin)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="carta">
+        <div class="carta-cabecera" style="background:#DC2626;border-radius:var(--radio-grande) var(--radio-grande) 0 0;"><div class="carta-titulo" style="color:#fff;">📈 Sistema y Auditoría</div></div>
+        <div class="carta-cuerpo" style="padding:1rem;">
+          <div style="display:flex;flex-direction:column;gap:.375rem;">
+            <a href="views/notifications/notificaciones-lista.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">🔔 Notificaciones</a>
+            <a href="views/reports/reportes.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">📊 Reportes</a>
+            <a href="views/audit/bitacora.html" style="padding:.5rem .75rem;border-radius:6px;font-size:.875rem;color:var(--gris-oscuro);display:block;text-decoration:none;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background=''">🔍 Bitácora de auditoría</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;margin-top:3rem;color:var(--gris-suave);font-size:.875rem;">
+      <p>Sistema de Matrícula Universitaria — Vistas estáticas HTML/CSS · Preparado para Node.js + Express</p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Usuarios — Sistema de Matrícula</title>
+<link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+<div class="app-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Panel Administrativo</div></div></div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-seccion">General</div>
+      <a href="dashboard-admin.html"><span class="icono">📊</span> Dashboard</a>
+      <div class="sidebar-seccion">Usuarios</div>
+      <a href="usuarios-lista.html" class="activo"><span class="icono">👥</span> Usuarios</a>
+      <a href="roles-permisos.html"><span class="icono">🔐</span> Roles y permisos</a>
+      <div class="sidebar-seccion">Académico</div>
+      <a href="../academic/programas-lista.html"><span class="icono">🏛️</span> Programas académicos</a>
+      <a href="../academic/planes-lista.html"><span class="icono">📋</span> Planes de estudio</a>
+      <a href="../academic/cursos-lista.html"><span class="icono">📚</span> Cursos</a>
+      <a href="../academic/periodos-lista.html"><span class="icono">📅</span> Periodos académicos</a>
+      <div class="sidebar-seccion">Oferta</div>
+      <a href="../academic/secciones-lista.html"><span class="icono">🗂️</span> Secciones</a>
+      <a href="../academic/aulas-lista.html"><span class="icono">🏫</span> Aulas</a>
+      <div class="sidebar-seccion">Estudiantes</div>
+      <a href="../students/estudiantes-lista.html"><span class="icono">🎓</span> Estudiantes</a>
+      <a href="../enrollment/matriculas-lista.html"><span class="icono">✏️</span> Matrículas</a>
+      <div class="sidebar-seccion">Finanzas</div>
+      <a href="../billing/facturas-lista.html"><span class="icono">🧾</span> Facturas</a>
+      <a href="../billing/pagos-lista.html"><span class="icono">💳</span> Pagos</a>
+      <div class="sidebar-seccion">Sistema</div>
+      <a href="../notifications/notificaciones-lista.html"><span class="icono">🔔</span> Notificaciones</a>
+      <a href="../reports/reportes.html"><span class="icono">📈</span> Reportes</a>
+      <a href="../audit/bitacora.html"><span class="icono">🔍</span> Bitácora</a>
+    </nav>
+    <div class="sidebar-footer"><a href="../auth/login.html">🚪 Cerrar sesión</a></div>
+  </aside>
+
+  <div class="contenido-principal">
+    <header class="navbar">
+      <div>
+        <div class="navbar-titulo">Gestión de Usuarios</div>
+        <div class="navbar-breadcrumb"><span>Inicio</span><span class="separador"></span><span class="actual">Usuarios</span></div>
+      </div>
+      <div class="navbar-acciones">
+        <div class="icono-notif">🔔<span class="badge-notif">4</span></div>
+        <div class="navbar-usuario"><div class="avatar">AM</div><div><div class="navbar-usuario-nombre">Ana Mora</div><div class="navbar-usuario-rol">Administradora TI</div></div></div>
+      </div>
+    </header>
+
+    <main class="area-pagina">
+      <div class="encabezado-pagina">
+        <div><h1>Usuarios del sistema</h1><p>Gestiona cuentas de estudiantes, docentes y personal administrativo.</p></div>
+        <div class="acciones-encabezado">
+          <a href="usuario-crear.html" class="btn btn-primario">+ Nuevo usuario</a>
+        </div>
+      </div>
+
+      <div class="carta">
+        <div class="carta-cabecera">
+          <div class="barra-filtros" style="margin:0;flex:1;">
+            <div class="barra-busqueda">
+              <span class="icono-buscar">🔍</span>
+              <input type="text" placeholder="Buscar por nombre, correo o identificador...">
+            </div>
+            <select class="filtro-select">
+              <option value="">Todos los roles</option>
+              <option>Estudiante</option>
+              <option>Docente</option>
+              <option>Registro Académico</option>
+              <option>Tesorería</option>
+              <option>Administrador TI</option>
+              <option>Auditor</option>
+            </select>
+            <select class="filtro-select">
+              <option value="">Todos los estados</option>
+              <option>Activo</option>
+              <option>Inactivo</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="tabla-contenedor">
+          <table class="tabla">
+            <thead>
+              <tr>
+                <th>Usuario</th>
+                <th>Identificador SSO</th>
+                <th>Rol</th>
+                <th>Estado</th>
+                <th>Fecha creación</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:.75rem;"><div class="avatar">LJ</div><div><div class="nombre-principal">Laura Jiménez Rojas</div><div class="detalle-secundario">laura.jimenez@uni.ac.cr</div></div></div></td>
+                <td class="texto-muted">ljr-2024-0312</td>
+                <td><span class="badge badge-verde">Estudiante</span></td>
+                <td><span class="badge badge-activo">Activo</span></td>
+                <td class="texto-muted">15/08/2024</td>
+                <td><div class="acciones-fila"><a href="usuario-detalle.html" class="btn btn-secundario btn-sm">Ver</a><a href="usuario-editar.html" class="btn btn-secundario btn-sm">Editar</a></div></td>
+              </tr>
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:.75rem;"><div class="avatar" style="background:#EFF6FF;color:#1E3A8A;">CU</div><div><div class="nombre-principal">Dr. Carlos Ugalde</div><div class="detalle-secundario">c.ugalde@uni.ac.cr</div></div></div></td>
+                <td class="texto-muted">cug-docente-0089</td>
+                <td><span class="badge badge-info">Docente</span></td>
+                <td><span class="badge badge-activo">Activo</span></td>
+                <td class="texto-muted">10/01/2023</td>
+                <td><div class="acciones-fila"><a href="usuario-detalle.html" class="btn btn-secundario btn-sm">Ver</a><a href="usuario-editar.html" class="btn btn-secundario btn-sm">Editar</a></div></td>
+              </tr>
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:.75rem;"><div class="avatar" style="background:#FFFBEB;color:#78350F;">RS</div><div><div class="nombre-principal">Roberto Solano</div><div class="detalle-secundario">r.solano@uni.ac.cr</div></div></div></td>
+                <td class="texto-muted">rsol-2023-1145</td>
+                <td><span class="badge badge-verde">Estudiante</span></td>
+                <td><span class="badge badge-error">Bloqueado</span></td>
+                <td class="texto-muted">20/02/2023</td>
+                <td><div class="acciones-fila"><a href="usuario-detalle.html" class="btn btn-secundario btn-sm">Ver</a><a href="usuario-editar.html" class="btn btn-secundario btn-sm">Editar</a></div></td>
+              </tr>
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:.75rem;"><div class="avatar" style="background:#F0FDF4;color:#14532D;">AM</div><div><div class="nombre-principal">Ana Mora Vargas</div><div class="detalle-secundario">a.mora@uni.ac.cr</div></div></div></td>
+                <td class="texto-muted">amv-admin-0002</td>
+                <td><span class="badge badge-pendiente">Admin TI</span></td>
+                <td><span class="badge badge-activo">Activo</span></td>
+                <td class="texto-muted">05/06/2020</td>
+                <td><div class="acciones-fila"><a href="usuario-detalle.html" class="btn btn-secundario btn-sm">Ver</a><a href="usuario-editar.html" class="btn btn-secundario btn-sm">Editar</a></div></td>
+              </tr>
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:.75rem;"><div class="avatar" style="background:#F9FAFB;color:#6B7280;">MH</div><div><div class="nombre-principal">María Herrera</div><div class="detalle-secundario">m.herrera@uni.ac.cr</div></div></div></td>
+                <td class="texto-muted">mhv-registro-0015</td>
+                <td><span class="badge badge-info">Registro Académico</span></td>
+                <td><span class="badge badge-inactivo">Inactivo</span></td>
+                <td class="texto-muted">12/09/2021</td>
+                <td><div class="acciones-fila"><a href="usuario-detalle.html" class="btn btn-secundario btn-sm">Ver</a><a href="usuario-editar.html" class="btn btn-secundario btn-sm">Editar</a></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="paginacion">
+          <span class="paginacion-info">Mostrando 1–5 de 892 usuarios</span>
+          <div class="paginacion-botones">
+            <button class="btn-pagina" disabled>←</button>
+            <button class="btn-pagina activa">1</button>
+            <button class="btn-pagina">2</button>
+            <button class="btn-pagina">3</button>
+            <span style="padding:0 .25rem;color:var(--gris-suave);">...</span>
+            <button class="btn-pagina">179</button>
+            <button class="btn-pagina">→</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+</body>
+</html>

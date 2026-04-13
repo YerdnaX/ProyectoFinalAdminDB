@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iniciar Sesión — Sistema de Matrícula</title>
+<link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+<div class="pagina-login">
+
+  <!-- Panel lateral decorativo -->
+  <div class="login-lateral">
+    <div class="login-lateral-decoracion" style="width:400px;height:400px;top:-150px;right:-150px;"></div>
+    <div class="login-lateral-decoracion" style="width:250px;height:250px;bottom:-80px;left:-80px;"></div>
+    <div class="login-lateral-contenido">
+      <div style="width:72px;height:72px;background:var(--verde-principal);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 1.5rem;">🎓</div>
+      <h1>Sistema de Matrícula Universitaria</h1>
+      <p style="margin-top:.75rem;">Gestión académica integral para estudiantes, docentes y personal administrativo.</p>
+      <div style="margin-top:2.5rem;display:flex;flex-direction:column;gap:.875rem;">
+        <div style="display:flex;align-items:center;gap:.75rem;color:rgba(255,255,255,.7);font-size:.9rem;">
+          <span style="color:var(--verde-secundario);font-size:1.1rem;">✓</span> Matrícula en línea 24/7
+        </div>
+        <div style="display:flex;align-items:center;gap:.75rem;color:rgba(255,255,255,.7);font-size:.9rem;">
+          <span style="color:var(--verde-secundario);font-size:1.1rem;">✓</span> Gestión académica completa
+        </div>
+        <div style="display:flex;align-items:center;gap:.75rem;color:rgba(255,255,255,.7);font-size:.9rem;">
+          <span style="color:var(--verde-secundario);font-size:1.1rem;">✓</span> Pagos y facturación integrados
+        </div>
+        <div style="display:flex;align-items:center;gap:.75rem;color:rgba(255,255,255,.7);font-size:.9rem;">
+          <span style="color:var(--verde-secundario);font-size:1.1rem;">✓</span> Reportes y auditoría en tiempo real
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel de login -->
+  <div class="login-panel">
+    <div class="login-caja">
+      <div class="login-logo">
+        <div class="login-logo-icono">🎓</div>
+        <div>
+          <div style="font-size:1.125rem;font-weight:700;color:var(--gris-oscuro);">UniMatrícula</div>
+          <div style="font-size:.8125rem;color:var(--gris-suave);">Portal Institucional</div>
+        </div>
+      </div>
+
+      <h2 style="margin-bottom:.375rem;">Bienvenido</h2>
+      <p style="margin-bottom:2rem;">Ingresa con tu cuenta institucional para continuar.</p>
+
+      <div class="alerta alerta-info" style="margin-bottom:1.5rem;">
+        <span class="alerta-icono">ℹ️</span>
+        <div>Usa tus credenciales SSO institucionales. Si es tu primera vez, contacta a TI.</div>
+      </div>
+
+      <form action="../admin/dashboard-admin.html" method="GET">
+        <div class="campo">
+          <label for="correo">Correo institucional <span class="requerido">*</span></label>
+          <input class="campo-input" type="email" id="correo" name="correo" placeholder="usuario@universidad.ac.cr" autocomplete="email">
+        </div>
+        <div class="campo">
+          <label for="contrasena">Contraseña <span class="requerido">*</span></label>
+          <input class="campo-input" type="password" id="contrasena" name="contrasena" placeholder="••••••••" autocomplete="current-password">
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;">
+          <label class="campo-checkbox">
+            <input type="checkbox"> Mantener sesión iniciada
+          </label>
+          <a href="recuperar-acceso.html" style="font-size:.875rem;">¿Olvidaste tu contraseña?</a>
+        </div>
+        <button type="submit" class="btn btn-primario w-full btn-lg">Iniciar sesión</button>
+      </form>
+
+      <div style="text-align:center;margin-top:1.5rem;">
+        <a href="#" style="font-size:.875rem;color:var(--gris-suave);">
+          🔒 Acceso mediante SSO institucional
+        </a>
+      </div>
+
+      <hr class="divisor" style="margin-top:2rem;">
+      <p class="texto-centro texto-pequeno" style="color:var(--gris-suave);">
+        ¿Problemas de acceso? Contácta a <a href="mailto:soporte@universidad.ac.cr">soporte@universidad.ac.cr</a><br>
+        o llama al <strong>+506 2234-5678</strong>
+      </p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

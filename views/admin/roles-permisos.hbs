@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roles y Permisos — Sistema de Matrícula</title>
+<link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+<div class="app-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Panel Administrativo</div></div></div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-seccion">General</div>
+      <a href="dashboard-admin.html"><span class="icono">📊</span> Dashboard</a>
+      <div class="sidebar-seccion">Usuarios</div>
+      <a href="usuarios-lista.html"><span class="icono">👥</span> Usuarios</a>
+      <a href="roles-permisos.html" class="activo"><span class="icono">🔐</span> Roles y permisos</a>
+      <div class="sidebar-seccion">Académico</div>
+      <a href="../academic/programas-lista.html"><span class="icono">🏛️</span> Programas académicos</a>
+      <a href="../academic/planes-lista.html"><span class="icono">📋</span> Planes de estudio</a>
+      <a href="../academic/cursos-lista.html"><span class="icono">📚</span> Cursos</a>
+      <a href="../academic/periodos-lista.html"><span class="icono">📅</span> Periodos académicos</a>
+      <div class="sidebar-seccion">Oferta</div>
+      <a href="../academic/secciones-lista.html"><span class="icono">🗂️</span> Secciones</a>
+      <a href="../academic/aulas-lista.html"><span class="icono">🏫</span> Aulas</a>
+      <div class="sidebar-seccion">Estudiantes</div>
+      <a href="../students/estudiantes-lista.html"><span class="icono">🎓</span> Estudiantes</a>
+      <a href="../enrollment/matriculas-lista.html"><span class="icono">✏️</span> Matrículas</a>
+      <div class="sidebar-seccion">Finanzas</div>
+      <a href="../billing/facturas-lista.html"><span class="icono">🧾</span> Facturas</a>
+      <a href="../billing/pagos-lista.html"><span class="icono">💳</span> Pagos</a>
+      <div class="sidebar-seccion">Sistema</div>
+      <a href="../notifications/notificaciones-lista.html"><span class="icono">🔔</span> Notificaciones</a>
+      <a href="../reports/reportes.html"><span class="icono">📈</span> Reportes</a>
+      <a href="../audit/bitacora.html"><span class="icono">🔍</span> Bitácora</a>
+    </nav>
+    <div class="sidebar-footer"><a href="../auth/login.html">🚪 Cerrar sesión</a></div>
+  </aside>
+
+  <div class="contenido-principal">
+    <header class="navbar">
+      <div>
+        <div class="navbar-titulo">Roles y Permisos</div>
+        <div class="navbar-breadcrumb"><span>Inicio</span><span class="separador"></span><span class="actual">Roles y permisos</span></div>
+      </div>
+      <div class="navbar-acciones">
+        <div class="navbar-usuario"><div class="avatar">AM</div><div><div class="navbar-usuario-nombre">Ana Mora</div><div class="navbar-usuario-rol">Administradora TI</div></div></div>
+      </div>
+    </header>
+
+    <main class="area-pagina">
+      <div class="encabezado-pagina">
+        <div><h1>Roles y permisos</h1><p>Define qué acciones puede realizar cada rol dentro del sistema.</p></div>
+        <div class="acciones-encabezado"><button class="btn btn-primario">+ Nuevo rol</button></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:260px 1fr;gap:1.5rem;">
+        <!-- Lista de roles -->
+        <div class="carta" style="height:fit-content;">
+          <div class="carta-cabecera"><div class="carta-titulo">Roles definidos</div></div>
+          <div style="padding:.5rem 0;">
+            <div style="padding:.75rem 1.25rem;display:flex;align-items:center;justify-content:space-between;background:var(--verde-bg);border-left:3px solid var(--verde-principal);cursor:pointer;">
+              <div><div style="font-weight:600;font-size:.9rem;">Estudiante</div><div class="texto-pequeno">3,842 usuarios</div></div>
+            </div>
+            <div style="padding:.75rem 1.25rem;display:flex;align-items:center;justify-content:space-between;cursor:pointer;" onmouseover="this.style.background='var(--gris-fondo)'" onmouseout="this.style.background=''">
+              <div><div style="font-weight:600;font-size:.9rem;">Docente</div><div class="texto-pequeno">218 usuarios</div></div>
+            </div>
+            <div style="padding:.75rem 1.25rem;display:flex;align-items:center;justify-content:space-between;cursor:pointer;" onmouseover="this.style.background='var(--gris-fondo)'" onmouseout="this.style.background=''">
+              <div><div style="font-weight:600;font-size:.9rem;">Registro Académico</div><div class="texto-pequeno">12 usuarios</div></div>
+            </div>
+            <div style="padding:.75rem 1.25rem;display:flex;align-items:center;justify-content:space-between;cursor:pointer;" onmouseover="this.style.background='var(--gris-fondo)'" onmouseout="this.style.background=''">
+              <div><div style="font-weight:600;font-size:.9rem;">Tesorería</div><div class="texto-pequeno">8 usuarios</div></div>
+            </div>
+            <div style="padding:.75rem 1.25rem;display:flex;align-items:center;justify-content:space-between;cursor:pointer;" onmouseover="this.style.background='var(--gris-fondo)'" onmouseout="this.style.background=''">
+              <div><div style="font-weight:600;font-size:.9rem;">Administrador TI</div><div class="texto-pequeno">3 usuarios</div></div>
+            </div>
+            <div style="padding:.75rem 1.25rem;display:flex;align-items:center;justify-content:space-between;cursor:pointer;" onmouseover="this.style.background='var(--gris-fondo)'" onmouseout="this.style.background=''">
+              <div><div style="font-weight:600;font-size:.9rem;">Auditor institucional</div><div class="texto-pequeno">2 usuarios</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Permisos del rol seleccionado -->
+        <div class="carta">
+          <div class="carta-cabecera">
+            <div>
+              <div class="carta-titulo">Permisos — Rol: Estudiante</div>
+              <div class="carta-subtitulo">Define qué módulos y acciones puede realizar este rol</div>
+            </div>
+            <button class="btn btn-primario btn-sm">Guardar cambios</button>
+          </div>
+          <div class="carta-cuerpo">
+            <div class="alerta alerta-alerta mb-4">
+              <span class="alerta-icono">⚠️</span>
+              <div>Los cambios en permisos afectan a <strong>todos los usuarios</strong> con este rol. Procede con cuidado.</div>
+            </div>
+
+            <!-- Módulo de permisos -->
+            <div style="display:flex;flex-direction:column;gap:1rem;">
+              <!-- Matrícula -->
+              <div class="campo-grupo">
+                <div class="campo-grupo-titulo">📚 Matrícula</div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.625rem;">
+                  <label class="campo-checkbox"><input type="checkbox" checked> Ver oferta académica</label>
+                  <label class="campo-checkbox"><input type="checkbox" checked> Realizar matrícula</label>
+                  <label class="campo-checkbox"><input type="checkbox" checked> Ver comprobante</label>
+                  <label class="campo-checkbox"><input type="checkbox"> Modificar matrícula confirmada</label>
+                </div>
+              </div>
+              <!-- Perfil -->
+              <div class="campo-grupo">
+                <div class="campo-grupo-titulo">👤 Perfil personal</div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.625rem;">
+                  <label class="campo-checkbox"><input type="checkbox" checked> Ver propio perfil</label>
+                  <label class="campo-checkbox"><input type="checkbox" checked> Ver historial académico</label>
+                  <label class="campo-checkbox"><input type="checkbox"> Editar datos personales</label>
+                </div>
+              </div>
+              <!-- Pagos -->
+              <div class="campo-grupo">
+                <div class="campo-grupo-titulo">💳 Pagos y facturación</div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.625rem;">
+                  <label class="campo-checkbox"><input type="checkbox" checked> Ver estado de cuenta</label>
+                  <label class="campo-checkbox"><input type="checkbox" checked> Ver facturas propias</label>
+                  <label class="campo-checkbox"><input type="checkbox" checked> Realizar pagos</label>
+                  <label class="campo-checkbox"><input type="checkbox"> Descargar comprobantes</label>
+                </div>
+              </div>
+              <!-- Notificaciones -->
+              <div class="campo-grupo">
+                <div class="campo-grupo-titulo">🔔 Notificaciones</div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.625rem;">
+                  <label class="campo-checkbox"><input type="checkbox" checked> Ver propias notificaciones</label>
+                  <label class="campo-checkbox"><input type="checkbox"> Marcar como leídas</label>
+                </div>
+              </div>
+              <!-- Acceso denegado -->
+              <div class="campo-grupo" style="border-color:var(--rojo-peligro-bg);">
+                <div class="campo-grupo-titulo" style="color:var(--rojo-peligro);">🚫 Acceso restringido (no aplica para Estudiante)</div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.625rem;">
+                  <label class="campo-checkbox"><input type="checkbox" disabled> Gestión de usuarios</label>
+                  <label class="campo-checkbox"><input type="checkbox" disabled> Gestión académica</label>
+                  <label class="campo-checkbox"><input type="checkbox" disabled> Reportes administrativos</label>
+                  <label class="campo-checkbox"><input type="checkbox" disabled> Bitácora de auditoría</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+</body>
+</html>

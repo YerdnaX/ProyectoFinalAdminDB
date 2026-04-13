@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buscar Cursos — Sistema de Matrícula</title>
+<link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+<div class="app-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Portal Estudiantil</div></div></div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-seccion">General</div>
+      <a href="../students/dashboard-estudiante.html"><span class="icono">🏠</span> Mi portal</a>
+      <div class="sidebar-seccion">Matrícula</div>
+      <a href="buscar-cursos.html" class="activo"><span class="icono">🔍</span> Buscar cursos</a>
+      <a href="mi-matricula.html"><span class="icono">✏️</span> Mi matrícula</a>
+      <a href="comprobante.html"><span class="icono">🖨️</span> Comprobante</a>
+      <div class="sidebar-seccion">Mi información</div>
+      <a href="../students/mi-perfil.html"><span class="icono">👤</span> Mi perfil</a>
+      <a href="../students/historial-academico.html"><span class="icono">📊</span> Historial académico</a>
+      <div class="sidebar-seccion">Finanzas</div>
+      <a href="../billing/estado-cuenta.html"><span class="icono">📄</span> Estado de cuenta</a>
+      <a href="../billing/mis-facturas.html"><span class="icono">🧾</span> Mis facturas</a>
+      <a href="../billing/realizar-pago.html"><span class="icono">💳</span> Realizar pago</a>
+      <div class="sidebar-seccion">Comunicaciones</div>
+      <a href="../notifications/notificaciones-lista.html"><span class="icono">🔔</span> Notificaciones</a>
+    </nav>
+    <div class="sidebar-footer"><a href="../auth/login.html">🚪 Cerrar sesión</a></div>
+  </aside>
+
+  <div class="contenido-principal">
+    <header class="navbar">
+      <div>
+        <div class="navbar-titulo">Buscar Cursos</div>
+        <div class="navbar-breadcrumb"><a href="../students/dashboard-estudiante.html">Inicio</a><span class="separador"></span><span class="actual">Buscar cursos</span></div>
+      </div>
+      <div class="navbar-acciones">
+        <div class="icono-notif">🔔<span class="badge-notif">2</span></div>
+        <div class="navbar-usuario"><div class="avatar">LJ</div><div><div class="navbar-usuario-nombre">Laura Jiménez</div><div class="navbar-usuario-rol">Estudiante · 2024-0312</div></div></div>
+      </div>
+    </header>
+
+    <main class="area-pagina">
+      <div class="encabezado-pagina">
+        <div><h1>Oferta académica</h1><p>I Semestre 2025 — Selecciona los cursos que deseas matricular.</p></div>
+        <div class="acciones-encabezado">
+          <div style="background:var(--verde-bg);border:1px solid var(--verde-claro);border-radius:var(--radio-borde);padding:.5rem 1rem;font-size:.875rem;display:flex;align-items:center;gap:.5rem;">
+            <span>✏️</span>
+            <span>Cursos seleccionados: <strong>2</strong> / Créditos: <strong>7 / 20</strong></span>
+          </div>
+          <a href="mi-matricula.html" class="btn btn-primario">Ver mi selección →</a>
+        </div>
+      </div>
+
+      <!-- Restricciones activas -->
+      <div class="alerta alerta-info mb-4">
+        <span class="alerta-icono">ℹ️</span>
+        <div><span class="alerta-titulo">Límite de créditos:</span> Puedes matricular hasta <strong>20 créditos</strong> en este periodo. Llevas 7 créditos seleccionados. El sistema validará automáticamente prerrequisitos, cupos y conflictos de horario.</div>
+      </div>
+
+      <!-- Filtros -->
+      <div class="carta mb-4">
+        <div class="carta-cuerpo">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr auto;gap:1rem;align-items:end;">
+            <div class="campo" style="margin:0;">
+              <label>Buscar</label>
+              <div class="barra-busqueda" style="min-width:0;"><span class="icono-buscar">🔍</span><input type="text" placeholder="Nombre o código..."></div>
+            </div>
+            <div class="campo" style="margin:0;">
+              <label>Programa</label>
+              <select class="campo-input">
+                <option>Todos los programas</option>
+                <option selected>Ing. en Sistemas</option>
+                <option>Adm. de Empresas</option>
+              </select>
+            </div>
+            <div class="campo" style="margin:0;">
+              <label>Día</label>
+              <select class="campo-input"><option>Cualquier día</option><option>Lunes</option><option>Martes</option><option>Miércoles</option><option>Jueves</option><option>Viernes</option></select>
+            </div>
+            <div class="campo" style="margin:0;">
+              <label>Modalidad</label>
+              <select class="campo-input"><option>Todas</option><option>Presencial</option><option>Virtual</option><option>Híbrido</option></select>
+            </div>
+            <button class="btn btn-secundario">Limpiar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grid de cursos -->
+      <div class="grid-cursos">
+
+        <!-- Curso seleccionado -->
+        <div class="carta-curso seleccionado">
+          <div class="curso-codigo">IS-2201</div>
+          <div class="curso-nombre">Estructuras de Datos</div>
+          <div style="font-size:.8125rem;color:var(--gris-suave);margin-bottom:.5rem;">Sección 01 · Dr. Carlos Ugalde</div>
+          <div class="curso-detalles">
+            <div class="curso-detalle-item">⭐ 4 créditos</div>
+            <div class="curso-detalle-item">🏫 A-204</div>
+            <div class="curso-detalle-item">📅 L-Mi 7:00–9:00</div>
+            <div class="curso-detalle-item">🖥️ Presencial</div>
+          </div>
+          <div class="cupos-barra">
+            <div class="cupos-texto"><span>Cupos disponibles</span><span style="color:var(--amarillo-alerta);">5 / 40</span></div>
+            <div class="progreso-contenedor"><div class="progreso-barra amarillo" style="width:87%;"></div></div>
+          </div>
+          <div style="margin-top:.875rem;display:flex;gap:.5rem;">
+            <button class="btn btn-peligro btn-sm" style="flex:1;">Quitar selección</button>
+          </div>
+        </div>
+
+        <!-- Curso con prerrequisito no cumplido -->
+        <div class="carta-curso" style="opacity:.7;cursor:not-allowed;border-color:var(--rojo-peligro-bg);">
+          <div style="position:absolute;top:.875rem;right:.875rem;background:var(--rojo-peligro);color:#fff;border-radius:999px;font-size:.7rem;padding:.2rem .625rem;font-weight:700;">⚠ Prerrequisito</div>
+          <div class="curso-codigo" style="color:var(--gris-suave);">IS-3301</div>
+          <div class="curso-nombre">Ingeniería de Software</div>
+          <div style="font-size:.8125rem;color:var(--gris-suave);margin-bottom:.5rem;">Sección 01 · M.Sc. Gloria Chaves</div>
+          <div class="curso-detalles">
+            <div class="curso-detalle-item">⭐ 4 créditos</div>
+            <div class="curso-detalle-item">🏫 B-305</div>
+            <div class="curso-detalle-item">📅 Vi 7:00–11:00</div>
+          </div>
+          <div class="alerta alerta-peligro" style="margin-top:.875rem;padding:.5rem .75rem;font-size:.8rem;">
+            Requiere IS-2201 y IS-2202 aprobados.
+          </div>
+        </div>
+
+        <!-- Curso disponible -->
+        <div class="carta-curso">
+          <div class="curso-codigo">IS-2202</div>
+          <div class="curso-nombre">Base de Datos I</div>
+          <div style="font-size:.8125rem;color:var(--gris-suave);margin-bottom:.5rem;">Sección 01 · Ing. Manuel Salas</div>
+          <div class="curso-detalles">
+            <div class="curso-detalle-item">⭐ 3 créditos</div>
+            <div class="curso-detalle-item">🖥️ Virtual</div>
+            <div class="curso-detalle-item">📅 Ma-Ju 9:00–10:30</div>
+          </div>
+          <div class="cupos-barra">
+            <div class="cupos-texto"><span>Cupos disponibles</span><span style="color:var(--cyan-exito);">12 / 30</span></div>
+            <div class="progreso-contenedor"><div class="progreso-barra" style="width:60%;"></div></div>
+          </div>
+          <div style="margin-top:.875rem;">
+            <button class="btn btn-primario btn-sm w-full">+ Agregar a mi selección</button>
+          </div>
+        </div>
+
+        <!-- Curso lleno -->
+        <div class="carta-curso" style="opacity:.65;cursor:not-allowed;">
+          <div style="position:absolute;top:.875rem;right:.875rem;background:var(--rojo-peligro);color:#fff;border-radius:999px;font-size:.7rem;padding:.2rem .625rem;font-weight:700;">Sin cupos</div>
+          <div class="curso-codigo" style="color:var(--gris-suave);">IS-1101</div>
+          <div class="curso-nombre">Fundamentos de Programación</div>
+          <div style="font-size:.8125rem;color:var(--gris-suave);margin-bottom:.5rem;">Sección 02 · M.Sc. Patricia Vega</div>
+          <div class="curso-detalles">
+            <div class="curso-detalle-item">⭐ 4 créditos</div>
+            <div class="curso-detalle-item">🏫 Lab B-101</div>
+            <div class="curso-detalle-item">📅 Ma-Ju 9:00–11:00</div>
+          </div>
+          <div class="cupos-barra">
+            <div class="cupos-texto"><span>Cupos disponibles</span><span style="color:var(--rojo-peligro);">0 / 40</span></div>
+            <div class="progreso-contenedor"><div class="progreso-barra rojo" style="width:100%;"></div></div>
+          </div>
+          <div style="margin-top:.875rem;">
+            <button class="btn btn-secundario btn-sm w-full" disabled>Sección llena</button>
+          </div>
+        </div>
+
+        <!-- Curso con choque de horario -->
+        <div class="carta-curso" style="opacity:.7;cursor:not-allowed;border-color:var(--amarillo-alerta-bg);">
+          <div style="position:absolute;top:.875rem;right:.875rem;background:var(--amarillo-alerta);color:#fff;border-radius:999px;font-size:.7rem;padding:.2rem .625rem;font-weight:700;">⚡ Choque</div>
+          <div class="curso-codigo" style="color:var(--gris-suave);">MAT-1501</div>
+          <div class="curso-nombre">Cálculo I</div>
+          <div style="font-size:.8125rem;color:var(--gris-suave);margin-bottom:.5rem;">Sección 03 · Dra. Elena Mora</div>
+          <div class="curso-detalles">
+            <div class="curso-detalle-item">⭐ 4 créditos</div>
+            <div class="curso-detalle-item">🏫 C-110</div>
+            <div class="curso-detalle-item">📅 L-Mi 7:00–9:00</div>
+          </div>
+          <div class="alerta alerta-alerta" style="margin-top:.875rem;padding:.5rem .75rem;font-size:.8rem;">
+            Choca con IS-2201 (L-Mi 7:00–9:00).
+          </div>
+        </div>
+
+        <!-- Curso disponible 2 -->
+        <div class="carta-curso seleccionado">
+          <div class="curso-codigo">MAT-1501</div>
+          <div class="curso-nombre">Cálculo I</div>
+          <div style="font-size:.8125rem;color:var(--gris-suave);margin-bottom:.5rem;">Sección 02 · Dra. Elena Mora</div>
+          <div class="curso-detalles">
+            <div class="curso-detalle-item">⭐ 4 créditos</div>
+            <div class="curso-detalle-item">🏫 B-201</div>
+            <div class="curso-detalle-item">📅 L-Mi-Vi 10:00–11:00</div>
+          </div>
+          <div class="cupos-barra">
+            <div class="cupos-texto"><span>Cupos disponibles</span><span style="color:var(--cyan-exito);">22 / 45</span></div>
+            <div class="progreso-contenedor"><div class="progreso-barra" style="width:51%;"></div></div>
+          </div>
+          <div style="margin-top:.875rem;">
+            <button class="btn btn-peligro btn-sm w-full">Quitar selección</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Barra flotante de resumen -->
+      <div style="position:sticky;bottom:1.5rem;background:var(--gris-oscuro);color:#fff;border-radius:var(--radio-grande);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;margin-top:2rem;box-shadow:0 8px 32px rgba(0,0,0,.3);">
+        <div style="display:flex;align-items:center;gap:2rem;">
+          <div><span style="font-size:.8125rem;opacity:.7;">Cursos seleccionados</span><div style="font-size:1.25rem;font-weight:700;">2 cursos</div></div>
+          <div><span style="font-size:.8125rem;opacity:.7;">Créditos</span><div style="font-size:1.25rem;font-weight:700;">7 / 20</div></div>
+          <div class="progreso-contenedor" style="width:120px;background:rgba(255,255,255,.2);"><div class="progreso-barra" style="width:35%;background:var(--verde-secundario);"></div></div>
+        </div>
+        <a href="mi-matricula.html" class="btn btn-primario btn-lg">Continuar con mi selección →</a>
+      </div>
+    </main>
+  </div>
+</div>
+</body>
+</html>

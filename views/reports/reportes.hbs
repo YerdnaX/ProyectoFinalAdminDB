@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reportes — Sistema de Matrícula</title>
+<link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+<div class="app-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Panel Administrativo</div></div></div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-seccion">General</div>
+      <a href="../admin/dashboard-admin.html"><span class="icono">📊</span> Dashboard</a>
+      <div class="sidebar-seccion">Usuarios</div>
+      <a href="../admin/usuarios-lista.html"><span class="icono">👥</span> Usuarios</a>
+      <a href="../admin/roles-permisos.html"><span class="icono">🔐</span> Roles y permisos</a>
+      <div class="sidebar-seccion">Académico</div>
+      <a href="../academic/programas-lista.html"><span class="icono">🏛️</span> Programas académicos</a>
+      <a href="../academic/planes-lista.html"><span class="icono">📋</span> Planes de estudio</a>
+      <a href="../academic/cursos-lista.html"><span class="icono">📚</span> Cursos</a>
+      <a href="../academic/periodos-lista.html"><span class="icono">📅</span> Periodos académicos</a>
+      <div class="sidebar-seccion">Oferta</div>
+      <a href="../academic/secciones-lista.html"><span class="icono">🗂️</span> Secciones</a>
+      <a href="../academic/aulas-lista.html"><span class="icono">🏫</span> Aulas</a>
+      <div class="sidebar-seccion">Estudiantes</div>
+      <a href="../students/estudiantes-lista.html"><span class="icono">🎓</span> Estudiantes</a>
+      <a href="../enrollment/matriculas-lista.html"><span class="icono">✏️</span> Matrículas</a>
+      <div class="sidebar-seccion">Finanzas</div>
+      <a href="../billing/facturas-lista.html"><span class="icono">🧾</span> Facturas</a>
+      <a href="../billing/pagos-lista.html"><span class="icono">💳</span> Pagos</a>
+      <div class="sidebar-seccion">Sistema</div>
+      <a href="../notifications/notificaciones-lista.html"><span class="icono">🔔</span> Notificaciones</a>
+      <a href="reportes.html" class="activo"><span class="icono">📈</span> Reportes</a>
+      <a href="../audit/bitacora.html"><span class="icono">🔍</span> Bitácora</a>
+    </nav>
+    <div class="sidebar-footer"><a href="../auth/login.html">🚪 Cerrar sesión</a></div>
+  </aside>
+
+  <div class="contenido-principal">
+    <header class="navbar">
+      <div>
+        <div class="navbar-titulo">Reportes</div>
+        <div class="navbar-breadcrumb"><span>Inicio</span><span class="separador"></span><span class="actual">Reportes</span></div>
+      </div>
+      <div class="navbar-acciones">
+        <div class="navbar-usuario"><div class="avatar">AM</div><div><div class="navbar-usuario-nombre">Ana Mora</div><div class="navbar-usuario-rol">Administradora TI</div></div></div>
+      </div>
+    </header>
+
+    <main class="area-pagina">
+      <div class="encabezado-pagina">
+        <div><h1>Centro de reportes</h1><p>Genera y descarga reportes académicos, financieros y operativos.</p></div>
+      </div>
+
+      <div class="tabs mb-4">
+        <button class="tab-boton activo">Académicos</button>
+        <button class="tab-boton">Financieros</button>
+        <button class="tab-boton">Matrícula</button>
+        <button class="tab-boton">Auditoría</button>
+      </div>
+
+      <!-- Reportes académicos -->
+      <div class="grid-3 mb-4">
+        <div class="carta">
+          <div class="carta-cuerpo">
+            <div style="font-size:2.5rem;margin-bottom:1rem;">📊</div>
+            <h4 style="margin-bottom:.375rem;">Matrícula por programa</h4>
+            <p style="font-size:.875rem;margin-bottom:1.25rem;">Total de estudiantes matriculados agrupados por carrera y periodo académico.</p>
+            <div style="display:flex;flex-direction:column;gap:.5rem;">
+              <div class="campo" style="margin:0;"><select class="campo-input"><option>I Semestre 2025</option><option>II Semestre 2024</option></select></div>
+              <div style="display:flex;gap:.5rem;">
+                <button class="btn btn-primario btn-sm" style="flex:1;">📄 Generar PDF</button>
+                <button class="btn btn-secundario btn-sm" style="flex:1;">📊 Exportar Excel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="carta">
+          <div class="carta-cuerpo">
+            <div style="font-size:2.5rem;margin-bottom:1rem;">📚</div>
+            <h4 style="margin-bottom:.375rem;">Ocupación de secciones</h4>
+            <p style="font-size:.875rem;margin-bottom:1.25rem;">Cupos utilizados vs. disponibles por curso y sección en el periodo seleccionado.</p>
+            <div style="display:flex;flex-direction:column;gap:.5rem;">
+              <div class="campo" style="margin:0;"><select class="campo-input"><option>I Semestre 2025</option><option>II Semestre 2024</option></select></div>
+              <div style="display:flex;gap:.5rem;">
+                <button class="btn btn-primario btn-sm" style="flex:1;">📄 Generar PDF</button>
+                <button class="btn btn-secundario btn-sm" style="flex:1;">📊 Exportar Excel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="carta">
+          <div class="carta-cuerpo">
+            <div style="font-size:2.5rem;margin-bottom:1rem;">🎓</div>
+            <h4 style="margin-bottom:.375rem;">Avance de planes de estudio</h4>
+            <p style="font-size:.875rem;margin-bottom:1.25rem;">Porcentaje de avance promedio por programa y cohorte de ingreso.</p>
+            <div style="display:flex;flex-direction:column;gap:.5rem;">
+              <div class="campo" style="margin:0;"><select class="campo-input"><option>Todos los programas</option><option>Ing. en Sistemas</option><option>Adm. de Empresas</option></select></div>
+              <div style="display:flex;gap:.5rem;">
+                <button class="btn btn-primario btn-sm" style="flex:1;">📄 Generar PDF</button>
+                <button class="btn btn-secundario btn-sm" style="flex:1;">📊 Exportar Excel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="carta">
+          <div class="carta-cuerpo">
+            <div style="font-size:2.5rem;margin-bottom:1rem;">🏫</div>
+            <h4 style="margin-bottom:.375rem;">Carga docente</h4>
+            <p style="font-size:.875rem;margin-bottom:1.25rem;">Número de secciones y estudiantes asignados por docente en el periodo.</p>
+            <div style="display:flex;flex-direction:column;gap:.5rem;">
+              <div class="campo" style="margin:0;"><select class="campo-input"><option>I Semestre 2025</option></select></div>
+              <div style="display:flex;gap:.5rem;">
+                <button class="btn btn-primario btn-sm" style="flex:1;">📄 Generar PDF</button>
+                <button class="btn btn-secundario btn-sm" style="flex:1;">📊 Exportar Excel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="carta">
+          <div class="carta-cuerpo">
+            <div style="font-size:2.5rem;margin-bottom:1rem;">⚠️</div>
+            <h4 style="margin-bottom:.375rem;">Estudiantes con restricciones</h4>
+            <p style="font-size:.875rem;margin-bottom:1.25rem;">Listado de estudiantes con bloqueos financieros o académicos activos.</p>
+            <div style="display:flex;flex-direction:column;gap:.5rem;">
+              <div class="campo" style="margin:0;"><select class="campo-input"><option>Todos los tipos</option><option>Bloqueo financiero</option><option>Bloqueo académico</option></select></div>
+              <div style="display:flex;gap:.5rem;">
+                <button class="btn btn-primario btn-sm" style="flex:1;">📄 Generar PDF</button>
+                <button class="btn btn-secundario btn-sm" style="flex:1;">📊 Exportar Excel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="carta">
+          <div class="carta-cuerpo">
+            <div style="font-size:2.5rem;margin-bottom:1rem;">📋</div>
+            <h4 style="margin-bottom:.375rem;">Prerrequisitos no cumplidos</h4>
+            <p style="font-size:.875rem;margin-bottom:1.25rem;">Estudiantes que intentaron matricular sin cumplir prerrequisitos.</p>
+            <div style="display:flex;flex-direction:column;gap:.5rem;">
+              <div class="campo" style="margin:0;"><select class="campo-input"><option>I Semestre 2025</option></select></div>
+              <div style="display:flex;gap:.5rem;">
+                <button class="btn btn-primario btn-sm" style="flex:1;">📄 Generar PDF</button>
+                <button class="btn btn-secundario btn-sm" style="flex:1;">📊 Exportar Excel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reportes recientes -->
+      <div class="carta">
+        <div class="carta-cabecera"><div class="carta-titulo">Reportes generados recientemente</div></div>
+        <div class="tabla-contenedor">
+          <table class="tabla">
+            <thead><tr><th>Reporte</th><th>Generado por</th><th>Fecha</th><th>Periodo</th><th>Formato</th><th>Acciones</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><div class="nombre-principal">Matrícula por programa</div></td>
+                <td class="texto-muted">Ana Mora</td>
+                <td class="texto-muted">22/01/2025, 9:00am</td>
+                <td class="texto-muted">I Sem. 2025</td>
+                <td><span class="badge badge-rojo" style="background:#FEE2E2;color:#7F1D1D;">PDF</span></td>
+                <td><div class="acciones-fila"><button class="btn btn-secundario btn-sm">⬇️ Descargar</button></div></td>
+              </tr>
+              <tr>
+                <td><div class="nombre-principal">Recaudación semanal</div></td>
+                <td class="texto-muted">Tesorería</td>
+                <td class="texto-muted">21/01/2025, 4:30pm</td>
+                <td class="texto-muted">I Sem. 2025</td>
+                <td><span class="badge badge-verde">Excel</span></td>
+                <td><div class="acciones-fila"><button class="btn btn-secundario btn-sm">⬇️ Descargar</button></div></td>
+              </tr>
+              <tr>
+                <td><div class="nombre-principal">Ocupación de secciones</div></td>
+                <td class="texto-muted">Registro Académico</td>
+                <td class="texto-muted">20/01/2025, 11:15am</td>
+                <td class="texto-muted">I Sem. 2025</td>
+                <td><span class="badge badge-rojo" style="background:#FEE2E2;color:#7F1D1D;">PDF</span></td>
+                <td><div class="acciones-fila"><button class="btn btn-secundario btn-sm">⬇️ Descargar</button></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+</body>
+</html>

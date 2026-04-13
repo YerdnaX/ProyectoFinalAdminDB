@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secciones — Sistema de Matrícula</title>
+<link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+<div class="app-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Panel Administrativo</div></div></div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-seccion">General</div>
+      <a href="../admin/dashboard-admin.html"><span class="icono">📊</span> Dashboard</a>
+      <div class="sidebar-seccion">Usuarios</div>
+      <a href="../admin/usuarios-lista.html"><span class="icono">👥</span> Usuarios</a>
+      <a href="../admin/roles-permisos.html"><span class="icono">🔐</span> Roles y permisos</a>
+      <div class="sidebar-seccion">Académico</div>
+      <a href="programas-lista.html"><span class="icono">🏛️</span> Programas académicos</a>
+      <a href="planes-lista.html"><span class="icono">📋</span> Planes de estudio</a>
+      <a href="cursos-lista.html"><span class="icono">📚</span> Cursos</a>
+      <a href="periodos-lista.html"><span class="icono">📅</span> Periodos académicos</a>
+      <div class="sidebar-seccion">Oferta</div>
+      <a href="secciones-lista.html" class="activo"><span class="icono">🗂️</span> Secciones</a>
+      <a href="aulas-lista.html"><span class="icono">🏫</span> Aulas</a>
+      <div class="sidebar-seccion">Estudiantes</div>
+      <a href="../students/estudiantes-lista.html"><span class="icono">🎓</span> Estudiantes</a>
+      <a href="../enrollment/matriculas-lista.html"><span class="icono">✏️</span> Matrículas</a>
+      <div class="sidebar-seccion">Finanzas</div>
+      <a href="../billing/facturas-lista.html"><span class="icono">🧾</span> Facturas</a>
+      <a href="../billing/pagos-lista.html"><span class="icono">💳</span> Pagos</a>
+      <div class="sidebar-seccion">Sistema</div>
+      <a href="../notifications/notificaciones-lista.html"><span class="icono">🔔</span> Notificaciones</a>
+      <a href="../reports/reportes.html"><span class="icono">📈</span> Reportes</a>
+      <a href="../audit/bitacora.html"><span class="icono">🔍</span> Bitácora</a>
+    </nav>
+    <div class="sidebar-footer"><a href="../auth/login.html">🚪 Cerrar sesión</a></div>
+  </aside>
+
+  <div class="contenido-principal">
+    <header class="navbar">
+      <div>
+        <div class="navbar-titulo">Secciones</div>
+        <div class="navbar-breadcrumb"><span>Inicio</span><span class="separador"></span><span class="actual">Secciones</span></div>
+      </div>
+      <div class="navbar-acciones">
+        <div class="navbar-usuario"><div class="avatar">AM</div><div><div class="navbar-usuario-nombre">Ana Mora</div><div class="navbar-usuario-rol">Administradora TI</div></div></div>
+      </div>
+    </header>
+
+    <main class="area-pagina">
+      <div class="encabezado-pagina">
+        <div><h1>Oferta de secciones</h1><p>Gestiona las secciones del I Semestre 2025. Asigna docentes, aulas y horarios.</p></div>
+        <div class="acciones-encabezado">
+          <button class="btn btn-secundario">Exportar horarios</button>
+          <button class="btn btn-primario">+ Nueva sección</button>
+        </div>
+      </div>
+
+      <div class="carta">
+        <div class="carta-cabecera">
+          <div class="barra-filtros" style="margin:0;flex:1;">
+            <div class="barra-busqueda"><span class="icono-buscar">🔍</span><input type="text" placeholder="Buscar por curso, código o docente..."></div>
+            <select class="filtro-select"><option>I Semestre 2025</option><option>II Semestre 2024</option></select>
+            <select class="filtro-select"><option>Todas las modalidades</option><option>Presencial</option><option>Virtual</option><option>Híbrido</option></select>
+            <select class="filtro-select"><option>Todos los estados</option><option>Abierta</option><option>Llena</option><option>Cerrada</option></select>
+          </div>
+        </div>
+
+        <div class="tabla-contenedor">
+          <table class="tabla">
+            <thead>
+              <tr>
+                <th>Sección</th>
+                <th>Curso</th>
+                <th>Docente</th>
+                <th>Aula</th>
+                <th>Horario</th>
+                <th>Cupos</th>
+                <th>Modalidad</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span style="font-family:monospace;font-weight:700;color:var(--verde-principal);">IS-1101-01</span></td>
+                <td><div class="nombre-principal">Fundamentos de Programación</div><div class="detalle-secundario">IS-1101 · 4 créditos</div></td>
+                <td><div class="nombre-principal">Dr. Carlos Ugalde</div></td>
+                <td class="texto-muted">A-204</td>
+                <td class="texto-muted">L-Mi 7:00–9:00</td>
+                <td>
+                  <div style="min-width:100px;">
+                    <div style="display:flex;justify-content:space-between;font-size:.75rem;margin-bottom:.25rem;"><span>35 / 40</span><span style="color:var(--verde-principal);">87.5%</span></div>
+                    <div class="progreso-contenedor"><div class="progreso-barra" style="width:87%;"></div></div>
+                  </div>
+                </td>
+                <td><span class="badge badge-info">Presencial</span></td>
+                <td><span class="badge badge-activo">Abierta</span></td>
+                <td><div class="acciones-fila"><button class="btn btn-secundario btn-sm">Ver</button><button class="btn btn-secundario btn-sm">Editar</button></div></td>
+              </tr>
+              <tr>
+                <td><span style="font-family:monospace;font-weight:700;color:var(--verde-principal);">IS-1101-02</span></td>
+                <td><div class="nombre-principal">Fundamentos de Programación</div><div class="detalle-secundario">IS-1101 · 4 créditos</div></td>
+                <td><div class="nombre-principal">M.Sc. Patricia Vega</div></td>
+                <td class="texto-muted">Lab B-101</td>
+                <td class="texto-muted">Ma-Ju 9:00–11:00</td>
+                <td>
+                  <div style="min-width:100px;">
+                    <div style="display:flex;justify-content:space-between;font-size:.75rem;margin-bottom:.25rem;"><span>40 / 40</span><span style="color:var(--rojo-peligro);">100%</span></div>
+                    <div class="progreso-contenedor"><div class="progreso-barra rojo" style="width:100%;"></div></div>
+                  </div>
+                </td>
+                <td><span class="badge badge-info">Presencial</span></td>
+                <td><span class="badge badge-error">Llena</span></td>
+                <td><div class="acciones-fila"><button class="btn btn-secundario btn-sm">Ver</button><button class="btn btn-secundario btn-sm">Editar</button></div></td>
+              </tr>
+              <tr>
+                <td><span style="font-family:monospace;font-weight:700;color:var(--verde-principal);">IS-2202-01</span></td>
+                <td><div class="nombre-principal">Base de Datos I</div><div class="detalle-secundario">IS-2202 · 3 créditos</div></td>
+                <td><div class="nombre-principal">Ing. Manuel Salas</div></td>
+                <td class="texto-muted">Virtual</td>
+                <td class="texto-muted">L-Mi-V 11:00–12:00</td>
+                <td>
+                  <div style="min-width:100px;">
+                    <div style="display:flex;justify-content:space-between;font-size:.75rem;margin-bottom:.25rem;"><span>18 / 30</span><span style="color:var(--amarillo-alerta);">60%</span></div>
+                    <div class="progreso-contenedor"><div class="progreso-barra amarillo" style="width:60%;"></div></div>
+                  </div>
+                </td>
+                <td><span class="badge badge-verde">Virtual</span></td>
+                <td><span class="badge badge-activo">Abierta</span></td>
+                <td><div class="acciones-fila"><button class="btn btn-secundario btn-sm">Ver</button><button class="btn btn-secundario btn-sm">Editar</button></div></td>
+              </tr>
+              <tr>
+                <td><span style="font-family:monospace;font-weight:700;color:var(--amarillo-alerta);">IS-3301-01</span></td>
+                <td><div class="nombre-principal">Ingeniería de Software</div><div class="detalle-secundario">IS-3301 · 4 créditos</div></td>
+                <td><div class="nombre-principal" style="color:var(--rojo-peligro);">⚠ Sin docente asignado</div></td>
+                <td class="texto-muted">B-305</td>
+                <td class="texto-muted">Vi 7:00–11:00</td>
+                <td>
+                  <div style="min-width:100px;">
+                    <div style="display:flex;justify-content:space-between;font-size:.75rem;margin-bottom:.25rem;"><span>0 / 35</span><span>0%</span></div>
+                    <div class="progreso-contenedor"><div class="progreso-barra" style="width:0%;"></div></div>
+                  </div>
+                </td>
+                <td><span class="badge badge-info">Presencial</span></td>
+                <td><span class="badge badge-pendiente">Pendiente</span></td>
+                <td><div class="acciones-fila"><button class="btn btn-secundario btn-sm">Ver</button><button class="btn btn-primario btn-sm">Asignar</button></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="paginacion">
+          <span class="paginacion-info">Mostrando 1–4 de 187 secciones</span>
+          <div class="paginacion-botones">
+            <button class="btn-pagina" disabled>←</button>
+            <button class="btn-pagina activa">1</button>
+            <button class="btn-pagina">2</button>
+            <button class="btn-pagina">3</button>
+            <button class="btn-pagina">→</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+</body>
+</html>

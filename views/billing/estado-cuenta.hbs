@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estado de Cuenta — Sistema de Matrícula</title>
+<link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+<div class="app-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Portal Estudiantil</div></div></div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-seccion">General</div>
+      <a href="../students/dashboard-estudiante.html"><span class="icono">🏠</span> Mi portal</a>
+      <div class="sidebar-seccion">Matrícula</div>
+      <a href="../enrollment/buscar-cursos.html"><span class="icono">🔍</span> Buscar cursos</a>
+      <a href="../enrollment/mi-matricula.html"><span class="icono">✏️</span> Mi matrícula</a>
+      <a href="../enrollment/comprobante.html"><span class="icono">🖨️</span> Comprobante</a>
+      <div class="sidebar-seccion">Mi información</div>
+      <a href="../students/mi-perfil.html"><span class="icono">👤</span> Mi perfil</a>
+      <a href="../students/historial-academico.html"><span class="icono">📊</span> Historial académico</a>
+      <div class="sidebar-seccion">Finanzas</div>
+      <a href="estado-cuenta.html" class="activo"><span class="icono">📄</span> Estado de cuenta</a>
+      <a href="mis-facturas.html"><span class="icono">🧾</span> Mis facturas</a>
+      <a href="realizar-pago.html"><span class="icono">💳</span> Realizar pago</a>
+      <div class="sidebar-seccion">Comunicaciones</div>
+      <a href="../notifications/notificaciones-lista.html"><span class="icono">🔔</span> Notificaciones</a>
+    </nav>
+    <div class="sidebar-footer"><a href="../auth/login.html">🚪 Cerrar sesión</a></div>
+  </aside>
+
+  <div class="contenido-principal">
+    <header class="navbar">
+      <div>
+        <div class="navbar-titulo">Estado de Cuenta</div>
+        <div class="navbar-breadcrumb"><a href="../students/dashboard-estudiante.html">Inicio</a><span class="separador"></span><span class="actual">Estado de cuenta</span></div>
+      </div>
+      <div class="navbar-acciones">
+        <button class="btn btn-secundario btn-sm">🖨️ Imprimir</button>
+        <div class="navbar-usuario"><div class="avatar">LJ</div><div><div class="navbar-usuario-nombre">Laura Jiménez</div><div class="navbar-usuario-rol">Estudiante · 2024-0312</div></div></div>
+      </div>
+    </header>
+
+    <main class="area-pagina">
+      <div class="encabezado-pagina">
+        <div><h1>Estado de cuenta</h1><p>Consulta el resumen financiero de tu cuenta estudiantil.</p></div>
+        <div class="acciones-encabezado">
+          <select class="filtro-select"><option>I Semestre 2025</option><option>II Semestre 2024</option><option>I Semestre 2024</option></select>
+        </div>
+      </div>
+
+      <!-- Resumen financiero -->
+      <div class="grid-3 mb-4">
+        <div style="background:var(--rojo-peligro-bg);border:1px solid #FECACA;border-radius:var(--radio-grande);padding:1.5rem;text-align:center;">
+          <div style="font-size:.875rem;font-weight:600;color:var(--rojo-peligro);margin-bottom:.5rem;">💰 Saldo pendiente</div>
+          <div style="font-size:2rem;font-weight:700;color:var(--rojo-peligro);">₡185,000</div>
+          <div class="texto-pequeno" style="margin-top:.375rem;color:#7F1D1D;">Vence 31 de enero 2025</div>
+        </div>
+        <div style="background:var(--cyan-exito-bg);border:1px solid #A7F3D0;border-radius:var(--radio-grande);padding:1.5rem;text-align:center;">
+          <div style="font-size:.875rem;font-weight:600;color:var(--cyan-exito);margin-bottom:.5rem;">✅ Total pagado</div>
+          <div style="font-size:2rem;font-weight:700;color:var(--cyan-exito);">₡0</div>
+          <div class="texto-pequeno" style="margin-top:.375rem;color:#065F46;">Este periodo</div>
+        </div>
+        <div style="background:var(--verde-bg);border:1px solid var(--verde-claro);border-radius:var(--radio-grande);padding:1.5rem;text-align:center;">
+          <div style="font-size:.875rem;font-weight:600;color:var(--verde-principal);margin-bottom:.5rem;">📋 Total facturado</div>
+          <div style="font-size:2rem;font-weight:700;color:var(--verde-principal);">₡185,000</div>
+          <div class="texto-pequeno" style="margin-top:.375rem;color:var(--verde-oscuro);">I Semestre 2025</div>
+        </div>
+      </div>
+
+      <div class="alerta alerta-peligro mb-4">
+        <span class="alerta-icono">🚨</span>
+        <div><span class="alerta-titulo">Pago pendiente:</span> Tienes una factura pendiente de pago. Si no cancelas antes del 31/01/2025 se aplicará un recargo adicional y tu cuenta podría ser bloqueada. <a href="realizar-pago.html" style="color:var(--rojo-peligro);font-weight:700;">Pagar ahora →</a></div>
+      </div>
+
+      <!-- Historial de movimientos -->
+      <div class="carta">
+        <div class="carta-cabecera">
+          <div><div class="carta-titulo">Movimientos del periodo</div><div class="carta-subtitulo">I Semestre 2025</div></div>
+          <button class="btn btn-secundario btn-sm">Exportar PDF</button>
+        </div>
+        <div class="tabla-contenedor">
+          <table class="tabla">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Descripción</th>
+                <th>Tipo</th>
+                <th style="text-align:right;">Cargo</th>
+                <th style="text-align:right;">Abono</th>
+                <th style="text-align:right;">Saldo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="texto-muted">22 ene 2025</td>
+                <td><div class="nombre-principal">Factura de matrícula I-2025</div><div class="detalle-secundario">4 cursos · 12 créditos</div></td>
+                <td><span class="badge badge-pendiente">Cargo</span></td>
+                <td style="text-align:right;font-weight:600;color:var(--rojo-peligro);">₡185,000</td>
+                <td style="text-align:right;color:var(--gris-suave);">—</td>
+                <td style="text-align:right;font-weight:700;color:var(--rojo-peligro);">₡185,000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="carta-pie">
+          <div style="display:flex;justify-content:flex-end;gap:2rem;font-size:.9rem;">
+            <div class="flex-entre" style="gap:1rem;"><span class="texto-gris">Total cargos:</span><span style="color:var(--rojo-peligro);font-weight:700;">₡185,000</span></div>
+            <div class="flex-entre" style="gap:1rem;"><span class="texto-gris">Total abonos:</span><span style="color:var(--cyan-exito);font-weight:700;">₡0</span></div>
+            <div class="flex-entre" style="gap:1rem;"><span class="texto-gris">Saldo actual:</span><span style="color:var(--rojo-peligro);font-weight:700;font-size:1rem;">₡185,000</span></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+</body>
+</html>

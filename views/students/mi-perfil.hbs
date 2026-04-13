@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Perfil — Sistema de Matrícula</title>
+<link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+<div class="app-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Portal Estudiantil</div></div></div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-seccion">General</div>
+      <a href="dashboard-estudiante.html"><span class="icono">🏠</span> Mi portal</a>
+      <div class="sidebar-seccion">Matrícula</div>
+      <a href="../enrollment/buscar-cursos.html"><span class="icono">🔍</span> Buscar cursos</a>
+      <a href="../enrollment/mi-matricula.html"><span class="icono">✏️</span> Mi matrícula</a>
+      <a href="../enrollment/comprobante.html"><span class="icono">🖨️</span> Comprobante</a>
+      <div class="sidebar-seccion">Mi información</div>
+      <a href="mi-perfil.html" class="activo"><span class="icono">👤</span> Mi perfil</a>
+      <a href="historial-academico.html"><span class="icono">📊</span> Historial académico</a>
+      <div class="sidebar-seccion">Finanzas</div>
+      <a href="../billing/estado-cuenta.html"><span class="icono">📄</span> Estado de cuenta</a>
+      <a href="../billing/mis-facturas.html"><span class="icono">🧾</span> Mis facturas</a>
+      <a href="../billing/realizar-pago.html"><span class="icono">💳</span> Realizar pago</a>
+      <div class="sidebar-seccion">Comunicaciones</div>
+      <a href="../notifications/notificaciones-lista.html"><span class="icono">🔔</span> Notificaciones</a>
+    </nav>
+    <div class="sidebar-footer"><a href="../auth/login.html">🚪 Cerrar sesión</a></div>
+  </aside>
+  <div class="contenido-principal">
+    <header class="navbar">
+      <div><div class="navbar-titulo">Mi Perfil</div><div class="navbar-breadcrumb"><a href="dashboard-estudiante.html">Inicio</a><span class="separador"></span><span class="actual">Mi perfil</span></div></div>
+      <div class="navbar-acciones"><div class="navbar-usuario"><div class="avatar">LJ</div><div><div class="navbar-usuario-nombre">Laura Jiménez</div><div class="navbar-usuario-rol">Estudiante · 2024-0312</div></div></div></div>
+    </header>
+    <main class="area-pagina">
+      <div class="encabezado-pagina">
+        <div><h1>Mi perfil</h1><p>Consulta y actualiza tu información personal.</p></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 300px;gap:1.5rem;">
+        <div>
+          <div class="carta mb-4">
+            <div class="carta-cabecera"><div class="carta-titulo">Datos personales</div><button class="btn btn-secundario btn-sm">Editar</button></div>
+            <div class="carta-cuerpo">
+              <div style="display:flex;align-items:center;gap:1.5rem;margin-bottom:1.5rem;">
+                <div class="avatar" style="width:64px;height:64px;font-size:1.5rem;">LJ</div>
+                <div><h3 style="margin-bottom:.25rem;">Laura Jiménez Rojas</h3><div class="texto-muted">laura.jimenez@uni.ac.cr</div></div>
+              </div>
+              <div class="campo-fila">
+                <div class="campo"><label>Nombre</label><input class="campo-input" type="text" value="Laura" readonly style="background:var(--gris-fondo)"></div>
+                <div class="campo"><label>Apellido</label><input class="campo-input" type="text" value="Jiménez Rojas" readonly style="background:var(--gris-fondo)"></div>
+              </div>
+              <div class="campo"><label>Correo institucional</label><input class="campo-input" type="email" value="laura.jimenez@uni.ac.cr" readonly style="background:var(--gris-fondo)"></div>
+              <div class="alerta alerta-info" style="font-size:.875rem;">
+                <span>ℹ️</span><span>Para modificar tu nombre o correo, contacta a Registro Académico.</span>
+              </div>
+            </div>
+          </div>
+          <div class="carta">
+            <div class="carta-cabecera"><div class="carta-titulo">Datos académicos</div></div>
+            <div class="carta-cuerpo">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;font-size:.9rem;">
+                <div><div class="texto-gris mb-1">Carné</div><div style="font-family:monospace;font-weight:700;">2024-0312</div></div>
+                <div><div class="texto-gris mb-1">Estado académico</div><div><span class="badge badge-activo">Regular</span></div></div>
+                <div><div class="texto-gris mb-1">Programa</div><div class="semibold">Ingeniería en Sistemas</div></div>
+                <div><div class="texto-gris mb-1">Plan de estudio</div><div class="semibold">IS-2020</div></div>
+                <div><div class="texto-gris mb-1">Fecha de ingreso</div><div class="semibold">Febrero 2024</div></div>
+                <div><div class="texto-gris mb-1">Identificador SSO</div><div style="font-family:monospace;">ljr-2024-0312</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="carta mb-3">
+            <div class="carta-cabecera"><div class="carta-titulo">Estado de la cuenta</div></div>
+            <div class="carta-cuerpo" style="display:flex;flex-direction:column;gap:.75rem;font-size:.9rem;">
+              <div class="flex-entre"><span class="texto-gris">Bloqueo financiero</span><span class="badge badge-activo">Sin bloqueo</span></div>
+              <div class="flex-entre"><span class="texto-gris">Bloqueo académico</span><span class="badge badge-activo">Sin bloqueo</span></div>
+              <div class="flex-entre"><span class="texto-gris">Saldo pendiente</span><span style="color:var(--rojo-peligro);font-weight:700;">₡185,000</span></div>
+              <a href="../billing/realizar-pago.html" class="btn btn-primario btn-sm w-full" style="margin-top:.5rem;">Pagar ahora</a>
+            </div>
+          </div>
+          <div class="carta">
+            <div class="carta-cabecera"><div class="carta-titulo">Acciones</div></div>
+            <div class="carta-cuerpo" style="display:flex;flex-direction:column;gap:.625rem;">
+              <a href="#" class="btn btn-secundario w-full" style="justify-content:flex-start;gap:.75rem;">🔑 Cambiar contraseña SSO</a>
+              <a href="../auth/login.html" class="btn btn-secundario w-full" style="justify-content:flex-start;gap:.75rem;">🚪 Cerrar sesión</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+</body>
+</html>

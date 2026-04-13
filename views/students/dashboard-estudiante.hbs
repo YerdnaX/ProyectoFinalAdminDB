@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Portal — Sistema de Matrícula</title>
+<link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+<div class="app-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Portal Estudiantil</div></div></div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-seccion">General</div>
+      <a href="dashboard-estudiante.html" class="activo"><span class="icono">🏠</span> Mi portal</a>
+      <div class="sidebar-seccion">Matrícula</div>
+      <a href="../enrollment/buscar-cursos.html"><span class="icono">🔍</span> Buscar cursos</a>
+      <a href="../enrollment/mi-matricula.html"><span class="icono">✏️</span> Mi matrícula</a>
+      <a href="../enrollment/comprobante.html"><span class="icono">🖨️</span> Comprobante</a>
+      <div class="sidebar-seccion">Mi información</div>
+      <a href="../students/mi-perfil.html"><span class="icono">👤</span> Mi perfil</a>
+      <a href="../students/historial-academico.html"><span class="icono">📊</span> Historial académico</a>
+      <div class="sidebar-seccion">Finanzas</div>
+      <a href="../billing/estado-cuenta.html"><span class="icono">📄</span> Estado de cuenta</a>
+      <a href="../billing/mis-facturas.html"><span class="icono">🧾</span> Mis facturas</a>
+      <a href="../billing/realizar-pago.html"><span class="icono">💳</span> Realizar pago</a>
+      <div class="sidebar-seccion">Comunicaciones</div>
+      <a href="../notifications/notificaciones-lista.html"><span class="icono">🔔</span> Notificaciones</a>
+    </nav>
+    <div class="sidebar-footer"><a href="../auth/login.html">🚪 Cerrar sesión</a></div>
+  </aside>
+
+  <div class="contenido-principal">
+    <header class="navbar">
+      <div>
+        <div class="navbar-titulo">Mi Portal Estudiantil</div>
+        <div class="navbar-breadcrumb"><span class="actual">Inicio</span></div>
+      </div>
+      <div class="navbar-acciones">
+        <div class="icono-notif">🔔<span class="badge-notif">2</span></div>
+        <div class="navbar-usuario"><div class="avatar">LJ</div><div><div class="navbar-usuario-nombre">Laura Jiménez</div><div class="navbar-usuario-rol">Estudiante · 2024-0312</div></div></div>
+      </div>
+    </header>
+
+    <main class="area-pagina">
+      <!-- Saludo -->
+      <div style="background:linear-gradient(135deg,var(--verde-principal),var(--verde-hover));border-radius:var(--radio-grande);padding:2rem;color:#fff;margin-bottom:1.75rem;">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+          <div>
+            <h2 style="color:#fff;margin-bottom:.375rem;">¡Buenos días, Laura! 👋</h2>
+            <p style="color:rgba(255,255,255,.85);margin:0;">I Semestre 2025 — Matrícula confirmada con 4 cursos y 12 créditos.</p>
+          </div>
+          <a href="../enrollment/buscar-cursos.html" class="btn" style="background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.4);">Buscar más cursos →</a>
+        </div>
+      </div>
+
+      <!-- Alertas -->
+      <div class="alerta alerta-alerta mb-4">
+        <span class="alerta-icono">⚠️</span>
+        <div><span class="alerta-titulo">Pago pendiente:</span> Tienes una factura por <strong>₡185,000</strong> con vencimiento el <strong>31 de enero 2025</strong>. <a href="../billing/realizar-pago.html">Pagar ahora →</a></div>
+      </div>
+
+      <!-- Métricas estudiante -->
+      <div class="grid-metricas mb-4">
+        <div class="carta-metrica"><div class="metrica-icono">📚</div><div class="metrica-etiqueta">Cursos matriculados</div><div class="metrica-valor">4</div><div class="metrica-cambio positivo">I Semestre 2025</div></div>
+        <div class="carta-metrica"><div class="metrica-icono">⭐</div><div class="metrica-etiqueta">Créditos actuales</div><div class="metrica-valor">12</div><div class="metrica-cambio positivo">Límite: 20</div></div>
+        <div class="carta-metrica azul"><div class="metrica-icono">🎯</div><div class="metrica-etiqueta">Avance del plan</div><div class="metrica-valor">30%</div><div class="metrica-cambio positivo">48 / 160 créditos</div></div>
+        <div class="carta-metrica amarillo"><div class="metrica-icono">💰</div><div class="metrica-etiqueta">Saldo pendiente</div><div class="metrica-valor">₡185K</div><div class="metrica-cambio negativo">▼ Vence 31 ene</div></div>
+      </div>
+
+      <div class="grid-2">
+        <!-- Cursos actuales -->
+        <div class="carta">
+          <div class="carta-cabecera">
+            <div><div class="carta-titulo">Mis cursos</div><div class="carta-subtitulo">I Semestre 2025</div></div>
+            <a href="../enrollment/mi-matricula.html" class="btn btn-secundario btn-sm">Ver matrícula</a>
+          </div>
+          <div class="carta-cuerpo" style="padding:0;">
+            <div style="padding:1rem 1.5rem;border-bottom:1px solid var(--gris-linea);">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div>
+                  <div style="font-size:.75rem;font-weight:700;color:var(--verde-principal);">IS-2201</div>
+                  <div style="font-weight:600;">Estructuras de Datos</div>
+                  <div class="texto-pequeno">L-Mi 7:00–9:00 · A-204</div>
+                </div>
+                <span class="badge badge-confirmado">4 créditos</span>
+              </div>
+            </div>
+            <div style="padding:1rem 1.5rem;border-bottom:1px solid var(--gris-linea);">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div>
+                  <div style="font-size:.75rem;font-weight:700;color:var(--verde-principal);">IS-2202</div>
+                  <div style="font-weight:600;">Base de Datos I</div>
+                  <div class="texto-pequeno">Ma-Ju 9:00–10:30 · Virtual</div>
+                </div>
+                <span class="badge badge-confirmado">3 créditos</span>
+              </div>
+            </div>
+            <div style="padding:1rem 1.5rem;border-bottom:1px solid var(--gris-linea);">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div>
+                  <div style="font-size:.75rem;font-weight:700;color:var(--verde-principal);">MAT-1501</div>
+                  <div style="font-weight:600;">Cálculo I</div>
+                  <div class="texto-pequeno">L-Mi-Vi 10:00–11:00 · B-201</div>
+                </div>
+                <span class="badge badge-confirmado">4 créditos</span>
+              </div>
+            </div>
+            <div style="padding:1rem 1.5rem;">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div>
+                  <div style="font-size:.75rem;font-weight:700;color:var(--verde-principal);">ING-1001</div>
+                  <div style="font-weight:600;">Inglés Técnico I</div>
+                  <div class="texto-pequeno">Vi 13:00–15:00 · A-105</div>
+                </div>
+                <span class="badge badge-confirmado">1 crédito</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notificaciones y accesos rápidos -->
+        <div style="display:flex;flex-direction:column;gap:1.25rem;">
+          <div class="carta">
+            <div class="carta-cabecera"><div class="carta-titulo">Notificaciones recientes</div><a href="../notifications/notificaciones-lista.html" class="btn btn-texto btn-sm">Ver todas</a></div>
+            <div style="padding:.5rem 0;">
+              <div style="padding:.875rem 1.5rem;display:flex;gap:.875rem;align-items:flex-start;border-bottom:1px solid var(--gris-linea);">
+                <span style="font-size:1.2rem;">💳</span>
+                <div>
+                  <div style="font-size:.875rem;font-weight:600;">Factura F-2025-00812 emitida</div>
+                  <div class="texto-pequeno">Monto: ₡185,000 — Vence 31/01/2025</div>
+                  <div class="texto-pequeno" style="margin-top:.125rem;color:var(--gris-suave);">hace 2 horas</div>
+                </div>
+              </div>
+              <div style="padding:.875rem 1.5rem;display:flex;gap:.875rem;align-items:flex-start;">
+                <span style="font-size:1.2rem;">✅</span>
+                <div>
+                  <div style="font-size:.875rem;font-weight:600;">Matrícula confirmada</div>
+                  <div class="texto-pequeno">Tu matrícula del I Semestre 2025 fue confirmada exitosamente.</div>
+                  <div class="texto-pequeno" style="margin-top:.125rem;color:var(--gris-suave);">ayer, 3:15 pm</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="carta">
+            <div class="carta-cabecera"><div class="carta-titulo">Acceso rápido</div></div>
+            <div class="carta-cuerpo" style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;">
+              <a href="../enrollment/buscar-cursos.html" style="display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:1rem;background:var(--gris-fondo);border-radius:var(--radio-borde);text-decoration:none;text-align:center;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background='var(--gris-fondo)'">
+                <span style="font-size:1.5rem;">🔍</span><span style="font-size:.8125rem;font-weight:600;color:var(--gris-oscuro);">Buscar cursos</span>
+              </a>
+              <a href="../billing/realizar-pago.html" style="display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:1rem;background:var(--gris-fondo);border-radius:var(--radio-borde);text-decoration:none;text-align:center;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background='var(--gris-fondo)'">
+                <span style="font-size:1.5rem;">💳</span><span style="font-size:.8125rem;font-weight:600;color:var(--gris-oscuro);">Realizar pago</span>
+              </a>
+              <a href="../enrollment/comprobante.html" style="display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:1rem;background:var(--gris-fondo);border-radius:var(--radio-borde);text-decoration:none;text-align:center;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background='var(--gris-fondo)'">
+                <span style="font-size:1.5rem;">🖨️</span><span style="font-size:.8125rem;font-weight:600;color:var(--gris-oscuro);">Comprobante</span>
+              </a>
+              <a href="../students/historial-academico.html" style="display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:1rem;background:var(--gris-fondo);border-radius:var(--radio-borde);text-decoration:none;text-align:center;" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background='var(--gris-fondo)'">
+                <span style="font-size:1.5rem;">📊</span><span style="font-size:.8125rem;font-weight:600;color:var(--gris-oscuro);">Historial</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+</body>
+</html>
