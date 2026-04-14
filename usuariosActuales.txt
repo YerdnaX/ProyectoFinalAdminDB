@@ -1,0 +1,10 @@
+Rol	Correo	Contraseña
+Administrador	laura.mora@universidad.ac.cr	Admin123!
+Finanzas	carlos.jimenez@universidad.ac.cr	Finanzas2026!
+Docente	andrea.solano@universidad.ac.cr	Docente2026!
+Docente	mario.rojas@universidad.ac.cr	Docente2026!
+Docente	sofia.vargas@universidad.ac.cr	Docente2026!
+Estudiante	jose.monge@estudiante.ac.cr	Estudiante2026!
+Estudiante	daniela.quesada@estudiante.ac.cr	Estudiante2026!
+Estudiante	kevin.araya@estudiante.ac.cr	Estudiante2026!
+Estudiante	valeria.chaves@estudiante.ac.cr	Estudiante2026!

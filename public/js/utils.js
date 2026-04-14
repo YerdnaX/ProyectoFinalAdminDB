@@ -88,19 +88,64 @@ function badgeEstado(estado) {
 
 window.U = { toast, showLoading, hideLoading, colones, initials, renderPaginacion, openModal, closeModal, badgeEstado };
 
-// ── Auto-inyectar info de usuario en navbar ────────────────────────────────
+// ── Auto-inyectar info de usuario en navbar + dropdown de sesión ───────────
 (function injectUserNav() {
-  const nomEl    = document.querySelector('.navbar-usuario-nombre');
-  const rolEl    = document.querySelector('.navbar-usuario-rol');
-  const avatarEl = document.querySelector('.avatar');
-  if (!nomEl && !rolEl && !avatarEl) return;
+  const usuarioEl = document.querySelector('.navbar-usuario');
+  if (!usuarioEl) return;
+
+  const nomEl    = usuarioEl.querySelector('.navbar-usuario-nombre');
+  const rolEl    = usuarioEl.querySelector('.navbar-usuario-rol');
+  const avatarEl = usuarioEl.querySelector('.avatar');
 
   axios.get('/api/auth/me').then(function (r) {
     if (!r.data.ok) return;
     const u = r.data.user;
-    const nombreCompleto = (u.nombre || '') + ' ' + (u.apellido || '');
-    if (nomEl)    nomEl.textContent    = nombreCompleto.trim();
+    const nombreCompleto = ((u.nombre || '') + ' ' + (u.apellido || '')).trim();
+
+    // Rellenar datos
+    if (nomEl)    nomEl.textContent    = nombreCompleto;
     if (rolEl)    rolEl.textContent    = u.rol || '';
     if (avatarEl) avatarEl.textContent = initials(nombreCompleto);
+
+    // Agregar chevron al botón
+    if (!usuarioEl.querySelector('.usuario-chevron')) {
+      const chevron = document.createElement('span');
+      chevron.className = 'usuario-chevron';
+      chevron.textContent = '▾';
+      usuarioEl.appendChild(chevron);
+    }
+
+    // Envolver en wrapper relativo (solo una vez)
+    if (!usuarioEl.closest('.usuario-menu-wrapper')) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'usuario-menu-wrapper';
+      usuarioEl.parentNode.insertBefore(wrapper, usuarioEl);
+      wrapper.appendChild(usuarioEl);
+
+      // Construir menú desplegable
+      const menu = document.createElement('div');
+      menu.className = 'usuario-menu';
+      menu.innerHTML =
+        '<div class="usuario-menu-info">' +
+          '<div class="usuario-menu-nombre">' + nombreCompleto + '</div>' +
+          '<div class="usuario-menu-rol">' + (u.rol || '') + '</div>' +
+        '</div>' +
+        '<div class="usuario-menu-divider"></div>' +
+        '<a href="/auth/logout" class="usuario-menu-item danger">🚪 Cerrar sesión</a>';
+      wrapper.appendChild(menu);
+
+      // Abrir / cerrar al hacer clic en el botón
+      usuarioEl.addEventListener('click', function (e) {
+        e.stopPropagation();
+        const abierto = menu.classList.toggle('abierto');
+        usuarioEl.classList.toggle('activo', abierto);
+      });
+
+      // Cerrar al hacer clic fuera
+      document.addEventListener('click', function () {
+        menu.classList.remove('abierto');
+        usuarioEl.classList.remove('activo');
+      });
+    }
   }).catch(function () {});
 })();
