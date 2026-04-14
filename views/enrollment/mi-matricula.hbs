@@ -1,40 +1,31 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mi Matrícula — Sistema de Matrícula</title>
-<link rel="stylesheet" href="../../css/styles.css">
-</head>
-<body>
 <div class="app-wrapper">
   <aside class="sidebar">
     <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Portal Estudiantil</div></div></div>
     <nav class="sidebar-nav">
       <div class="sidebar-seccion">General</div>
-      <a href="../students/dashboard-estudiante.html"><span class="icono">🏠</span> Mi portal</a>
+      <a href="/students"><span class="icono">🏠</span> Mi portal</a>
       <div class="sidebar-seccion">Matrícula</div>
-      <a href="buscar-cursos.html"><span class="icono">🔍</span> Buscar cursos</a>
-      <a href="mi-matricula.html" class="activo"><span class="icono">✏️</span> Mi matrícula</a>
-      <a href="comprobante.html"><span class="icono">🖨️</span> Comprobante</a>
+      <a href="/enrollment/buscar"><span class="icono">🔍</span> Buscar cursos</a>
+      <a href="/enrollment/mi-matricula" class="activo"><span class="icono">✏️</span> Mi matrícula</a>
+      <a href="/enrollment/comprobante"><span class="icono">🖨️</span> Comprobante</a>
       <div class="sidebar-seccion">Mi información</div>
-      <a href="../students/mi-perfil.html"><span class="icono">👤</span> Mi perfil</a>
-      <a href="../students/historial-academico.html"><span class="icono">📊</span> Historial académico</a>
+      <a href="/students/mi-perfil"><span class="icono">👤</span> Mi perfil</a>
+      <a href="/students/historial"><span class="icono">📊</span> Historial académico</a>
       <div class="sidebar-seccion">Finanzas</div>
-      <a href="../billing/estado-cuenta.html"><span class="icono">📄</span> Estado de cuenta</a>
-      <a href="../billing/mis-facturas.html"><span class="icono">🧾</span> Mis facturas</a>
-      <a href="../billing/realizar-pago.html"><span class="icono">💳</span> Realizar pago</a>
+      <a href="/billing/estado-cuenta"><span class="icono">📄</span> Estado de cuenta</a>
+      <a href="/billing/mis-facturas"><span class="icono">🧾</span> Mis facturas</a>
+      <a href="/billing/pagar"><span class="icono">💳</span> Realizar pago</a>
       <div class="sidebar-seccion">Comunicaciones</div>
-      <a href="../notifications/notificaciones-lista.html"><span class="icono">🔔</span> Notificaciones</a>
+      <a href="/notifications"><span class="icono">🔔</span> Notificaciones</a>
     </nav>
-    <div class="sidebar-footer"><a href="../auth/login.html">🚪 Cerrar sesión</a></div>
+    <div class="sidebar-footer"><a href="/auth/login">🚪 Cerrar sesión</a></div>
   </aside>
 
   <div class="contenido-principal">
     <header class="navbar">
       <div>
         <div class="navbar-titulo">Mi Matrícula</div>
-        <div class="navbar-breadcrumb"><a href="../students/dashboard-estudiante.html">Inicio</a><span class="separador"></span><span class="actual">Mi matrícula</span></div>
+        <div class="navbar-breadcrumb"><a href="/students">Inicio</a><span class="separador"></span><span class="actual">Mi matrícula</span></div>
       </div>
       <div class="navbar-acciones">
         <div class="navbar-usuario"><div class="avatar">LJ</div><div><div class="navbar-usuario-nombre">Laura Jiménez</div><div class="navbar-usuario-rol">Estudiante · 2024-0312</div></div></div>
@@ -56,79 +47,25 @@
 
           <div class="carta mb-4">
             <div class="carta-cabecera">
-              <div><div class="carta-titulo">Cursos seleccionados</div><div class="carta-subtitulo">I Semestre 2025 · 4 cursos · 12 créditos</div></div>
-              <a href="buscar-cursos.html" class="btn btn-secundario btn-sm">Modificar</a>
+              <div><div class="carta-titulo">Cursos seleccionados</div><div class="carta-subtitulo" id="sub-matricula">Cargando…</div></div>
+              <a href="/enrollment/buscar" class="btn btn-secundario btn-sm">Modificar</a>
             </div>
             <div class="tabla-contenedor">
               <table class="tabla">
                 <thead><tr><th>Código</th><th>Curso</th><th>Sección</th><th>Horario</th><th>Créditos</th><th>Costo</th><th></th></tr></thead>
-                <tbody>
-                  <tr>
-                    <td><span style="font-family:monospace;color:var(--verde-principal);font-weight:700;">IS-2201</span></td>
-                    <td><div class="nombre-principal">Estructuras de Datos</div><div class="detalle-secundario">Dr. Carlos Ugalde</div></td>
-                    <td>01</td>
-                    <td class="texto-muted">L-Mi 7:00–9:00</td>
-                    <td><span style="font-weight:700;">4</span></td>
-                    <td style="font-weight:600;">₡56,000</td>
-                    <td><button class="btn btn-texto btn-sm" style="color:var(--rojo-peligro);">✕</button></td>
-                  </tr>
-                  <tr>
-                    <td><span style="font-family:monospace;color:var(--verde-principal);font-weight:700;">IS-2202</span></td>
-                    <td><div class="nombre-principal">Base de Datos I</div><div class="detalle-secundario">Ing. Manuel Salas</div></td>
-                    <td>01</td>
-                    <td class="texto-muted">Ma-Ju 9:00–10:30</td>
-                    <td><span style="font-weight:700;">3</span></td>
-                    <td style="font-weight:600;">₡42,000</td>
-                    <td><button class="btn btn-texto btn-sm" style="color:var(--rojo-peligro);">✕</button></td>
-                  </tr>
-                  <tr>
-                    <td><span style="font-family:monospace;color:var(--verde-principal);font-weight:700;">MAT-1501</span></td>
-                    <td><div class="nombre-principal">Cálculo I</div><div class="detalle-secundario">Dra. Elena Mora</div></td>
-                    <td>02</td>
-                    <td class="texto-muted">L-Mi-Vi 10:00–11:00</td>
-                    <td><span style="font-weight:700;">4</span></td>
-                    <td style="font-weight:600;">₡56,000</td>
-                    <td><button class="btn btn-texto btn-sm" style="color:var(--rojo-peligro);">✕</button></td>
-                  </tr>
-                  <tr>
-                    <td><span style="font-family:monospace;color:var(--verde-principal);font-weight:700;">ING-1001</span></td>
-                    <td><div class="nombre-principal">Inglés Técnico I</div><div class="detalle-secundario">Prof. Andrea Castro</div></td>
-                    <td>05</td>
-                    <td class="texto-muted">Vi 13:00–15:00</td>
-                    <td><span style="font-weight:700;">1</span></td>
-                    <td style="font-weight:600;">₡14,000</td>
-                    <td><button class="btn btn-texto btn-sm" style="color:var(--rojo-peligro);">✕</button></td>
-                  </tr>
+                <tbody id="tbody-matricula">
+                  <tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando…</td></tr>
                 </tbody>
               </table>
             </div>
           </div>
 
-          <!-- Validaciones OK -->
+          <!-- Validaciones -->
           <div class="carta">
             <div class="carta-cabecera"><div class="carta-titulo">Validaciones del sistema</div></div>
             <div class="carta-cuerpo">
-              <div style="display:flex;flex-direction:column;gap:.75rem;">
-                <div style="display:flex;align-items:center;gap:.875rem;font-size:.9rem;">
-                  <span style="color:var(--cyan-exito);font-size:1.25rem;">✅</span>
-                  <span>Todos los prerrequisitos cumplidos</span>
-                </div>
-                <div style="display:flex;align-items:center;gap:.875rem;font-size:.9rem;">
-                  <span style="color:var(--cyan-exito);font-size:1.25rem;">✅</span>
-                  <span>Sin conflictos de horario detectados</span>
-                </div>
-                <div style="display:flex;align-items:center;gap:.875rem;font-size:.9rem;">
-                  <span style="color:var(--cyan-exito);font-size:1.25rem;">✅</span>
-                  <span>Cupos disponibles en todas las secciones</span>
-                </div>
-                <div style="display:flex;align-items:center;gap:.875rem;font-size:.9rem;">
-                  <span style="color:var(--cyan-exito);font-size:1.25rem;">✅</span>
-                  <span>Créditos dentro del límite (12 / 20)</span>
-                </div>
-                <div style="display:flex;align-items:center;gap:.875rem;font-size:.9rem;">
-                  <span style="color:var(--amarillo-alerta);font-size:1.25rem;">⚠️</span>
-                  <span>Tienes un saldo pendiente de <strong>₡185,000</strong>. Deberás pagarlo para confirmar la matrícula.</span>
-                </div>
+              <div id="validaciones-lista" style="display:flex;flex-direction:column;gap:.75rem;">
+                <div style="text-align:center;color:var(--gris-suave);">Cargando validaciones…</div>
               </div>
             </div>
           </div>
@@ -174,8 +111,9 @@
 
           <div class="carta">
             <div class="carta-cuerpo">
-              <a href="../billing/realizar-pago.html" class="btn btn-primario w-full btn-lg mb-2">Proceder al pago</a>
-              <a href="buscar-cursos.html" class="btn btn-secundario w-full" style="display:flex;align-items:center;justify-content:center;">← Modificar selección</a>
+              <button id="btn-confirmar" class="btn btn-primario w-full btn-lg mb-2">Confirmar matrícula</button>
+              <span id="estado-matricula" style="display:block;text-align:center;font-size:.8rem;color:var(--gris-suave);margin-bottom:.75rem;"></span>
+              <a href="/enrollment/buscar" class="btn btn-secundario w-full" style="display:flex;align-items:center;justify-content:center;">← Modificar selección</a>
             </div>
           </div>
         </div>
@@ -183,5 +121,6 @@
     </main>
   </div>
 </div>
-</body>
-</html>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/enrollment-matricula.js"></script>

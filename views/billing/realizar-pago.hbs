@@ -1,40 +1,31 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Realizar Pago — Sistema de Matrícula</title>
-<link rel="stylesheet" href="../../css/styles.css">
-</head>
-<body>
 <div class="app-wrapper">
   <aside class="sidebar">
     <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Portal Estudiantil</div></div></div>
     <nav class="sidebar-nav">
       <div class="sidebar-seccion">General</div>
-      <a href="../students/dashboard-estudiante.html"><span class="icono">🏠</span> Mi portal</a>
+      <a href="/students"><span class="icono">🏠</span> Mi portal</a>
       <div class="sidebar-seccion">Matrícula</div>
-      <a href="buscar-cursos.html"><span class="icono">🔍</span> Buscar cursos</a>
-      <a href="../enrollment/mi-matricula.html"><span class="icono">✏️</span> Mi matrícula</a>
-      <a href="../enrollment/comprobante.html"><span class="icono">🖨️</span> Comprobante</a>
+      <a href="/enrollment/buscar"><span class="icono">🔍</span> Buscar cursos</a>
+      <a href="/enrollment/mi-matricula"><span class="icono">✏️</span> Mi matrícula</a>
+      <a href="/enrollment/comprobante"><span class="icono">🖨️</span> Comprobante</a>
       <div class="sidebar-seccion">Mi información</div>
-      <a href="../students/mi-perfil.html"><span class="icono">👤</span> Mi perfil</a>
-      <a href="../students/historial-academico.html"><span class="icono">📊</span> Historial académico</a>
+      <a href="/students/mi-perfil"><span class="icono">👤</span> Mi perfil</a>
+      <a href="/students/historial"><span class="icono">📊</span> Historial académico</a>
       <div class="sidebar-seccion">Finanzas</div>
-      <a href="estado-cuenta.html"><span class="icono">📄</span> Estado de cuenta</a>
-      <a href="mis-facturas.html"><span class="icono">🧾</span> Mis facturas</a>
-      <a href="realizar-pago.html" class="activo"><span class="icono">💳</span> Realizar pago</a>
+      <a href="/billing/estado-cuenta"><span class="icono">📄</span> Estado de cuenta</a>
+      <a href="/billing/mis-facturas"><span class="icono">🧾</span> Mis facturas</a>
+      <a href="/billing/pagar" class="activo"><span class="icono">💳</span> Realizar pago</a>
       <div class="sidebar-seccion">Comunicaciones</div>
-      <a href="../notifications/notificaciones-lista.html"><span class="icono">🔔</span> Notificaciones</a>
+      <a href="/notifications"><span class="icono">🔔</span> Notificaciones</a>
     </nav>
-    <div class="sidebar-footer"><a href="../auth/login.html">🚪 Cerrar sesión</a></div>
+    <div class="sidebar-footer"><a href="/auth/login">🚪 Cerrar sesión</a></div>
   </aside>
 
   <div class="contenido-principal">
     <header class="navbar">
       <div>
         <div class="navbar-titulo">Realizar Pago</div>
-        <div class="navbar-breadcrumb"><a href="../students/dashboard-estudiante.html">Inicio</a><span class="separador"></span><span class="actual">Realizar pago</span></div>
+        <div class="navbar-breadcrumb"><a href="/students">Inicio</a><span class="separador"></span><span class="actual">Realizar pago</span></div>
       </div>
       <div class="navbar-acciones">
         <div class="navbar-usuario"><div class="avatar">LJ</div><div><div class="navbar-usuario-nombre">Laura Jiménez</div><div class="navbar-usuario-rol">Estudiante · 2024-0312</div></div></div>
@@ -43,111 +34,64 @@
 
     <main class="area-pagina">
       <div class="encabezado-pagina">
-        <div><h1>Realizar pago</h1><p>Factura F-2025-00812 — Vence el 31 de enero de 2025</p></div>
+        <div><h1>Realizar pago</h1><p>Selecciona una factura pendiente y completa el formulario.</p></div>
       </div>
 
-      <div style="display:grid;grid-template-columns:1fr 360px;gap:1.5rem;">
+      <div style="display:grid;grid-template-columns:1fr 380px;gap:1.5rem;">
+        <!-- Facturas pendientes -->
         <div>
-          <!-- Detalle de la factura -->
           <div class="carta mb-4">
-            <div class="carta-cabecera"><div class="carta-titulo">Detalle de factura</div><span class="badge badge-pendiente">Pendiente de pago</span></div>
-            <div class="carta-cuerpo">
-              <div style="display:flex;flex-direction:column;gap:.625rem;font-size:.9rem;">
-                <div class="flex-entre"><span class="texto-gris">N.° de factura</span><span style="font-family:monospace;font-weight:700;">F-2025-00812</span></div>
-                <div class="flex-entre"><span class="texto-gris">Periodo</span><span>I Semestre 2025</span></div>
-                <div class="flex-entre"><span class="texto-gris">Fecha de emisión</span><span>22 de enero de 2025</span></div>
-                <div class="flex-entre"><span class="texto-gris">Fecha límite</span><span style="color:var(--rojo-peligro);font-weight:600;">31 de enero de 2025</span></div>
-                <hr class="divisor">
-                <div class="flex-entre"><span class="texto-gris">Subtotal</span><span>₡168,000</span></div>
-                <div class="flex-entre"><span class="texto-gris">Recargo administrativo</span><span>₡17,000</span></div>
-                <div class="flex-entre"><span class="texto-gris">Descuentos</span><span style="color:var(--cyan-exito);">−₡0</span></div>
-                <hr class="divisor">
-                <div class="flex-entre" style="font-size:1.125rem;"><strong>Total</strong><strong style="color:var(--verde-principal);">₡185,000</strong></div>
-              </div>
+            <div class="carta-cabecera"><div class="carta-titulo">Facturas pendientes</div></div>
+            <div class="tabla-contenedor">
+              <table class="tabla">
+                <thead><tr><th>N.° Factura</th><th>Periodo</th><th>Total</th><th>Saldo</th><th>Estado</th></tr></thead>
+                <tbody id="tbody-facturas-pend">
+                  <tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando…</td></tr>
+                </tbody>
+              </table>
             </div>
           </div>
 
-          <!-- Método de pago -->
-          <div class="carta mb-4">
-            <div class="carta-cabecera"><div class="carta-titulo">Selecciona método de pago</div></div>
-            <div class="carta-cuerpo">
-              <div style="display:flex;flex-direction:column;gap:.875rem;">
-                <label style="display:flex;align-items:center;gap:1rem;padding:1rem;border:1.5px solid var(--verde-principal);border-radius:var(--radio-borde);cursor:pointer;background:var(--verde-bg);">
-                  <input type="radio" name="metodo" checked style="accent-color:var(--verde-principal);">
-                  <span style="font-size:1.25rem;">💳</span>
-                  <div><div style="font-weight:600;">Tarjeta de crédito / débito</div><div class="texto-pequeno">VISA, Mastercard, American Express</div></div>
-                </label>
-                <label style="display:flex;align-items:center;gap:1rem;padding:1rem;border:1.5px solid var(--gris-borde);border-radius:var(--radio-borde);cursor:pointer;">
-                  <input type="radio" name="metodo" style="accent-color:var(--verde-principal);">
-                  <span style="font-size:1.25rem;">🏦</span>
-                  <div><div style="font-weight:600;">Transferencia bancaria</div><div class="texto-pequeno">SINPE Móvil o transferencia a cuenta institucional</div></div>
-                </label>
-                <label style="display:flex;align-items:center;gap:1rem;padding:1rem;border:1.5px solid var(--gris-borde);border-radius:var(--radio-borde);cursor:pointer;">
-                  <input type="radio" name="metodo" style="accent-color:var(--verde-principal);">
-                  <span style="font-size:1.25rem;">🏢</span>
-                  <div><div style="font-weight:600;">Pago en caja</div><div class="texto-pequeno">Presencial, Lunes a Viernes 8:00 am – 4:00 pm</div></div>
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <!-- Datos de tarjeta -->
-          <div class="carta">
-            <div class="carta-cabecera"><div class="carta-titulo">Datos de la tarjeta</div></div>
-            <div class="carta-cuerpo">
-              <div class="alerta alerta-info mb-3">
-                <span>🔒</span><span>Tu información es procesada de forma segura mediante encriptación SSL. No almacenamos datos de tarjetas.</span>
-              </div>
-              <div class="campo">
-                <label>Número de tarjeta <span class="requerido">*</span></label>
-                <input class="campo-input" type="text" placeholder="0000  0000  0000  0000" maxlength="19">
-              </div>
-              <div class="campo">
-                <label>Nombre en la tarjeta <span class="requerido">*</span></label>
-                <input class="campo-input" type="text" placeholder="Como aparece en la tarjeta">
-              </div>
-              <div class="campo-fila">
-                <div class="campo">
-                  <label>Fecha de expiración <span class="requerido">*</span></label>
-                  <input class="campo-input" type="text" placeholder="MM / AA" maxlength="7">
-                </div>
-                <div class="campo">
-                  <label>CVV <span class="requerido">*</span></label>
-                  <input class="campo-input" type="text" placeholder="000" maxlength="4">
-                  <span class="campo-ayuda">3 o 4 dígitos al reverso.</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div id="comprobante-resultado" style="display:none;"></div>
         </div>
 
-        <!-- Panel de confirmación -->
+        <!-- Formulario de pago -->
         <div>
           <div class="carta" style="position:sticky;top:80px;">
-            <div class="carta-cabecera"><div class="carta-titulo">Confirmar pago</div></div>
-            <div class="carta-cuerpo">
-              <div style="text-align:center;padding:1.5rem 0;">
-                <div style="font-size:.875rem;color:var(--gris-suave);margin-bottom:.375rem;">Monto a pagar</div>
-                <div style="font-size:2.5rem;font-weight:700;color:var(--verde-principal);">₡185,000</div>
-                <div class="texto-pequeno" style="margin-top:.375rem;">Factura F-2025-00812</div>
+            <div class="carta-cabecera"><div class="carta-titulo">Procesar pago</div></div>
+            <form id="form-pagar" class="carta-cuerpo" style="display:flex;flex-direction:column;gap:1rem;">
+              <div class="campo" style="margin:0;">
+                <label>Factura <span class="requerido">*</span></label>
+                <select id="sel-factura" name="id_factura" class="campo-input" required>
+                  <option value="">Cargando…</option>
+                </select>
               </div>
-              <hr class="divisor">
-              <div style="font-size:.875rem;display:flex;flex-direction:column;gap:.625rem;margin-bottom:1.25rem;">
-                <div class="flex-entre"><span class="texto-gris">Estudiante:</span><span class="semibold">Laura Jiménez</span></div>
-                <div class="flex-entre"><span class="texto-gris">Carné:</span><span class="semibold">2024-0312</span></div>
-                <div class="flex-entre"><span class="texto-gris">Método:</span><span class="semibold">Tarjeta</span></div>
+              <div class="campo" style="margin:0;">
+                <label>Monto a pagar <span class="requerido">*</span></label>
+                <input id="inp-monto" name="monto" class="campo-input" type="number" step="0.01" min="1" required placeholder="0.00">
               </div>
-              <label class="campo-checkbox mb-3">
-                <input type="checkbox"> Acepto los términos de la pasarela de pago institucional.
-              </label>
-              <button class="btn btn-primario w-full btn-lg" style="margin-bottom:.75rem;">🔒 Pagar ₡185,000</button>
-              <a href="../enrollment/mi-matricula.html" class="btn btn-secundario w-full" style="display:flex;align-items:center;justify-content:center;">← Regresar</a>
-            </div>
+              <div class="campo" style="margin:0;">
+                <label>Método de pago <span class="requerido">*</span></label>
+                <select id="sel-metodo" name="metodo_pago" class="campo-input" required>
+                  <option value="">Seleccionar…</option>
+                  <option value="Tarjeta">💳 Tarjeta</option>
+                  <option value="Transferencia">🏦 Transferencia</option>
+                  <option value="SINPE">📱 SINPE</option>
+                  <option value="Efectivo">🏢 Efectivo / Caja</option>
+                </select>
+              </div>
+              <div class="alerta alerta-info" style="font-size:.8rem;">
+                <span>🔒</span><span>Los pagos son registrados y procesados de forma segura.</span>
+              </div>
+              <button type="submit" class="btn btn-primario w-full btn-lg">🔒 Confirmar pago</button>
+              <a href="/billing/estado-cuenta" class="btn btn-secundario w-full" style="display:flex;align-items:center;justify-content:center;">← Ver estado de cuenta</a>
+            </form>
           </div>
         </div>
       </div>
     </main>
   </div>
 </div>
-</body>
-</html>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/billing-pagar.js"></script>

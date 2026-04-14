@@ -1,12 +1,3 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard Administrativo — Sistema de Matrícula</title>
-<link rel="stylesheet" href="../../css/styles.css">
-</head>
-<body>
 <div class="app-wrapper">
 
   <!-- Sidebar -->
@@ -17,30 +8,30 @@
     </div>
     <nav class="sidebar-nav">
       <div class="sidebar-seccion">General</div>
-      <a href="dashboard-admin.html" class="activo"><span class="icono">📊</span> Dashboard</a>
+      <a href="/admin" class="activo"><span class="icono">📊</span> Dashboard</a>
       <div class="sidebar-seccion">Usuarios</div>
-      <a href="usuarios-lista.html"><span class="icono">👥</span> Usuarios</a>
-      <a href="roles-permisos.html"><span class="icono">🔐</span> Roles y permisos</a>
+      <a href="/admin/usuarios"><span class="icono">👥</span> Usuarios</a>
+      <a href="/admin/roles-permisos"><span class="icono">🔐</span> Roles y permisos</a>
       <div class="sidebar-seccion">Académico</div>
-      <a href="../academic/programas-lista.html"><span class="icono">🏛️</span> Programas académicos</a>
-      <a href="../academic/planes-lista.html"><span class="icono">📋</span> Planes de estudio</a>
-      <a href="../academic/cursos-lista.html"><span class="icono">📚</span> Cursos</a>
-      <a href="../academic/periodos-lista.html"><span class="icono">📅</span> Periodos académicos</a>
+      <a href="/academic/programas"><span class="icono">🏛️</span> Programas académicos</a>
+      <a href="/academic/planes"><span class="icono">📋</span> Planes de estudio</a>
+      <a href="/academic/cursos"><span class="icono">📚</span> Cursos</a>
+      <a href="/academic/periodos"><span class="icono">📅</span> Periodos académicos</a>
       <div class="sidebar-seccion">Oferta</div>
-      <a href="../academic/secciones-lista.html"><span class="icono">🗂️</span> Secciones</a>
-      <a href="../academic/aulas-lista.html"><span class="icono">🏫</span> Aulas</a>
+      <a href="/academic/secciones"><span class="icono">🗂️</span> Secciones</a>
+      <a href="/academic/aulas"><span class="icono">🏫</span> Aulas</a>
       <div class="sidebar-seccion">Estudiantes</div>
-      <a href="../students/estudiantes-lista.html"><span class="icono">🎓</span> Estudiantes</a>
-      <a href="../enrollment/matriculas-lista.html"><span class="icono">✏️</span> Matrículas</a>
+      <a href="/students/lista"><span class="icono">🎓</span> Estudiantes</a>
+      <a href="/enrollment/lista"><span class="icono">✏️</span> Matrículas</a>
       <div class="sidebar-seccion">Finanzas</div>
-      <a href="../billing/facturas-lista.html"><span class="icono">🧾</span> Facturas</a>
-      <a href="../billing/pagos-lista.html"><span class="icono">💳</span> Pagos</a>
+      <a href="/billing/facturas"><span class="icono">🧾</span> Facturas</a>
+      <a href="/billing/pagos"><span class="icono">💳</span> Pagos</a>
       <div class="sidebar-seccion">Sistema</div>
-      <a href="../notifications/notificaciones-lista.html"><span class="icono">🔔</span> Notificaciones</a>
-      <a href="../reports/reportes.html"><span class="icono">📈</span> Reportes</a>
-      <a href="../audit/bitacora.html"><span class="icono">🔍</span> Bitácora</a>
+      <a href="/notifications"><span class="icono">🔔</span> Notificaciones</a>
+      <a href="/reports"><span class="icono">📈</span> Reportes</a>
+      <a href="/audit"><span class="icono">🔍</span> Bitácora</a>
     </nav>
-    <div class="sidebar-footer"><a href="../auth/login.html">🚪 Cerrar sesión</a></div>
+    <div class="sidebar-footer"><a href="/auth/login">🚪 Cerrar sesión</a></div>
   </aside>
 
   <!-- Contenido -->
@@ -61,9 +52,9 @@
 
     <main class="area-pagina">
       <!-- Alerta período activo -->
-      <div class="alerta alerta-verde mb-4">
+      <div id="alerta-periodo" class="alerta alerta-verde mb-4">
         <span class="alerta-icono">📅</span>
-        <div><span class="alerta-titulo">Período académico activo:</span> I Semestre 2025 — Matrícula abierta hasta el 28 de enero de 2025.</div>
+        <div><span class="alerta-titulo">Período académico activo:</span> <span id="periodo-alerta">Cargando…</span></div>
       </div>
 
       <!-- Métricas -->
@@ -71,38 +62,33 @@
         <div class="carta-metrica">
           <div class="metrica-icono">🎓</div>
           <div class="metrica-etiqueta">Estudiantes activos</div>
-          <div class="metrica-valor">3,842</div>
-          <div class="metrica-cambio positivo">▲ 5.2% vs período anterior</div>
+          <div class="metrica-valor" id="met-estudiantes">—</div>
         </div>
         <div class="carta-metrica">
           <div class="metrica-icono">✏️</div>
           <div class="metrica-etiqueta">Matrículas confirmadas</div>
-          <div class="metrica-valor">2,619</div>
-          <div class="metrica-cambio positivo">▲ 68.2% del total</div>
+          <div class="metrica-valor" id="met-confirmadas">—</div>
         </div>
         <div class="carta-metrica azul">
           <div class="metrica-icono">📚</div>
           <div class="metrica-etiqueta">Secciones ofertadas</div>
-          <div class="metrica-valor">187</div>
-          <div class="metrica-cambio positivo">▲ 12 nuevas</div>
+          <div class="metrica-valor" id="met-secciones">—</div>
         </div>
         <div class="carta-metrica amarillo">
           <div class="metrica-icono">💳</div>
           <div class="metrica-etiqueta">Pagos pendientes</div>
-          <div class="metrica-valor">843</div>
-          <div class="metrica-cambio negativo">▼ Requiere atención</div>
+          <div class="metrica-valor" id="met-pagos-pend">—</div>
         </div>
         <div class="carta-metrica">
           <div class="metrica-icono">💰</div>
           <div class="metrica-etiqueta">Recaudación período</div>
-          <div class="metrica-valor">₡482M</div>
-          <div class="metrica-cambio positivo">▲ 8.1% vs meta</div>
+          <div class="metrica-valor" id="met-recaudacion">—</div>
         </div>
         <div class="carta-metrica rojo">
           <div class="metrica-icono">🚫</div>
           <div class="metrica-etiqueta">Estudiantes bloqueados</div>
-          <div class="metrica-valor">124</div>
-          <div class="metrica-cambio negativo">▼ 89 financiero / 35 académico</div>
+          <div class="metrica-valor" id="met-bloqueados">—</div>
+          <div class="metrica-cambio negativo" id="met-block-fin"></div>
         </div>
       </div>
 
@@ -111,79 +97,42 @@
         <!-- Actividad reciente -->
         <div class="carta">
           <div class="carta-cabecera">
-            <div><div class="carta-titulo">Actividad reciente</div><div class="carta-subtitulo">Últimas 24 horas</div></div>
-            <a href="../audit/bitacora.html" class="btn btn-secundario btn-sm">Ver todo</a>
+            <div><div class="carta-titulo">Actividad reciente</div><div class="carta-subtitulo">Últimas acciones del sistema</div></div>
+            <a href="/audit" class="btn btn-secundario btn-sm">Ver todo</a>
           </div>
-          <div class="carta-cuerpo" style="padding:0;">
-            <div style="padding:1rem 1.5rem;display:flex;gap:1rem;align-items:flex-start;border-bottom:1px solid var(--gris-linea);">
-              <div style="width:36px;height:36px;border-radius:50%;background:var(--verde-bg-alt);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">✏️</div>
-              <div>
-                <div style="font-size:.875rem;font-weight:600;">Matrícula confirmada</div>
-                <div class="texto-pequeno">Laura Jiménez (2024-0312) — 4 cursos, 16 créditos</div>
-                <div class="texto-pequeno" style="margin-top:.25rem;color:var(--gris-suave);">hace 12 minutos</div>
-              </div>
-            </div>
-            <div style="padding:1rem 1.5rem;display:flex;gap:1rem;align-items:flex-start;border-bottom:1px solid var(--gris-linea);">
-              <div style="width:36px;height:36px;border-radius:50%;background:var(--azul-info-bg);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">👤</div>
-              <div>
-                <div style="font-size:.875rem;font-weight:600;">Nuevo usuario creado</div>
-                <div class="texto-pequeno">Dr. Carlos Ugalde — Docente / Ingeniería en Sistemas</div>
-                <div class="texto-pequeno" style="margin-top:.25rem;color:var(--gris-suave);">hace 45 minutos</div>
-              </div>
-            </div>
-            <div style="padding:1rem 1.5rem;display:flex;gap:1rem;align-items:flex-start;border-bottom:1px solid var(--gris-linea);">
-              <div style="width:36px;height:36px;border-radius:50%;background:var(--amarillo-alerta-bg);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">💳</div>
-              <div>
-                <div style="font-size:.875rem;font-weight:600;">Pago registrado</div>
-                <div class="texto-pequeno">Factura F-2025-08812 — ₡185,000</div>
-                <div class="texto-pequeno" style="margin-top:.25rem;color:var(--gris-suave);">hace 1 hora</div>
-              </div>
-            </div>
-            <div style="padding:1rem 1.5rem;display:flex;gap:1rem;align-items:flex-start;">
-              <div style="width:36px;height:36px;border-radius:50%;background:var(--rojo-peligro-bg);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">🚫</div>
-              <div>
-                <div style="font-size:.875rem;font-weight:600;">Bloqueo financiero activado</div>
-                <div class="texto-pequeno">Roberto Solano (2023-1145) — Saldo pendiente ₡420,000</div>
-                <div class="texto-pequeno" style="margin-top:.25rem;color:var(--gris-suave);">hace 2 horas</div>
-              </div>
-            </div>
+          <div class="carta-cuerpo" style="padding:0;" id="actividad-reciente">
+            <div style="padding:2rem;text-align:center;color:var(--gris-suave);">Cargando…</div>
           </div>
         </div>
 
         <!-- Estado de matrícula -->
         <div class="carta">
           <div class="carta-cabecera">
-            <div><div class="carta-titulo">Estado de matrícula</div><div class="carta-subtitulo">I Semestre 2025</div></div>
-            <a href="../enrollment/matriculas-lista.html" class="btn btn-secundario btn-sm">Ver matrículas</a>
+            <div><div class="carta-titulo">Estado de matrícula</div><div class="carta-subtitulo">Período activo</div></div>
+            <a href="/enrollment/lista" class="btn btn-secundario btn-sm">Ver matrículas</a>
           </div>
           <div class="carta-cuerpo">
             <div style="margin-bottom:1.25rem;">
               <div style="display:flex;justify-content:space-between;font-size:.875rem;margin-bottom:.5rem;">
-                <span>Confirmadas</span><span style="font-weight:700;color:var(--verde-principal);">2,619 (68.2%)</span>
+                <span>Confirmadas</span><span id="mat-conf-label" style="font-weight:700;color:var(--verde-principal);">—</span>
               </div>
-              <div class="progreso-contenedor"><div class="progreso-barra" style="width:68%;"></div></div>
+              <div class="progreso-contenedor"><div class="progreso-barra" id="mat-conf-bar" style="width:0%;"></div></div>
             </div>
             <div style="margin-bottom:1.25rem;">
               <div style="display:flex;justify-content:space-between;font-size:.875rem;margin-bottom:.5rem;">
-                <span>En proceso</span><span style="font-weight:700;color:var(--amarillo-alerta);">842 (21.9%)</span>
+                <span>En proceso</span><span id="mat-pend-label" style="font-weight:700;color:var(--amarillo-alerta);">—</span>
               </div>
-              <div class="progreso-contenedor"><div class="progreso-barra amarillo" style="width:22%;"></div></div>
-            </div>
-            <div style="margin-bottom:1.25rem;">
-              <div style="display:flex;justify-content:space-between;font-size:.875rem;margin-bottom:.5rem;">
-                <span>Sin matrícula</span><span style="font-weight:700;color:var(--rojo-peligro);">381 (9.9%)</span>
-              </div>
-              <div class="progreso-contenedor"><div class="progreso-barra rojo" style="width:10%;"></div></div>
+              <div class="progreso-contenedor"><div class="progreso-barra amarillo" id="mat-pend-bar" style="width:0%;"></div></div>
             </div>
             <hr class="divisor">
             <div class="grid-2">
               <div style="text-align:center;padding:1rem;background:var(--gris-fondo);border-radius:var(--radio-borde);">
-                <div style="font-size:1.5rem;font-weight:700;color:var(--gris-oscuro);">187</div>
+                <div id="met-sec2" style="font-size:1.5rem;font-weight:700;color:var(--gris-oscuro);">—</div>
                 <div class="texto-pequeno">Secciones activas</div>
               </div>
               <div style="text-align:center;padding:1rem;background:var(--verde-bg);border-radius:var(--radio-borde);">
-                <div style="font-size:1.5rem;font-weight:700;color:var(--verde-principal);">94.2%</div>
-                <div class="texto-pequeno">Ocupación promedio</div>
+                <div id="met-pagos2" style="font-size:1.5rem;font-weight:700;color:var(--verde-principal);">—</div>
+                <div class="texto-pequeno">Facturas pendientes</div>
               </div>
             </div>
           </div>
@@ -195,19 +144,19 @@
         <div class="carta-cabecera"><div class="carta-titulo">Accesos rápidos</div></div>
         <div class="carta-cuerpo">
           <div class="grid-4">
-            <a href="usuarios-lista.html" style="display:flex;flex-direction:column;align-items:center;gap:.75rem;padding:1.25rem;background:var(--gris-fondo);border-radius:var(--radio-borde);text-decoration:none;transition:background var(--trans-base);" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background='var(--gris-fondo)'">
+            <a href="/admin/usuarios" style="display:flex;flex-direction:column;align-items:center;gap:.75rem;padding:1.25rem;background:var(--gris-fondo);border-radius:var(--radio-borde);text-decoration:none;transition:background var(--trans-base);" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background='var(--gris-fondo)'">
               <span style="font-size:2rem;">👥</span>
               <span style="font-size:.875rem;font-weight:600;color:var(--gris-oscuro);">Gestionar usuarios</span>
             </a>
-            <a href="../academic/periodos-lista.html" style="display:flex;flex-direction:column;align-items:center;gap:.75rem;padding:1.25rem;background:var(--gris-fondo);border-radius:var(--radio-borde);text-decoration:none;transition:background var(--trans-base);" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background='var(--gris-fondo)'">
+            <a href="/academic/periodos" style="display:flex;flex-direction:column;align-items:center;gap:.75rem;padding:1.25rem;background:var(--gris-fondo);border-radius:var(--radio-borde);text-decoration:none;transition:background var(--trans-base);" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background='var(--gris-fondo)'">
               <span style="font-size:2rem;">📅</span>
               <span style="font-size:.875rem;font-weight:600;color:var(--gris-oscuro);">Periodos académicos</span>
             </a>
-            <a href="../reports/reportes.html" style="display:flex;flex-direction:column;align-items:center;gap:.75rem;padding:1.25rem;background:var(--gris-fondo);border-radius:var(--radio-borde);text-decoration:none;transition:background var(--trans-base);" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background='var(--gris-fondo)'">
+            <a href="/reports" style="display:flex;flex-direction:column;align-items:center;gap:.75rem;padding:1.25rem;background:var(--gris-fondo);border-radius:var(--radio-borde);text-decoration:none;transition:background var(--trans-base);" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background='var(--gris-fondo)'">
               <span style="font-size:2rem;">📈</span>
               <span style="font-size:.875rem;font-weight:600;color:var(--gris-oscuro);">Generar reportes</span>
             </a>
-            <a href="../audit/bitacora.html" style="display:flex;flex-direction:column;align-items:center;gap:.75rem;padding:1.25rem;background:var(--gris-fondo);border-radius:var(--radio-borde);text-decoration:none;transition:background var(--trans-base);" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background='var(--gris-fondo)'">
+            <a href="/audit" style="display:flex;flex-direction:column;align-items:center;gap:.75rem;padding:1.25rem;background:var(--gris-fondo);border-radius:var(--radio-borde);text-decoration:none;transition:background var(--trans-base);" onmouseover="this.style.background='var(--verde-bg)'" onmouseout="this.style.background='var(--gris-fondo)'">
               <span style="font-size:2rem;">🔍</span>
               <span style="font-size:.875rem;font-weight:600;color:var(--gris-oscuro);">Bitácora auditoría</span>
             </a>
@@ -217,5 +166,22 @@
     </main>
   </div>
 </div>
-</body>
-</html>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/js/utils.js"></script>
+<script>
+  // Alias extra para elementos duplicados en la misma página
+  document.addEventListener('DOMContentLoaded', () => {
+    const s2 = document.getElementById('met-sec2');
+    const p2 = document.getElementById('met-pagos2');
+    // Se rellenan después de que admin-dashboard.js actualice met-secciones / met-pagos-pend
+    const obs = new MutationObserver(() => {
+      if (s2) s2.textContent = document.getElementById('met-secciones')?.textContent || '—';
+      if (p2) p2.textContent = document.getElementById('met-pagos-pend')?.textContent || '—';
+    });
+    const src1 = document.getElementById('met-secciones');
+    const src2 = document.getElementById('met-pagos-pend');
+    if (src1) obs.observe(src1, { childList: true, subtree: true, characterData: true });
+    if (src2) obs.observe(src2, { childList: true, subtree: true, characterData: true });
+  });
+</script>
+<script src="/js/admin-dashboard.js"></script>

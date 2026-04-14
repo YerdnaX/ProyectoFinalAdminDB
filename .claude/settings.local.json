@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node _refactor.js)",
+      "Bash(node -e ':*)",
+      "Bash(del \"c:\\\\Users\\\\yerdn\\\\OneDrive\\\\Escritorio\\\\CUC\\\\Administracion de Bases de datos\\\\TrabajoFinal\\\\ProyectoProgramadoFinalBD\\\\_refactor.js\")",
+      "Bash(npm install:*)",
+      "Bash(node -e \"require\\('./config/db'\\); console.log\\('db.js OK'\\)\")",
+      "Bash(node -e \"require\\('./routes/api/usuarios'\\); console.log\\('usuarios.js OK'\\)\")",
+      "Bash(node -e \"const p=require\\('./node_modules/mssql/package.json'\\); console.log\\('mssql version:', p.version\\);\")",
+      "Bash(powershell -Command \"Get-Service -Name 'MSSQL*' | Select-Object Name, Status, DisplayName\")",
+      "Bash(powershell -Command ':*)",
+      "Bash(node -e \"require\\('mssql/msnodesqlv8'\\); console.log\\('msnodesqlv8 OK'\\);\")"
+    ]
+  }
+}

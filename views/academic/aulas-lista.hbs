@@ -1,33 +1,24 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aulas — Sistema de Matrícula</title>
-<link rel="stylesheet" href="../../css/styles.css">
-</head>
-<body>
 <div class="app-wrapper">
   <aside class="sidebar">
     <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Panel Administrativo</div></div></div>
     <nav class="sidebar-nav">
       <div class="sidebar-seccion">General</div>
-      <a href="../admin/dashboard-admin.html"><span class="icono">📊</span> Dashboard</a>
+      <a href="/admin"><span class="icono">📊</span> Dashboard</a>
       <div class="sidebar-seccion">Académico</div>
-      <a href="programas-lista.html"><span class="icono">🏛️</span> Programas académicos</a>
-      <a href="planes-lista.html"><span class="icono">📋</span> Planes de estudio</a>
-      <a href="cursos-lista.html"><span class="icono">📚</span> Cursos</a>
-      <a href="periodos-lista.html"><span class="icono">📅</span> Periodos académicos</a>
-      <a href="secciones-lista.html"><span class="icono">🗂️</span> Secciones</a>
-      <a href="aulas-lista.html" class="activo"><span class="icono">🏫</span> Aulas</a>
+      <a href="/academic/programas"><span class="icono">🏛️</span> Programas académicos</a>
+      <a href="/academic/planes"><span class="icono">📋</span> Planes de estudio</a>
+      <a href="/academic/cursos"><span class="icono">📚</span> Cursos</a>
+      <a href="/academic/periodos"><span class="icono">📅</span> Periodos académicos</a>
+      <a href="/academic/secciones"><span class="icono">🗂️</span> Secciones</a>
+      <a href="/academic/aulas" class="activo"><span class="icono">🏫</span> Aulas</a>
       <div class="sidebar-seccion">Estudiantes</div>
-      <a href="../students/estudiantes-lista.html"><span class="icono">🎓</span> Estudiantes</a>
-      <a href="../enrollment/matriculas-lista.html"><span class="icono">✏️</span> Matrículas</a>
+      <a href="/students/lista"><span class="icono">🎓</span> Estudiantes</a>
+      <a href="/enrollment/lista"><span class="icono">✏️</span> Matrículas</a>
       <div class="sidebar-seccion">Sistema</div>
-      <a href="../reports/reportes.html"><span class="icono">📈</span> Reportes</a>
-      <a href="../audit/bitacora.html"><span class="icono">🔍</span> Bitácora</a>
+      <a href="/reports"><span class="icono">📈</span> Reportes</a>
+      <a href="/audit"><span class="icono">🔍</span> Bitácora</a>
     </nav>
-    <div class="sidebar-footer"><a href="../auth/login.html">🚪 Cerrar sesión</a></div>
+    <div class="sidebar-footer"><a href="/auth/login">🚪 Cerrar sesión</a></div>
   </aside>
   <div class="contenido-principal">
     <header class="navbar">
@@ -50,21 +41,15 @@
         <div class="tabla-contenedor">
           <table class="tabla">
             <thead><tr><th>Código</th><th>Nombre</th><th>Edificio</th><th>Capacidad</th><th>Estado</th><th>Secciones asignadas</th><th>Acciones</th></tr></thead>
-            <tbody>
-              <tr><td><span style="font-family:monospace;font-weight:700;">A-204</span></td><td>Aula A-204</td><td class="texto-muted">Edificio A, 2do piso</td><td style="text-align:center;font-weight:700;">40</td><td><span class="badge badge-activo">Disponible</span></td><td style="text-align:center;">3</td><td><div class="acciones-fila"><button class="btn btn-secundario btn-sm">Ver horario</button><button class="btn btn-secundario btn-sm">Editar</button></div></td></tr>
-              <tr><td><span style="font-family:monospace;font-weight:700;">B-101</span></td><td>Laboratorio de Cómputo B-101</td><td class="texto-muted">Edificio B, 1er piso</td><td style="text-align:center;font-weight:700;">40</td><td><span class="badge badge-error">En uso</span></td><td style="text-align:center;">5</td><td><div class="acciones-fila"><button class="btn btn-secundario btn-sm">Ver horario</button><button class="btn btn-secundario btn-sm">Editar</button></div></td></tr>
-              <tr><td><span style="font-family:monospace;font-weight:700;">B-201</span></td><td>Aula B-201</td><td class="texto-muted">Edificio B, 2do piso</td><td style="text-align:center;font-weight:700;">45</td><td><span class="badge badge-activo">Disponible</span></td><td style="text-align:center;">2</td><td><div class="acciones-fila"><button class="btn btn-secundario btn-sm">Ver horario</button><button class="btn btn-secundario btn-sm">Editar</button></div></td></tr>
-              <tr><td><span style="font-family:monospace;font-weight:700;">C-110</span></td><td>Sala de conferencias C-110</td><td class="texto-muted">Edificio C, 1er piso</td><td style="text-align:center;font-weight:700;">80</td><td><span class="badge badge-pendiente">Mantenimiento</span></td><td style="text-align:center;">0</td><td><div class="acciones-fila"><button class="btn btn-secundario btn-sm">Editar</button></div></td></tr>
+            <tbody id="tbody-aulas">
+              <tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando…</td></tr>
             </tbody>
           </table>
-        </div>
-        <div class="paginacion">
-          <span class="paginacion-info">Mostrando 1–4 de 62 aulas</span>
-          <div class="paginacion-botones"><button class="btn-pagina" disabled>←</button><button class="btn-pagina activa">1</button><button class="btn-pagina">2</button><button class="btn-pagina">→</button></div>
         </div>
       </div>
     </main>
   </div>
 </div>
-</body>
-</html>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/academic-aulas.js"></script>

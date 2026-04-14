@@ -1,34 +1,25 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Matrículas — Sistema de Matrícula</title>
-<link rel="stylesheet" href="../../css/styles.css">
-</head>
-<body>
 <div class="app-wrapper">
   <aside class="sidebar">
     <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Panel Administrativo</div></div></div>
     <nav class="sidebar-nav">
       <div class="sidebar-seccion">General</div>
-      <a href="../admin/dashboard-admin.html"><span class="icono">📊</span> Dashboard</a>
+      <a href="/admin"><span class="icono">📊</span> Dashboard</a>
       <div class="sidebar-seccion">Académico</div>
-      <a href="../academic/programas-lista.html"><span class="icono">🏛️</span> Programas académicos</a>
-      <a href="../academic/cursos-lista.html"><span class="icono">📚</span> Cursos</a>
-      <a href="../academic/periodos-lista.html"><span class="icono">📅</span> Periodos académicos</a>
-      <a href="../academic/secciones-lista.html"><span class="icono">🗂️</span> Secciones</a>
+      <a href="/academic/programas"><span class="icono">🏛️</span> Programas académicos</a>
+      <a href="/academic/cursos"><span class="icono">📚</span> Cursos</a>
+      <a href="/academic/periodos"><span class="icono">📅</span> Periodos académicos</a>
+      <a href="/academic/secciones"><span class="icono">🗂️</span> Secciones</a>
       <div class="sidebar-seccion">Estudiantes</div>
-      <a href="../students/estudiantes-lista.html"><span class="icono">🎓</span> Estudiantes</a>
-      <a href="matriculas-lista.html" class="activo"><span class="icono">✏️</span> Matrículas</a>
+      <a href="/students/lista"><span class="icono">🎓</span> Estudiantes</a>
+      <a href="/enrollment/lista" class="activo"><span class="icono">✏️</span> Matrículas</a>
       <div class="sidebar-seccion">Finanzas</div>
-      <a href="../billing/facturas-lista.html"><span class="icono">🧾</span> Facturas</a>
-      <a href="../billing/pagos-lista.html"><span class="icono">💳</span> Pagos</a>
+      <a href="/billing/facturas"><span class="icono">🧾</span> Facturas</a>
+      <a href="/billing/pagos"><span class="icono">💳</span> Pagos</a>
       <div class="sidebar-seccion">Sistema</div>
-      <a href="../reports/reportes.html"><span class="icono">📈</span> Reportes</a>
-      <a href="../audit/bitacora.html"><span class="icono">🔍</span> Bitácora</a>
+      <a href="/reports"><span class="icono">📈</span> Reportes</a>
+      <a href="/audit"><span class="icono">🔍</span> Bitácora</a>
     </nav>
-    <div class="sidebar-footer"><a href="../auth/login.html">🚪 Cerrar sesión</a></div>
+    <div class="sidebar-footer"><a href="/auth/login">🚪 Cerrar sesión</a></div>
   </aside>
   <div class="contenido-principal">
     <header class="navbar">
@@ -41,63 +32,33 @@
         <div class="acciones-encabezado"><button class="btn btn-secundario">Exportar</button></div>
       </div>
       <div class="grid-4 mb-4">
-        <div class="carta-metrica"><div class="metrica-icono">✏️</div><div class="metrica-etiqueta">Total matrículas</div><div class="metrica-valor">3,842</div></div>
-        <div class="carta-metrica"><div class="metrica-icono">✅</div><div class="metrica-etiqueta">Confirmadas</div><div class="metrica-valor">2,619</div><div class="metrica-cambio positivo">68.2%</div></div>
-        <div class="carta-metrica amarillo"><div class="metrica-icono">⏳</div><div class="metrica-etiqueta">En proceso</div><div class="metrica-valor">842</div></div>
-        <div class="carta-metrica rojo"><div class="metrica-icono">❌</div><div class="metrica-etiqueta">Canceladas</div><div class="metrica-valor">381</div></div>
+        <div class="carta-metrica"><div class="metrica-icono">✏️</div><div class="metrica-etiqueta">Total matrículas</div><div class="metrica-valor" id="met-total">—</div></div>
+        <div class="carta-metrica"><div class="metrica-icono">✅</div><div class="metrica-etiqueta">Confirmadas</div><div class="metrica-valor" id="met-confirmadas">—</div><div class="metrica-cambio positivo" id="met-pct-conf"></div></div>
+        <div class="carta-metrica amarillo"><div class="metrica-icono">⏳</div><div class="metrica-etiqueta">En proceso</div><div class="metrica-valor" id="met-proceso">—</div></div>
+        <div class="carta-metrica rojo"><div class="metrica-icono">❌</div><div class="metrica-etiqueta">Canceladas</div><div class="metrica-valor" id="met-canceladas">—</div></div>
       </div>
       <div class="carta">
         <div class="carta-cabecera">
           <div class="barra-filtros" style="margin:0;flex:1;">
-            <div class="barra-busqueda"><span class="icono-buscar">🔍</span><input type="text" placeholder="Buscar por nombre, carné o comprobante..."></div>
-            <select class="filtro-select"><option>Todos los estados</option><option>Confirmada</option><option>En proceso</option><option>Cancelada</option></select>
-            <select class="filtro-select"><option>I Semestre 2025</option></select>
+            <div class="barra-busqueda"><span class="icono-buscar">🔍</span><input id="fil-buscar" type="text" placeholder="Buscar por nombre, carné o comprobante..."></div>
+            <select id="sel-estado" class="filtro-select"><option value="">Todos los estados</option><option value="Confirmada">Confirmada</option><option value="En proceso">En proceso</option><option value="Cancelada">Cancelada</option></select>
+            <select id="sel-periodo" class="filtro-select"><option value="">Todos los periodos</option></select>
+            <button id="btn-buscar" class="btn btn-primario btn-sm">Buscar</button>
           </div>
         </div>
         <div class="tabla-contenedor">
           <table class="tabla">
             <thead><tr><th>Comprobante</th><th>Estudiante</th><th>Fecha</th><th>Cursos</th><th>Créditos</th><th>Monto</th><th>Estado</th><th>Acciones</th></tr></thead>
-            <tbody>
-              <tr>
-                <td><span style="font-family:monospace;font-weight:700;">MAT-2025-08842</span></td>
-                <td><div class="nombre-principal">Laura Jiménez Rojas</div><div class="detalle-secundario">2024-0312</div></td>
-                <td class="texto-muted">22/01/2025</td>
-                <td style="text-align:center;">4</td>
-                <td style="text-align:center;font-weight:700;">12</td>
-                <td style="font-weight:600;">₡185,000</td>
-                <td><span class="badge badge-pendiente">En proceso</span></td>
-                <td><div class="acciones-fila"><a href="../enrollment/comprobante.html" class="btn btn-secundario btn-sm">Ver</a></div></td>
-              </tr>
-              <tr>
-                <td><span style="font-family:monospace;font-weight:700;">MAT-2025-08841</span></td>
-                <td><div class="nombre-principal">María Castillo Ureña</div><div class="detalle-secundario">2022-0784</div></td>
-                <td class="texto-muted">21/01/2025</td>
-                <td style="text-align:center;">5</td>
-                <td style="text-align:center;font-weight:700;">16</td>
-                <td style="font-weight:600;">₡168,000</td>
-                <td><span class="badge badge-confirmado">Confirmada</span></td>
-                <td><div class="acciones-fila"><a href="../enrollment/comprobante.html" class="btn btn-secundario btn-sm">Ver</a></div></td>
-              </tr>
-              <tr>
-                <td><span style="font-family:monospace;font-weight:700;">MAT-2025-08835</span></td>
-                <td><div class="nombre-principal">Roberto Solano Castro</div><div class="detalle-secundario">2023-1145</div></td>
-                <td class="texto-muted">20/01/2025</td>
-                <td style="text-align:center;">3</td>
-                <td style="text-align:center;font-weight:700;">10</td>
-                <td style="font-weight:600;">₡220,000</td>
-                <td><span class="badge badge-cancelado">Cancelada</span></td>
-                <td><div class="acciones-fila"><a href="../enrollment/comprobante.html" class="btn btn-secundario btn-sm">Ver</a></div></td>
-              </tr>
+            <tbody id="tbody-matriculas">
+              <tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando…</td></tr>
             </tbody>
           </table>
         </div>
-        <div class="paginacion">
-          <span class="paginacion-info">Mostrando 1–3 de 3,842 matrículas</span>
-          <div class="paginacion-botones"><button class="btn-pagina" disabled>←</button><button class="btn-pagina activa">1</button><button class="btn-pagina">2</button><button class="btn-pagina">→</button></div>
-        </div>
+        <div id="paginacion-matriculas" class="paginacion"></div>
       </div>
     </main>
   </div>
 </div>
-</body>
-</html>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/enrollment-lista.js"></script>

@@ -1,85 +1,52 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mis Facturas — Sistema de Matrícula</title>
-<link rel="stylesheet" href="../../css/styles.css">
-</head>
-<body>
 <div class="app-wrapper">
   <aside class="sidebar">
     <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Portal Estudiantil</div></div></div>
     <nav class="sidebar-nav">
       <div class="sidebar-seccion">General</div>
-      <a href="../students/dashboard-estudiante.html"><span class="icono">🏠</span> Mi portal</a>
+      <a href="/students"><span class="icono">🏠</span> Mi portal</a>
       <div class="sidebar-seccion">Matrícula</div>
-      <a href="../enrollment/buscar-cursos.html"><span class="icono">🔍</span> Buscar cursos</a>
-      <a href="../enrollment/mi-matricula.html"><span class="icono">✏️</span> Mi matrícula</a>
-      <a href="../enrollment/comprobante.html"><span class="icono">🖨️</span> Comprobante</a>
+      <a href="/enrollment/buscar"><span class="icono">🔍</span> Buscar cursos</a>
+      <a href="/enrollment/mi-matricula"><span class="icono">✏️</span> Mi matrícula</a>
+      <a href="/enrollment/comprobante"><span class="icono">🖨️</span> Comprobante</a>
       <div class="sidebar-seccion">Mi información</div>
-      <a href="../students/mi-perfil.html"><span class="icono">👤</span> Mi perfil</a>
-      <a href="../students/historial-academico.html"><span class="icono">📊</span> Historial académico</a>
+      <a href="/students/mi-perfil"><span class="icono">👤</span> Mi perfil</a>
+      <a href="/students/historial"><span class="icono">📊</span> Historial académico</a>
       <div class="sidebar-seccion">Finanzas</div>
-      <a href="estado-cuenta.html"><span class="icono">📄</span> Estado de cuenta</a>
-      <a href="mis-facturas.html" class="activo"><span class="icono">🧾</span> Mis facturas</a>
-      <a href="realizar-pago.html"><span class="icono">💳</span> Realizar pago</a>
+      <a href="/billing/estado-cuenta"><span class="icono">📄</span> Estado de cuenta</a>
+      <a href="/billing/mis-facturas" class="activo"><span class="icono">🧾</span> Mis facturas</a>
+      <a href="/billing/pagar"><span class="icono">💳</span> Realizar pago</a>
       <div class="sidebar-seccion">Comunicaciones</div>
-      <a href="../notifications/notificaciones-lista.html"><span class="icono">🔔</span> Notificaciones</a>
+      <a href="/notifications"><span class="icono">🔔</span> Notificaciones</a>
     </nav>
-    <div class="sidebar-footer"><a href="../auth/login.html">🚪 Cerrar sesión</a></div>
+    <div class="sidebar-footer"><a href="/auth/login">🚪 Cerrar sesión</a></div>
   </aside>
   <div class="contenido-principal">
     <header class="navbar">
-      <div><div class="navbar-titulo">Mis Facturas</div><div class="navbar-breadcrumb"><a href="../students/dashboard-estudiante.html">Inicio</a><span class="separador"></span><span class="actual">Mis facturas</span></div></div>
+      <div><div class="navbar-titulo">Mis Facturas</div><div class="navbar-breadcrumb"><a href="/students">Inicio</a><span class="separador"></span><span class="actual">Mis facturas</span></div></div>
       <div class="navbar-acciones"><div class="navbar-usuario"><div class="avatar">LJ</div><div><div class="navbar-usuario-nombre">Laura Jiménez</div><div class="navbar-usuario-rol">Estudiante · 2024-0312</div></div></div></div>
     </header>
     <main class="area-pagina">
       <div class="encabezado-pagina">
         <div><h1>Mis facturas</h1><p>Historial completo de facturas de tu cuenta estudiantil.</p></div>
       </div>
-      <div class="alerta alerta-alerta mb-4">
+      <div id="alerta-pendientes" class="alerta alerta-alerta mb-4" style="display:none;">
         <span class="alerta-icono">⚠️</span>
-        <div>Tienes 1 factura pendiente de pago. <a href="realizar-pago.html">Pagar ahora →</a></div>
+        <div id="alerta-pendientes-texto">Tienes facturas pendientes de pago. <a href="/billing/pagar">Pagar ahora →</a></div>
       </div>
       <div class="carta">
         <div class="tabla-contenedor">
           <table class="tabla">
             <thead><tr><th>N.° Factura</th><th>Periodo</th><th>Emisión</th><th style="text-align:right;">Total</th><th style="text-align:right;">Saldo</th><th>Estado</th><th>Acciones</th></tr></thead>
-            <tbody>
-              <tr>
-                <td><span style="font-family:monospace;font-weight:700;">F-2025-00812</span></td>
-                <td>I Semestre 2025</td>
-                <td class="texto-muted">22/01/2025</td>
-                <td style="text-align:right;font-weight:600;">₡185,000</td>
-                <td style="text-align:right;font-weight:600;color:var(--rojo-peligro);">₡185,000</td>
-                <td><span class="badge badge-pendiente">Pendiente</span></td>
-                <td><div class="acciones-fila"><button class="btn btn-secundario btn-sm">Ver detalle</button><a href="realizar-pago.html" class="btn btn-primario btn-sm">Pagar</a></div></td>
-              </tr>
-              <tr>
-                <td><span style="font-family:monospace;font-weight:700;">F-2024-09214</span></td>
-                <td>II Semestre 2024</td>
-                <td class="texto-muted">15/07/2024</td>
-                <td style="text-align:right;font-weight:600;">₡168,000</td>
-                <td style="text-align:right;font-weight:600;color:var(--cyan-exito);">₡0</td>
-                <td><span class="badge badge-confirmado">Pagada</span></td>
-                <td><div class="acciones-fila"><button class="btn btn-secundario btn-sm">Ver detalle</button><button class="btn btn-secundario btn-sm">🖨️</button></div></td>
-              </tr>
-              <tr>
-                <td><span style="font-family:monospace;font-weight:700;">F-2024-04821</span></td>
-                <td>I Semestre 2024</td>
-                <td class="texto-muted">20/01/2024</td>
-                <td style="text-align:right;font-weight:600;">₡155,000</td>
-                <td style="text-align:right;font-weight:600;color:var(--cyan-exito);">₡0</td>
-                <td><span class="badge badge-confirmado">Pagada</span></td>
-                <td><div class="acciones-fila"><button class="btn btn-secundario btn-sm">Ver detalle</button><button class="btn btn-secundario btn-sm">🖨️</button></div></td>
-              </tr>
+            <tbody id="tbody-mis-facturas">
+              <tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando…</td></tr>
             </tbody>
           </table>
         </div>
+        <div id="paginacion-mis-facturas" class="paginacion"></div>
       </div>
     </main>
   </div>
 </div>
-</body>
-</html>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/billing-mis-facturas.js"></script>

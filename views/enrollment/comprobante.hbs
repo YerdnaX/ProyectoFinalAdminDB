@@ -1,48 +1,31 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Comprobante de Matrícula — Sistema de Matrícula</title>
-<link rel="stylesheet" href="../../css/styles.css">
-<style>
-  @media print {
-    .sidebar, .navbar, .acciones-impresion { display: none !important; }
-    .contenido-principal { margin-left: 0 !important; }
-    .area-pagina { padding: 0 !important; }
-    .comprobante { border: none !important; }
-  }
-</style>
-</head>
-<body>
 <div class="app-wrapper">
   <aside class="sidebar">
     <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Portal Estudiantil</div></div></div>
     <nav class="sidebar-nav">
       <div class="sidebar-seccion">General</div>
-      <a href="../students/dashboard-estudiante.html"><span class="icono">🏠</span> Mi portal</a>
+      <a href="/students"><span class="icono">🏠</span> Mi portal</a>
       <div class="sidebar-seccion">Matrícula</div>
-      <a href="buscar-cursos.html"><span class="icono">🔍</span> Buscar cursos</a>
-      <a href="mi-matricula.html"><span class="icono">✏️</span> Mi matrícula</a>
-      <a href="comprobante.html" class="activo"><span class="icono">🖨️</span> Comprobante</a>
+      <a href="/enrollment/buscar"><span class="icono">🔍</span> Buscar cursos</a>
+      <a href="/enrollment/mi-matricula"><span class="icono">✏️</span> Mi matrícula</a>
+      <a href="/enrollment/comprobante" class="activo"><span class="icono">🖨️</span> Comprobante</a>
       <div class="sidebar-seccion">Mi información</div>
-      <a href="../students/mi-perfil.html"><span class="icono">👤</span> Mi perfil</a>
-      <a href="../students/historial-academico.html"><span class="icono">📊</span> Historial académico</a>
+      <a href="/students/mi-perfil"><span class="icono">👤</span> Mi perfil</a>
+      <a href="/students/historial"><span class="icono">📊</span> Historial académico</a>
       <div class="sidebar-seccion">Finanzas</div>
-      <a href="../billing/estado-cuenta.html"><span class="icono">📄</span> Estado de cuenta</a>
-      <a href="../billing/mis-facturas.html"><span class="icono">🧾</span> Mis facturas</a>
-      <a href="../billing/realizar-pago.html"><span class="icono">💳</span> Realizar pago</a>
+      <a href="/billing/estado-cuenta"><span class="icono">📄</span> Estado de cuenta</a>
+      <a href="/billing/mis-facturas"><span class="icono">🧾</span> Mis facturas</a>
+      <a href="/billing/pagar"><span class="icono">💳</span> Realizar pago</a>
       <div class="sidebar-seccion">Comunicaciones</div>
-      <a href="../notifications/notificaciones-lista.html"><span class="icono">🔔</span> Notificaciones</a>
+      <a href="/notifications"><span class="icono">🔔</span> Notificaciones</a>
     </nav>
-    <div class="sidebar-footer"><a href="../auth/login.html">🚪 Cerrar sesión</a></div>
+    <div class="sidebar-footer"><a href="/auth/login">🚪 Cerrar sesión</a></div>
   </aside>
 
   <div class="contenido-principal">
     <header class="navbar">
       <div>
         <div class="navbar-titulo">Comprobante de Matrícula</div>
-        <div class="navbar-breadcrumb"><a href="../students/dashboard-estudiante.html">Inicio</a><span class="separador"></span><span class="actual">Comprobante</span></div>
+        <div class="navbar-breadcrumb"><a href="/students">Inicio</a><span class="separador"></span><span class="actual">Comprobante</span></div>
       </div>
       <div class="navbar-acciones acciones-impresion">
         <button class="btn btn-secundario" onclick="window.print()">🖨️ Imprimir</button>
@@ -51,12 +34,12 @@
     </header>
 
     <main class="area-pagina">
-      <div class="alerta alerta-exito mb-4">
+      <div id="alerta-estado" class="alerta alerta-exito mb-4" style="display:none;">
         <span class="alerta-icono">✅</span>
-        <div><span class="alerta-titulo">¡Matrícula confirmada exitosamente!</span> Tu matrícula para el I Semestre 2025 fue procesada el 22 de enero de 2025.</div>
+        <div id="alerta-estado-texto"></div>
       </div>
 
-      <div class="comprobante">
+      <div id="comprobante-cuerpo" class="comprobante" style="display:none;">
         <!-- Encabezado del comprobante -->
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem;">
           <div style="display:flex;align-items:center;gap:1rem;">
@@ -68,22 +51,22 @@
           </div>
           <div style="text-align:right;">
             <div style="font-size:.75rem;color:var(--gris-suave);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.25rem;">Comprobante No.</div>
-            <div style="font-size:1.375rem;font-weight:700;font-family:monospace;color:var(--verde-principal);">MAT-2025-08842</div>
+            <div id="comp-numero" style="font-size:1.375rem;font-weight:700;font-family:monospace;color:var(--verde-principal);">—</div>
           </div>
         </div>
 
         <div style="text-align:center;margin-bottom:2rem;">
           <div style="font-size:1.25rem;font-weight:700;color:var(--gris-oscuro);">COMPROBANTE DE MATRÍCULA</div>
-          <div class="texto-muted">I Semestre 2025 — Confirmado el 22 de enero de 2025, 10:42 am</div>
+          <div id="comp-periodo-fecha" class="texto-muted">—</div>
         </div>
 
         <!-- Datos del estudiante -->
         <div style="background:var(--gris-fondo);border-radius:var(--radio-borde);padding:1.25rem;margin-bottom:1.5rem;">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem 2rem;">
-            <div class="comprobante-campo" style="border:none;padding:.25rem 0;"><span class="comprobante-etiqueta">Nombre completo:</span><span class="comprobante-valor">Laura Jiménez Rojas</span></div>
-            <div class="comprobante-campo" style="border:none;padding:.25rem 0;"><span class="comprobante-etiqueta">Carné:</span><span class="comprobante-valor">2024-0312</span></div>
-            <div class="comprobante-campo" style="border:none;padding:.25rem 0;"><span class="comprobante-etiqueta">Programa:</span><span class="comprobante-valor">Ingeniería en Sistemas</span></div>
-            <div class="comprobante-campo" style="border:none;padding:.25rem 0;"><span class="comprobante-etiqueta">Plan de estudio:</span><span class="comprobante-valor">IS-2020</span></div>
+            <div class="comprobante-campo" style="border:none;padding:.25rem 0;"><span class="comprobante-etiqueta">Nombre completo:</span><span id="comp-nombre" class="comprobante-valor">—</span></div>
+            <div class="comprobante-campo" style="border:none;padding:.25rem 0;"><span class="comprobante-etiqueta">Carné:</span><span id="comp-carne" class="comprobante-valor">—</span></div>
+            <div class="comprobante-campo" style="border:none;padding:.25rem 0;"><span class="comprobante-etiqueta">Programa:</span><span id="comp-programa" class="comprobante-valor">—</span></div>
+            <div class="comprobante-campo" style="border:none;padding:.25rem 0;"><span class="comprobante-etiqueta">Plan de estudio:</span><span id="comp-plan" class="comprobante-valor">—</span></div>
           </div>
         </div>
 
@@ -92,52 +75,10 @@
         <div class="tabla-contenedor" style="margin-bottom:1.5rem;">
           <table class="tabla">
             <thead>
-              <tr>
-                <th>Código</th>
-                <th>Nombre del curso</th>
-                <th>Sección</th>
-                <th>Horario</th>
-                <th>Aula</th>
-                <th>Créditos</th>
-              </tr>
+              <tr><th>Código</th><th>Nombre del curso</th><th>Sección</th><th>Horario</th><th>Aula</th><th>Créditos</th></tr>
             </thead>
-            <tbody>
-              <tr>
-                <td style="font-family:monospace;font-weight:700;">IS-2201</td>
-                <td>Estructuras de Datos</td>
-                <td>01</td>
-                <td>Lunes y Miércoles 7:00 – 9:00</td>
-                <td>A-204</td>
-                <td style="text-align:center;font-weight:700;">4</td>
-              </tr>
-              <tr>
-                <td style="font-family:monospace;font-weight:700;">IS-2202</td>
-                <td>Base de Datos I</td>
-                <td>01</td>
-                <td>Martes y Jueves 9:00 – 10:30</td>
-                <td>Virtual</td>
-                <td style="text-align:center;font-weight:700;">3</td>
-              </tr>
-              <tr>
-                <td style="font-family:monospace;font-weight:700;">MAT-1501</td>
-                <td>Cálculo I</td>
-                <td>02</td>
-                <td>Lunes, Miércoles y Viernes 10:00 – 11:00</td>
-                <td>B-201</td>
-                <td style="text-align:center;font-weight:700;">4</td>
-              </tr>
-              <tr>
-                <td style="font-family:monospace;font-weight:700;">ING-1001</td>
-                <td>Inglés Técnico I</td>
-                <td>05</td>
-                <td>Viernes 13:00 – 15:00</td>
-                <td>A-105</td>
-                <td style="text-align:center;font-weight:700;">1</td>
-              </tr>
-              <tr style="background:var(--verde-bg);">
-                <td colspan="5" style="font-weight:700;text-align:right;padding-right:1.25rem;">Total de créditos:</td>
-                <td style="text-align:center;font-weight:700;font-size:1.125rem;color:var(--verde-principal);">12</td>
-              </tr>
+            <tbody id="tbody-comp-cursos">
+              <tr><td colspan="6" style="text-align:center;padding:1.5rem;color:var(--gris-suave);">Cargando…</td></tr>
             </tbody>
           </table>
         </div>
@@ -146,20 +87,19 @@
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;">
           <div>
             <h4 style="margin-bottom:.875rem;">Detalle de cobro</h4>
-            <div class="comprobante-campo"><span class="comprobante-etiqueta">Subtotal de matrícula</span><span class="comprobante-valor">₡168,000</span></div>
-            <div class="comprobante-campo"><span class="comprobante-etiqueta">Recargo administrativo</span><span class="comprobante-valor">₡17,000</span></div>
-            <div class="comprobante-campo"><span class="comprobante-etiqueta">Descuentos</span><span class="comprobante-valor" style="color:var(--cyan-exito);">−₡0</span></div>
+            <div class="comprobante-campo"><span class="comprobante-etiqueta">Subtotal de matrícula</span><span id="comp-subtotal" class="comprobante-valor">—</span></div>
+            <div class="comprobante-campo"><span class="comprobante-etiqueta">Recargos</span><span id="comp-recargos" class="comprobante-valor">—</span></div>
+            <div class="comprobante-campo"><span class="comprobante-etiqueta">Descuentos</span><span id="comp-descuentos" class="comprobante-valor" style="color:var(--cyan-exito);">—</span></div>
             <div class="comprobante-total">
-              <div class="flex-entre"><strong>Total facturado</strong><strong style="font-size:1.125rem;color:var(--verde-principal);">₡185,000</strong></div>
+              <div class="flex-entre"><strong>Total facturado</strong><strong id="comp-total" style="font-size:1.125rem;color:var(--verde-principal);">—</strong></div>
             </div>
           </div>
           <div>
             <h4 style="margin-bottom:.875rem;">Información de pago</h4>
-            <div class="comprobante-campo"><span class="comprobante-etiqueta">N.° de factura</span><span class="comprobante-valor" style="font-family:monospace;">F-2025-00812</span></div>
-            <div class="comprobante-campo"><span class="comprobante-etiqueta">Estado</span><span class="badge badge-pendiente">Pendiente de pago</span></div>
-            <div class="comprobante-campo"><span class="comprobante-etiqueta">Fecha límite de pago</span><span class="comprobante-valor" style="color:var(--rojo-peligro);">31 de enero de 2025</span></div>
-            <div style="margin-top:1rem;">
-              <a href="../billing/realizar-pago.html" class="btn btn-primario w-full">💳 Pagar ahora</a>
+            <div class="comprobante-campo"><span class="comprobante-etiqueta">N.° de factura</span><span id="comp-factura" class="comprobante-valor" style="font-family:monospace;">—</span></div>
+            <div class="comprobante-campo"><span class="comprobante-etiqueta">Estado</span><span id="comp-estado-pago">—</span></div>
+            <div id="comp-pagar-btn" style="margin-top:1rem;display:none;">
+              <a href="/billing/pagar" class="btn btn-primario w-full">💳 Pagar ahora</a>
             </div>
           </div>
         </div>
@@ -167,12 +107,20 @@
         <!-- Sello -->
         <div class="comprobante-sello">
           <div style="font-size:.75rem;color:var(--gris-suave);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem;">Documento generado electrónicamente</div>
-          <div style="font-family:monospace;font-size:.875rem;color:var(--gris-oscuro);font-weight:600;">Verificación: MAT-2025-08842-LJR-A7F2</div>
+          <div id="comp-verificacion" style="font-family:monospace;font-size:.875rem;color:var(--gris-oscuro);font-weight:600;">—</div>
           <div class="texto-pequeno" style="margin-top:.375rem;">Este comprobante tiene validez oficial. Emitido por el Sistema de Matrícula Universitaria.</div>
         </div>
+      </div>
+
+      <div id="comp-vacio" style="text-align:center;padding:3rem;color:var(--gris-suave);">
+        <div style="font-size:3rem;margin-bottom:1rem;">📋</div>
+        <div style="font-size:1.125rem;font-weight:600;margin-bottom:.5rem;">Sin matrícula activa</div>
+        <p>No tienes una matrícula confirmada para el periodo actual.</p>
+        <a href="/enrollment/buscar" class="btn btn-primario" style="margin-top:1rem;">Ir a buscar cursos</a>
       </div>
     </main>
   </div>
 </div>
-</body>
-</html>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/enrollment-comprobante.js"></script>

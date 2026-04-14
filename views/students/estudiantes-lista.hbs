@@ -1,41 +1,32 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Estudiantes — Sistema de Matrícula</title>
-<link rel="stylesheet" href="../../css/styles.css">
-</head>
-<body>
 <div class="app-wrapper">
   <aside class="sidebar">
     <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Panel Administrativo</div></div></div>
     <nav class="sidebar-nav">
       <div class="sidebar-seccion">General</div>
-      <a href="../admin/dashboard-admin.html"><span class="icono">📊</span> Dashboard</a>
+      <a href="/admin"><span class="icono">📊</span> Dashboard</a>
       <div class="sidebar-seccion">Usuarios</div>
-      <a href="../admin/usuarios-lista.html"><span class="icono">👥</span> Usuarios</a>
-      <a href="../admin/roles-permisos.html"><span class="icono">🔐</span> Roles y permisos</a>
+      <a href="/admin/usuarios"><span class="icono">👥</span> Usuarios</a>
+      <a href="/admin/roles-permisos"><span class="icono">🔐</span> Roles y permisos</a>
       <div class="sidebar-seccion">Académico</div>
-      <a href="../academic/programas-lista.html"><span class="icono">🏛️</span> Programas académicos</a>
-      <a href="../academic/planes-lista.html"><span class="icono">📋</span> Planes de estudio</a>
-      <a href="../academic/cursos-lista.html"><span class="icono">📚</span> Cursos</a>
-      <a href="../academic/periodos-lista.html"><span class="icono">📅</span> Periodos académicos</a>
+      <a href="/academic/programas"><span class="icono">🏛️</span> Programas académicos</a>
+      <a href="/academic/planes"><span class="icono">📋</span> Planes de estudio</a>
+      <a href="/academic/cursos"><span class="icono">📚</span> Cursos</a>
+      <a href="/academic/periodos"><span class="icono">📅</span> Periodos académicos</a>
       <div class="sidebar-seccion">Oferta</div>
-      <a href="../academic/secciones-lista.html"><span class="icono">🗂️</span> Secciones</a>
-      <a href="../academic/aulas-lista.html"><span class="icono">🏫</span> Aulas</a>
+      <a href="/academic/secciones"><span class="icono">🗂️</span> Secciones</a>
+      <a href="/academic/aulas"><span class="icono">🏫</span> Aulas</a>
       <div class="sidebar-seccion">Estudiantes</div>
-      <a href="estudiantes-lista.html" class="activo"><span class="icono">🎓</span> Estudiantes</a>
-      <a href="../enrollment/matriculas-lista.html"><span class="icono">✏️</span> Matrículas</a>
+      <a href="/students/lista" class="activo"><span class="icono">🎓</span> Estudiantes</a>
+      <a href="/enrollment/lista"><span class="icono">✏️</span> Matrículas</a>
       <div class="sidebar-seccion">Finanzas</div>
-      <a href="../billing/facturas-lista.html"><span class="icono">🧾</span> Facturas</a>
-      <a href="../billing/pagos-lista.html"><span class="icono">💳</span> Pagos</a>
+      <a href="/billing/facturas"><span class="icono">🧾</span> Facturas</a>
+      <a href="/billing/pagos"><span class="icono">💳</span> Pagos</a>
       <div class="sidebar-seccion">Sistema</div>
-      <a href="../notifications/notificaciones-lista.html"><span class="icono">🔔</span> Notificaciones</a>
-      <a href="../reports/reportes.html"><span class="icono">📈</span> Reportes</a>
-      <a href="../audit/bitacora.html"><span class="icono">🔍</span> Bitácora</a>
+      <a href="/notifications"><span class="icono">🔔</span> Notificaciones</a>
+      <a href="/reports"><span class="icono">📈</span> Reportes</a>
+      <a href="/audit"><span class="icono">🔍</span> Bitácora</a>
     </nav>
-    <div class="sidebar-footer"><a href="../auth/login.html">🚪 Cerrar sesión</a></div>
+    <div class="sidebar-footer"><a href="/auth/login">🚪 Cerrar sesión</a></div>
   </aside>
 
   <div class="contenido-principal">
@@ -60,9 +51,9 @@
       <div class="carta">
         <div class="carta-cabecera">
           <div class="barra-filtros" style="margin:0;flex:1;">
-            <div class="barra-busqueda"><span class="icono-buscar">🔍</span><input type="text" placeholder="Buscar por nombre, carné o correo..."></div>
-            <select class="filtro-select"><option>Todos los programas</option><option>Ingeniería en Sistemas</option><option>Administración de Empresas</option><option>Enfermería</option><option>Derecho</option></select>
-            <select class="filtro-select"><option>Todos los estados</option><option>Regular</option><option>Condicional</option><option>Bloqueado financiero</option><option>Bloqueado académico</option><option>Egresado</option></select>
+            <div class="barra-busqueda"><span class="icono-buscar">🔍</span><input id="input-buscar" type="text" placeholder="Buscar por nombre, carné o correo..."></div>
+            <select id="sel-programa" class="filtro-select"><option value="">Todos los programas</option></select>
+            <select id="sel-estado" class="filtro-select"><option value="">Todos los estados</option><option>Activo</option><option>Regular</option><option>Condicional</option><option>Egresado</option><option>Retirado</option></select>
           </div>
         </div>
 
@@ -80,65 +71,16 @@
                 <th>Acciones</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td><div style="display:flex;align-items:center;gap:.75rem;"><div class="avatar">LJ</div><div><div class="nombre-principal">Laura Jiménez Rojas</div><div class="detalle-secundario">laura.jimenez@uni.ac.cr</div></div></div></td>
-                <td><span style="font-family:monospace;">2024-0312</span></td>
-                <td class="texto-muted">Ing. en Sistemas</td>
-                <td class="texto-muted">Feb 2024</td>
-                <td><span class="badge badge-activo">Regular</span></td>
-                <td><span style="color:var(--cyan-exito);font-weight:600;">₡0</span></td>
-                <td><span class="texto-muted">—</span></td>
-                <td><div class="acciones-fila"><a href="estudiante-perfil.html" class="btn btn-secundario btn-sm">Ver perfil</a></div></td>
-              </tr>
-              <tr>
-                <td><div style="display:flex;align-items:center;gap:.75rem;"><div class="avatar" style="background:#FFFBEB;color:#78350F;">RS</div><div><div class="nombre-principal">Roberto Solano Castro</div><div class="detalle-secundario">r.solano@uni.ac.cr</div></div></div></td>
-                <td><span style="font-family:monospace;">2023-1145</span></td>
-                <td class="texto-muted">Adm. de Empresas</td>
-                <td class="texto-muted">Ago 2023</td>
-                <td><span class="badge badge-pendiente">Condicional</span></td>
-                <td><span style="color:var(--rojo-peligro);font-weight:600;">₡420,000</span></td>
-                <td><span class="badge badge-error">💰 Financiero</span></td>
-                <td><div class="acciones-fila"><a href="estudiante-perfil.html" class="btn btn-secundario btn-sm">Ver perfil</a></div></td>
-              </tr>
-              <tr>
-                <td><div style="display:flex;align-items:center;gap:.75rem;"><div class="avatar" style="background:#F0FDF4;color:#14532D;">MC</div><div><div class="nombre-principal">María Castillo Ureña</div><div class="detalle-secundario">m.castillo@uni.ac.cr</div></div></div></td>
-                <td><span style="font-family:monospace;">2022-0784</span></td>
-                <td class="texto-muted">Enfermería General</td>
-                <td class="texto-muted">Feb 2022</td>
-                <td><span class="badge badge-activo">Regular</span></td>
-                <td><span style="color:var(--cyan-exito);font-weight:600;">₡0</span></td>
-                <td><span class="texto-muted">—</span></td>
-                <td><div class="acciones-fila"><a href="estudiante-perfil.html" class="btn btn-secundario btn-sm">Ver perfil</a></div></td>
-              </tr>
-              <tr>
-                <td><div style="display:flex;align-items:center;gap:.75rem;"><div class="avatar" style="background:#FEF2F2;color:#7F1D1D;">PG</div><div><div class="nombre-principal">Pablo Gutiérrez Mora</div><div class="detalle-secundario">p.gutierrez@uni.ac.cr</div></div></div></td>
-                <td><span style="font-family:monospace;">2021-0456</span></td>
-                <td class="texto-muted">Derecho</td>
-                <td class="texto-muted">Ago 2021</td>
-                <td><span class="badge badge-error">Bloqueado</span></td>
-                <td><span style="color:var(--rojo-peligro);font-weight:600;">₡85,000</span></td>
-                <td><div style="display:flex;gap:.375rem;flex-wrap:wrap;"><span class="badge badge-error">💰</span><span class="badge badge-error">📚</span></div></td>
-                <td><div class="acciones-fila"><a href="estudiante-perfil.html" class="btn btn-secundario btn-sm">Ver perfil</a></div></td>
-              </tr>
+            <tbody id="tbody-estudiantes">
+              <tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando…</td></tr>
             </tbody>
           </table>
         </div>
-        <div class="paginacion">
-          <span class="paginacion-info">Mostrando 1–4 de 3,842 estudiantes</span>
-          <div class="paginacion-botones">
-            <button class="btn-pagina" disabled>←</button>
-            <button class="btn-pagina activa">1</button>
-            <button class="btn-pagina">2</button>
-            <button class="btn-pagina">3</button>
-            <span style="padding:0 .25rem;color:var(--gris-suave);">...</span>
-            <button class="btn-pagina">961</button>
-            <button class="btn-pagina">→</button>
-          </div>
-        </div>
+        <div id="paginacion-estudiantes" class="paginacion"></div>
       </div>
     </main>
   </div>
 </div>
-</body>
-</html>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/students-lista.js"></script>

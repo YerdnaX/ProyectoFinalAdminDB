@@ -1,40 +1,31 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Notificaciones — Sistema de Matrícula</title>
-<link rel="stylesheet" href="../../css/styles.css">
-</head>
-<body>
 <div class="app-wrapper">
   <aside class="sidebar">
     <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Portal Estudiantil</div></div></div>
     <nav class="sidebar-nav">
       <div class="sidebar-seccion">General</div>
-      <a href="../students/dashboard-estudiante.html"><span class="icono">🏠</span> Mi portal</a>
+      <a href="/students"><span class="icono">🏠</span> Mi portal</a>
       <div class="sidebar-seccion">Matrícula</div>
-      <a href="../enrollment/buscar-cursos.html"><span class="icono">🔍</span> Buscar cursos</a>
-      <a href="../enrollment/mi-matricula.html"><span class="icono">✏️</span> Mi matrícula</a>
-      <a href="../enrollment/comprobante.html"><span class="icono">🖨️</span> Comprobante</a>
+      <a href="/enrollment/buscar"><span class="icono">🔍</span> Buscar cursos</a>
+      <a href="/enrollment/mi-matricula"><span class="icono">✏️</span> Mi matrícula</a>
+      <a href="/enrollment/comprobante"><span class="icono">🖨️</span> Comprobante</a>
       <div class="sidebar-seccion">Mi información</div>
-      <a href="../students/mi-perfil.html"><span class="icono">👤</span> Mi perfil</a>
-      <a href="../students/historial-academico.html"><span class="icono">📊</span> Historial académico</a>
+      <a href="/students/mi-perfil"><span class="icono">👤</span> Mi perfil</a>
+      <a href="/students/historial"><span class="icono">📊</span> Historial académico</a>
       <div class="sidebar-seccion">Finanzas</div>
-      <a href="../billing/estado-cuenta.html"><span class="icono">📄</span> Estado de cuenta</a>
-      <a href="../billing/mis-facturas.html"><span class="icono">🧾</span> Mis facturas</a>
-      <a href="../billing/realizar-pago.html"><span class="icono">💳</span> Realizar pago</a>
+      <a href="/billing/estado-cuenta"><span class="icono">📄</span> Estado de cuenta</a>
+      <a href="/billing/mis-facturas"><span class="icono">🧾</span> Mis facturas</a>
+      <a href="/billing/pagar"><span class="icono">💳</span> Realizar pago</a>
       <div class="sidebar-seccion">Comunicaciones</div>
-      <a href="notificaciones-lista.html" class="activo"><span class="icono">🔔</span> Notificaciones</a>
+      <a href="/notifications" class="activo"><span class="icono">🔔</span> Notificaciones</a>
     </nav>
-    <div class="sidebar-footer"><a href="../auth/login.html">🚪 Cerrar sesión</a></div>
+    <div class="sidebar-footer"><a href="/auth/login">🚪 Cerrar sesión</a></div>
   </aside>
 
   <div class="contenido-principal">
     <header class="navbar">
       <div>
         <div class="navbar-titulo">Notificaciones</div>
-        <div class="navbar-breadcrumb"><a href="../students/dashboard-estudiante.html">Inicio</a><span class="separador"></span><span class="actual">Notificaciones</span></div>
+        <div class="navbar-breadcrumb"><a href="/students">Inicio</a><span class="separador"></span><span class="actual">Notificaciones</span></div>
       </div>
       <div class="navbar-acciones">
         <div class="navbar-usuario"><div class="avatar">LJ</div><div><div class="navbar-usuario-nombre">Laura Jiménez</div><div class="navbar-usuario-rol">Estudiante · 2024-0312</div></div></div>
@@ -61,86 +52,21 @@
       </div>
 
       <div class="carta">
-        <!-- Notificación no leída - pago -->
-        <div style="padding:1.25rem 1.5rem;border-bottom:1px solid var(--gris-linea);display:flex;gap:1rem;align-items:flex-start;background:var(--amarillo-alerta-bg);">
-          <div style="width:44px;height:44px;border-radius:50%;background:var(--amarillo-alerta-bg);border:2px solid var(--amarillo-alerta);display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0;">💳</div>
-          <div style="flex:1;">
-            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;">
-              <div>
-                <div style="font-weight:700;color:var(--gris-oscuro);margin-bottom:.25rem;">⚠️ Pago pendiente — Factura F-2025-00812</div>
-                <div style="font-size:.9rem;color:var(--gris-oscuro);">Tu factura de matrícula por ₡185,000 vence el <strong>31 de enero de 2025</strong>. Si no realizas el pago antes de la fecha límite, tu matrícula podría ser cancelada.</div>
-                <div style="margin-top:.75rem;display:flex;gap:.75rem;">
-                  <a href="../billing/realizar-pago.html" class="btn btn-primario btn-sm">Pagar ahora</a>
-                  <a href="../billing/estado-cuenta.html" class="btn btn-secundario btn-sm">Ver estado de cuenta</a>
-                </div>
-              </div>
-              <div style="text-align:right;flex-shrink:0;">
-                <div class="texto-pequeno">hace 2 horas</div>
-                <div style="width:8px;height:8px;border-radius:50%;background:var(--amarillo-alerta);margin:.5rem 0 0 auto;"></div>
-              </div>
-            </div>
-          </div>
+        <div class="tabla-contenedor">
+          <table class="tabla">
+            <thead>
+              <tr><th>Fecha</th><th>Hora</th><th>Estudiante</th><th>Tipo</th><th>Asunto / Mensaje</th><th>Medio</th><th>Estado</th></tr>
+            </thead>
+            <tbody id="tbody-notif">
+              <tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando…</td></tr>
+            </tbody>
+          </table>
         </div>
-
-        <!-- Notificación no leída - matrícula confirmada -->
-        <div style="padding:1.25rem 1.5rem;border-bottom:1px solid var(--gris-linea);display:flex;gap:1rem;align-items:flex-start;background:var(--verde-bg);">
-          <div style="width:44px;height:44px;border-radius:50%;background:var(--verde-bg-alt);border:2px solid var(--verde-claro);display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0;">✅</div>
-          <div style="flex:1;">
-            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;">
-              <div>
-                <div style="font-weight:700;color:var(--gris-oscuro);margin-bottom:.25rem;">Matrícula registrada exitosamente</div>
-                <div style="font-size:.9rem;color:var(--gris-oscuro);">Tu matrícula para el I Semestre 2025 fue registrada. Has matriculado 4 cursos con 12 créditos. Recuerda completar el proceso de pago para confirmarla.</div>
-                <div style="margin-top:.75rem;">
-                  <a href="../enrollment/comprobante.html" class="btn btn-secundario btn-sm">Ver comprobante</a>
-                </div>
-              </div>
-              <div style="text-align:right;flex-shrink:0;">
-                <div class="texto-pequeno">ayer, 3:15 pm</div>
-                <div style="width:8px;height:8px;border-radius:50%;background:var(--verde-principal);margin:.5rem 0 0 auto;"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Notificación leída - apertura matrícula -->
-        <div style="padding:1.25rem 1.5rem;border-bottom:1px solid var(--gris-linea);display:flex;gap:1rem;align-items:flex-start;">
-          <div style="width:44px;height:44px;border-radius:50%;background:var(--gris-fondo);display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0;opacity:.7;">📅</div>
-          <div style="flex:1;opacity:.8;">
-            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;">
-              <div>
-                <div style="font-weight:600;color:var(--gris-oscuro);margin-bottom:.25rem;">Apertura de matrícula — I Semestre 2025</div>
-                <div style="font-size:.9rem;color:var(--gris-suave);">El proceso de matrícula para el I Semestre 2025 está disponible del 15 al 28 de enero. Recuerda revisar tu plan de estudios y la oferta de cursos antes de matricular.</div>
-              </div>
-              <div style="text-align:right;flex-shrink:0;">
-                <div class="texto-pequeno">15 ene 2025</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Notificación leída - académico -->
-        <div style="padding:1.25rem 1.5rem;border-bottom:1px solid var(--gris-linea);display:flex;gap:1rem;align-items:flex-start;">
-          <div style="width:44px;height:44px;border-radius:50%;background:var(--gris-fondo);display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0;opacity:.7;">📚</div>
-          <div style="flex:1;opacity:.8;">
-            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;">
-              <div>
-                <div style="font-weight:600;color:var(--gris-oscuro);margin-bottom:.25rem;">Resultados del II Semestre 2024 disponibles</div>
-                <div style="font-size:.9rem;color:var(--gris-suave);">Tus calificaciones del II Semestre 2024 ya están disponibles en tu historial académico.</div>
-              </div>
-              <div style="text-align:right;flex-shrink:0;">
-                <div class="texto-pequeno">10 ene 2025</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Estado vacío de más notificaciones -->
-        <div style="padding:2rem;text-align:center;">
-          <div class="texto-pequeno">Has llegado al final de tus notificaciones.</div>
-        </div>
+        <div id="paginacion-notif" class="paginacion"></div>
       </div>
     </main>
   </div>
 </div>
-</body>
-</html>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/notifications.js"></script>

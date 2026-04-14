@@ -1,68 +1,58 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Detalle de Usuario — Sistema de Matrícula</title>
-<link rel="stylesheet" href="../../css/styles.css">
-</head>
-<body>
 <div class="app-wrapper">
   <aside class="sidebar">
     <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Panel Administrativo</div></div></div>
     <nav class="sidebar-nav">
       <div class="sidebar-seccion">General</div>
-      <a href="dashboard-admin.html"><span class="icono">📊</span> Dashboard</a>
+      <a href="/admin"><span class="icono">📊</span> Dashboard</a>
       <div class="sidebar-seccion">Usuarios</div>
-      <a href="usuarios-lista.html" class="activo"><span class="icono">👥</span> Usuarios</a>
-      <a href="roles-permisos.html"><span class="icono">🔐</span> Roles y permisos</a>
+      <a href="/admin/usuarios" class="activo"><span class="icono">👥</span> Usuarios</a>
+      <a href="/admin/roles-permisos"><span class="icono">🔐</span> Roles y permisos</a>
       <div class="sidebar-seccion">Académico</div>
-      <a href="../academic/programas-lista.html"><span class="icono">🏛️</span> Programas académicos</a>
-      <a href="../academic/cursos-lista.html"><span class="icono">📚</span> Cursos</a>
-      <a href="../academic/periodos-lista.html"><span class="icono">📅</span> Periodos académicos</a>
+      <a href="/academic/programas"><span class="icono">🏛️</span> Programas académicos</a>
+      <a href="/academic/cursos"><span class="icono">📚</span> Cursos</a>
+      <a href="/academic/periodos"><span class="icono">📅</span> Periodos académicos</a>
       <div class="sidebar-seccion">Sistema</div>
-      <a href="../reports/reportes.html"><span class="icono">📈</span> Reportes</a>
-      <a href="../audit/bitacora.html"><span class="icono">🔍</span> Bitácora</a>
+      <a href="/reports"><span class="icono">📈</span> Reportes</a>
+      <a href="/audit"><span class="icono">🔍</span> Bitácora</a>
     </nav>
-    <div class="sidebar-footer"><a href="../auth/login.html">🚪 Cerrar sesión</a></div>
+    <div class="sidebar-footer"><a href="/auth/login">🚪 Cerrar sesión</a></div>
   </aside>
   <div class="contenido-principal">
     <header class="navbar">
-      <div><div class="navbar-titulo">Detalle de Usuario</div><div class="navbar-breadcrumb"><a href="usuarios-lista.html">Usuarios</a><span class="separador"></span><span class="actual">Laura Jiménez Rojas</span></div></div>
+      <div><div class="navbar-titulo">Detalle de Usuario</div><div class="navbar-breadcrumb"><a href="/admin/usuarios">Usuarios</a><span class="separador"></span><span class="actual">Laura Jiménez Rojas</span></div></div>
       <div class="navbar-acciones"><div class="navbar-usuario"><div class="avatar">AM</div><div><div class="navbar-usuario-nombre">Ana Mora</div><div class="navbar-usuario-rol">Administradora TI</div></div></div></div>
     </header>
     <main class="area-pagina">
       <div class="encabezado-pagina">
-        <div style="display:flex;align-items:center;gap:1rem;"><div class="avatar avatar-lg">LJ</div><div><h1 style="margin-bottom:.25rem;">Laura Jiménez Rojas</h1><div class="texto-muted">ljr-2024-0312 · laura.jimenez@uni.ac.cr</div></div></div>
+        <div style="display:flex;align-items:center;gap:1rem;"><div id="det-avatar" class="avatar avatar-lg">—</div><div><h1 id="det-nombre" style="margin-bottom:.25rem;">Cargando…</h1><div id="det-subtitulo" class="texto-muted">—</div></div></div>
         <div class="acciones-encabezado">
-          <button class="btn btn-secundario">Editar usuario</button>
-          <button class="btn btn-peligro">Desactivar cuenta</button>
+          <button id="btn-editar-usuario" class="btn btn-secundario">Editar usuario</button>
+          <button id="btn-toggle-estado" class="btn btn-peligro">Desactivar cuenta</button>
         </div>
       </div>
       <div class="grid-2">
         <div class="carta mb-4">
           <div class="carta-cabecera"><div class="carta-titulo">Información del usuario</div></div>
           <div class="carta-cuerpo" style="display:flex;flex-direction:column;gap:.875rem;font-size:.9rem;">
-            <div class="flex-entre"><span class="texto-gris">ID del usuario</span><span style="font-family:monospace;">#1284</span></div>
-            <div class="flex-entre"><span class="texto-gris">Nombre completo</span><span class="semibold">Laura Jiménez Rojas</span></div>
-            <div class="flex-entre"><span class="texto-gris">Correo</span><span>laura.jimenez@uni.ac.cr</span></div>
-            <div class="flex-entre"><span class="texto-gris">Identificador SSO</span><span style="font-family:monospace;">ljr-2024-0312</span></div>
-            <div class="flex-entre"><span class="texto-gris">Rol asignado</span><span class="badge badge-verde">Estudiante</span></div>
-            <div class="flex-entre"><span class="texto-gris">Estado</span><span class="badge badge-activo">Activo</span></div>
-            <div class="flex-entre"><span class="texto-gris">Fecha de creación</span><span>15 de agosto de 2024</span></div>
+            <div class="flex-entre"><span class="texto-gris">ID del usuario</span><span id="det-id" style="font-family:monospace;">—</span></div>
+            <div class="flex-entre"><span class="texto-gris">Nombre completo</span><span id="det-nombre-info" class="semibold">—</span></div>
+            <div class="flex-entre"><span class="texto-gris">Correo</span><span id="det-correo">—</span></div>
+            <div class="flex-entre"><span class="texto-gris">Identificador SSO</span><span id="det-sso" style="font-family:monospace;">—</span></div>
+            <div class="flex-entre"><span class="texto-gris">Rol asignado</span><span id="det-rol">—</span></div>
+            <div class="flex-entre"><span class="texto-gris">Estado</span><span id="det-estado">—</span></div>
+            <div class="flex-entre"><span class="texto-gris">Fecha de creación</span><span id="det-fecha">—</span></div>
           </div>
         </div>
         <div class="carta mb-4">
           <div class="carta-cabecera"><div class="carta-titulo">Actividad reciente</div></div>
-          <div class="timeline" style="padding:1.5rem 1.5rem 1rem 3rem;">
-            <div class="timeline-item"><div class="timeline-punto"></div><div class="timeline-fecha">22 ene 2025, 15:42</div><div class="timeline-contenido">Matrícula registrada — I Semestre 2025 (4 cursos)</div></div>
-            <div class="timeline-item"><div class="timeline-punto"></div><div class="timeline-fecha">22 ene 2025, 09:31</div><div class="timeline-contenido">Inicio de sesión exitoso via SSO</div></div>
-            <div class="timeline-item"><div class="timeline-punto gris"></div><div class="timeline-fecha">15 jul 2024, 11:18</div><div class="timeline-contenido">Pago registrado — F-2024-09214 · ₡168,000</div></div>
+          <div id="det-actividad" class="timeline" style="padding:1.5rem 1.5rem 1rem 3rem;">
+            <div style="text-align:center;color:var(--gris-suave);">Cargando actividad…</div>
           </div>
         </div>
       </div>
     </main>
   </div>
 </div>
-</body>
-</html>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/admin-usuario-detalle.js"></script>

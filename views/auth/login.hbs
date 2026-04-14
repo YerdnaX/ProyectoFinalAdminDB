@@ -1,12 +1,3 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Iniciar Sesión — Sistema de Matrícula</title>
-<link rel="stylesheet" href="../../css/styles.css">
-</head>
-<body>
 <div class="pagina-login">
 
   <!-- Panel lateral decorativo -->
@@ -53,7 +44,7 @@
         <div>Usa tus credenciales SSO institucionales. Si es tu primera vez, contacta a TI.</div>
       </div>
 
-      <form action="../admin/dashboard-admin.html" method="GET">
+      <form action="/admin" method="GET">
         <div class="campo">
           <label for="correo">Correo institucional <span class="requerido">*</span></label>
           <input class="campo-input" type="email" id="correo" name="correo" placeholder="usuario@universidad.ac.cr" autocomplete="email">
@@ -66,7 +57,7 @@
           <label class="campo-checkbox">
             <input type="checkbox"> Mantener sesión iniciada
           </label>
-          <a href="recuperar-acceso.html" style="font-size:.875rem;">¿Olvidaste tu contraseña?</a>
+          <a href="/auth/recuperar-acceso" style="font-size:.875rem;">¿Olvidaste tu contraseña?</a>
         </div>
         <button type="submit" class="btn btn-primario w-full btn-lg">Iniciar sesión</button>
       </form>
@@ -85,5 +76,3 @@
     </div>
   </div>
 </div>
-</body>
-</html>
