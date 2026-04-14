@@ -1,23 +1,24 @@
 var express = require('express');
-var router = express.Router();
+var router  = express.Router();
+const { requireAuth, requireRole } = require('../middleware/auth');
 
-/* GET buscar cursos */
-router.get('/buscar', function(req, res) {
+/* GET buscar cursos — Estudiante */
+router.get('/buscar', requireAuth, requireRole('Estudiante'), function (req, res) {
   res.render('enrollment/buscar-cursos', { title: 'Buscar Cursos' });
 });
 
-/* GET resumen de matrícula */
-router.get('/mi-matricula', function(req, res) {
+/* GET resumen de matrícula — Estudiante */
+router.get('/mi-matricula', requireAuth, requireRole('Estudiante'), function (req, res) {
   res.render('enrollment/mi-matricula', { title: 'Mi Matrícula' });
 });
 
-/* GET comprobante de matrícula */
-router.get('/comprobante', function(req, res) {
+/* GET comprobante de matrícula — Estudiante */
+router.get('/comprobante', requireAuth, requireRole('Estudiante'), function (req, res) {
   res.render('enrollment/comprobante', { title: 'Comprobante de Matrícula' });
 });
 
-/* GET lista de matrículas (admin) */
-router.get('/lista', function(req, res) {
+/* GET lista de matrículas — Administrador */
+router.get('/lista', requireAuth, requireRole('Administrador'), function (req, res) {
   res.render('enrollment/matriculas-lista', { title: 'Matrículas' });
 });
 

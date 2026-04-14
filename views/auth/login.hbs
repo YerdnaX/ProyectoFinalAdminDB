@@ -39,32 +39,36 @@
       <h2 style="margin-bottom:.375rem;">Bienvenido</h2>
       <p style="margin-bottom:2rem;">Ingresa con tu cuenta institucional para continuar.</p>
 
-      <div class="alerta alerta-info" style="margin-bottom:1.5rem;">
-        <span class="alerta-icono">ℹ️</span>
-        <div>Usa tus credenciales SSO institucionales. Si es tu primera vez, contacta a TI.</div>
+      <!-- Alerta de error -->
+      <div id="alerta-error" class="alerta alerta-roja" style="display:none;margin-bottom:1.5rem;">
+        <span class="alerta-icono">⚠️</span>
+        <div id="alerta-error-msg">Credenciales incorrectas.</div>
       </div>
 
-      <form action="/admin" method="GET">
+      <form id="form-login" novalidate>
         <div class="campo">
           <label for="correo">Correo institucional <span class="requerido">*</span></label>
-          <input class="campo-input" type="email" id="correo" name="correo" placeholder="usuario@universidad.ac.cr" autocomplete="email">
+          <input class="campo-input" type="email" id="correo" name="correo"
+                 placeholder="usuario@universidad.ac.cr" autocomplete="email" required>
         </div>
         <div class="campo">
           <label for="contrasena">Contraseña <span class="requerido">*</span></label>
-          <input class="campo-input" type="password" id="contrasena" name="contrasena" placeholder="••••••••" autocomplete="current-password">
+          <input class="campo-input" type="password" id="contrasena" name="contrasena"
+                 placeholder="••••••••" autocomplete="current-password" required>
         </div>
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;">
+        <div style="margin-bottom:1.5rem;">
           <label class="campo-checkbox">
-            <input type="checkbox"> Mantener sesión iniciada
+            <input type="checkbox" id="recordar"> Mantener sesión iniciada
           </label>
-          <a href="/auth/recuperar-acceso" style="font-size:.875rem;">¿Olvidaste tu contraseña?</a>
         </div>
-        <button type="submit" class="btn btn-primario w-full btn-lg">Iniciar sesión</button>
+        <button type="submit" id="btn-login" class="btn btn-primario w-full btn-lg">
+          Iniciar sesión
+        </button>
       </form>
 
       <div style="text-align:center;margin-top:1.5rem;">
-        <a href="#" style="font-size:.875rem;color:var(--gris-suave);">
-          🔒 Acceso mediante SSO institucional
+        <a href="/auth/recuperar-acceso" style="font-size:.875rem;color:var(--gris-suave);">
+          ¿Olvidaste tu contraseña?
         </a>
       </div>
 
@@ -76,3 +80,6 @@
     </div>
   </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/js/auth-login.js"></script>

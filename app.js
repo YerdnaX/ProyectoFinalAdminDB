@@ -6,6 +6,7 @@ var path          = require('path');
 var cookieParser  = require('cookie-parser');
 var logger        = require('morgan');
 var session       = require('express-session');
+var hbs           = require('hbs');
 
 // Routers — vistas
 var indexRouter      = require('./routes/index');
@@ -28,6 +29,12 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
+// Registrar directorio de partials HBS
+hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
+
+// Helper HBS: igualdad
+hbs.registerHelper('eq', (a, b) => a === b);
+
 // ── Middleware global ──────────────────────────────────────────────────────
 app.use(logger('dev'));
 app.use(express.json());
@@ -40,6 +47,17 @@ app.use(session({
   saveUninitialized: false,
   cookie: { maxAge: 8 * 60 * 60 * 1000 }   // 8 horas
 }));
+
+// ── Inyectar usuario de sesión en todas las plantillas ─────────────────────
+app.use((req, res, next) => {
+  const u = req.session && req.session.user;
+  res.locals.user         = u || null;
+  res.locals.isAdmin      = u ? u.rol === 'Administrador' : false;
+  res.locals.isDocente    = u ? u.rol === 'Docente'       : false;
+  res.locals.isEstudiante = u ? u.rol === 'Estudiante'    : false;
+  res.locals.isFinanzas   = u ? u.rol === 'Finanzas'      : false;
+  next();
+});
 
 // ── Archivos estáticos ─────────────────────────────────────────────────────
 app.use(express.static(path.join(__dirname, 'public')));

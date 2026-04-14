@@ -10,7 +10,10 @@
       "Bash(node -e \"const p=require\\('./node_modules/mssql/package.json'\\); console.log\\('mssql version:', p.version\\);\")",
       "Bash(powershell -Command \"Get-Service -Name 'MSSQL*' | Select-Object Name, Status, DisplayName\")",
       "Bash(powershell -Command ':*)",
-      "Bash(node -e \"require\\('mssql/msnodesqlv8'\\); console.log\\('msnodesqlv8 OK'\\);\")"
+      "Bash(node -e \"require\\('mssql/msnodesqlv8'\\); console.log\\('msnodesqlv8 OK'\\);\")",
+      "Bash(grep -rl 'href=\"/auth/login\">🚪' views/)",
+      "Bash(grep -rl 'auth/login' views/)",
+      "Bash(find views/ -name \"*.hbs\" ! -path \"*/auth/*\" -exec sed -i 's|href=\"/auth/login\">🚪 Cerrar sesión|href=\"/auth/logout\">🚪 Cerrar sesión|g' {} \\\\;)"
     ]
   }
 }

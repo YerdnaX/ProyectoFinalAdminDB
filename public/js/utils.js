@@ -87,3 +87,20 @@ function badgeEstado(estado) {
 }
 
 window.U = { toast, showLoading, hideLoading, colones, initials, renderPaginacion, openModal, closeModal, badgeEstado };
+
+// ── Auto-inyectar info de usuario en navbar ────────────────────────────────
+(function injectUserNav() {
+  const nomEl    = document.querySelector('.navbar-usuario-nombre');
+  const rolEl    = document.querySelector('.navbar-usuario-rol');
+  const avatarEl = document.querySelector('.avatar');
+  if (!nomEl && !rolEl && !avatarEl) return;
+
+  axios.get('/api/auth/me').then(function (r) {
+    if (!r.data.ok) return;
+    const u = r.data.user;
+    const nombreCompleto = (u.nombre || '') + ' ' + (u.apellido || '');
+    if (nomEl)    nomEl.textContent    = nombreCompleto.trim();
+    if (rolEl)    rolEl.textContent    = u.rol || '';
+    if (avatarEl) avatarEl.textContent = initials(nombreCompleto);
+  }).catch(function () {});
+})();

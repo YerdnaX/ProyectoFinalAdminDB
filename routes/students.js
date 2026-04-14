@@ -1,28 +1,29 @@
 var express = require('express');
-var router = express.Router();
+var router  = express.Router();
+const { requireAuth, requireRole } = require('../middleware/auth');
 
-/* GET portal estudiantil / dashboard */
-router.get('/', function(req, res) {
+/* GET portal estudiantil / dashboard — solo Estudiante */
+router.get('/', requireAuth, requireRole('Estudiante'), function (req, res) {
   res.render('students/dashboard-estudiante', { title: 'Portal Estudiantil' });
 });
 
-/* GET lista de estudiantes (admin) */
-router.get('/lista', function(req, res) {
+/* GET lista de estudiantes — Administrador */
+router.get('/lista', requireAuth, requireRole('Administrador'), function (req, res) {
   res.render('students/estudiantes-lista', { title: 'Estudiantes' });
 });
 
-/* GET historial académico */
-router.get('/historial', function(req, res) {
+/* GET historial académico — Estudiante */
+router.get('/historial', requireAuth, requireRole('Estudiante'), function (req, res) {
   res.render('students/historial-academico', { title: 'Historial Académico' });
 });
 
-/* GET mi perfil (estudiante autenticado) */
-router.get('/mi-perfil', function(req, res) {
+/* GET mi perfil — Estudiante */
+router.get('/mi-perfil', requireAuth, requireRole('Estudiante'), function (req, res) {
   res.render('students/mi-perfil', { title: 'Mi Perfil' });
 });
 
-/* GET perfil de estudiante por ID — debe ir después de las rutas nombradas */
-router.get('/:id', function(req, res) {
+/* GET perfil de estudiante por ID — Administrador — debe ir después de las rutas nombradas */
+router.get('/:id', requireAuth, requireRole('Administrador'), function (req, res) {
   res.render('students/estudiante-perfil', { title: 'Perfil del Estudiante' });
 });
 

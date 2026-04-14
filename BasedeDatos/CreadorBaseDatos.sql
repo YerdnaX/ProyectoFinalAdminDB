@@ -59,6 +59,7 @@ CREATE TABLE usuario (
     nombre            VARCHAR(100) NOT NULL,
     apellido          VARCHAR(100) NOT NULL,
     correo            VARCHAR(150) NOT NULL UNIQUE,
+    clave_hash        VARCHAR(255) NULL,
     activo            BIT          NOT NULL DEFAULT 1,
     fecha_creacion    DATETIME     NOT NULL DEFAULT GETDATE(),
     CONSTRAINT FK_usuario_rol FOREIGN KEY (id_rol) REFERENCES rol(id_rol)

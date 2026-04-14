@@ -70,9 +70,46 @@ INSERT INTO usuario (id_rol, identificador_sso, nombre, apellido, correo, activo
 (2, 'sso.doc02',   'Mario',    'Rojas Arias',     'mario.rojas@universidad.ac.cr',         1, '2026-01-05 08:15:00'), -- id 4 Docente
 (2, 'sso.doc03',   'Sofia',    'Vargas Mora',     'sofia.vargas@universidad.ac.cr',        1, '2026-01-05 08:20:00'), -- id 5 Docente
 (3, 'sso.est01',   'Jose',     'Monge Castillo',  'jose.monge@estudiante.ac.cr',           1, '2026-01-06 08:00:00'), -- id 6 Estudiante
-(3, 'sso.est02',   'Daniela',  'Quesada Fallas',  'daniela.quesada@estudiante.ac.cr',     1, '2026-01-06 08:05:00'), -- id 7 Estudiante
+(3, 'sso.est02',   'Daniela',  'Quesada Fallas',  'daniela.quesada@estudiante.ac.cr',      1, '2026-01-06 08:05:00'), -- id 7 Estudiante
 (3, 'sso.est03',   'Kevin',    'Araya Nunez',     'kevin.araya@estudiante.ac.cr',          1, '2026-01-06 08:10:00'), -- id 8 Estudiante
 (3, 'sso.est04',   'Valeria',  'Chaves Quiroz',   'valeria.chaves@estudiante.ac.cr',       1, '2026-01-06 08:15:00'); -- id 9 Estudiante
+GO
+
+-- ============================================================
+-- 4b. CONTRASENAS DE USUARIOS
+--     Algoritmo: Node.js crypto.scryptSync  Formato: salt:hash
+--     Credenciales de acceso al sistema:
+--       Administrador : laura.mora@universidad.ac.cr       / Admin123!
+--       Finanzas      : carlos.jimenez@universidad.ac.cr   / Finanzas2026!
+--       Docente       : andrea.solano@universidad.ac.cr    / Docente2026!
+--       Estudiante    : jose.monge@estudiante.ac.cr        / Estudiante2026!
+-- ============================================================
+UPDATE usuario SET clave_hash = '74f171f4e08165fe3eddec33720a2b4a:f1fcba1f37e19b75787f73336f9d1e59f4a4df482e5da2ced24464fa128c001f53d18a2a1a8d3508cf41c173c59f30fcd1de6236eb138a988eff501a0a4c1863'
+WHERE correo = 'laura.mora@universidad.ac.cr';
+
+UPDATE usuario SET clave_hash = 'e13d34fb157e35411bb630083d32dc6b:bf2341426acbcff7bcba0219fb905718819c9aa460a05428b6d252f3d9f98c808739212e0afdaf810497bc3c4717ca8acad1769ff05d3a32bf7a3685b69b2f19'
+WHERE correo = 'carlos.jimenez@universidad.ac.cr';
+
+UPDATE usuario SET clave_hash = '0a304b68eaf33baa7147b40c5f1c293d:c043fe777086a34f46f792891c2649e9c80db65d05a2048b92fabfe6ea065da67f7286e6ae0eed0f897844d0d31d4a77f0560353711d3fbedde17c7c0c21fdb7'
+WHERE correo = 'andrea.solano@universidad.ac.cr';
+
+UPDATE usuario SET clave_hash = '9a548f2d58118380febde0ea2553b0c5:75090317455d9144d122f858d7ff82dd8d10af6d71208b21d76b1e4e8d84a9cdaafe15683e6165bdfdcce9a9ca48d695e4239033b908ea0e80639c5b48bf8fc5'
+WHERE correo = 'mario.rojas@universidad.ac.cr';
+
+UPDATE usuario SET clave_hash = 'dadc0c0f4aeb763f80cf6bef6d200ba3:5d5090ca7ea4bd6492629f26316bdf1c1fcd858719da56f9adc9079f2385c6c248d05af37e072051b8afbf21aa2c8fc6efc9354d60be888aed64272c401a9efb'
+WHERE correo = 'sofia.vargas@universidad.ac.cr';
+
+UPDATE usuario SET clave_hash = '35d033ab57929ca0596e04e6f26f69c3:878e637965c76430d8198df4b6917f2ec87686b8639a66529639f28aac2da8d900bc2f63b0f729723316b382729b3dce5a15d632940f6bf4b0902a8686a91716'
+WHERE correo = 'jose.monge@estudiante.ac.cr';
+
+UPDATE usuario SET clave_hash = '66b991823a782d2c0b8da25209c79e2a:abcb62afdb498aae5235904bcbdc6b19451e6c287cee5694a8757b2eb536a72616f90ef649e1447e005f720cd36b5bc1d6d80dbf42f247e8ee73f11946f349bd'
+WHERE correo = 'daniela.quesada@estudiante.ac.cr';
+
+UPDATE usuario SET clave_hash = '919e5edeb7e306c1cf7a6bb7f2f3d3a8:d9b000c472bfffe082179983462f536720e280bbe52c97221b7e967d762adfa14fc9084ea64572f83adaccb2da8e446a61a79c8a7f208e0c6260f5b18b9afa79'
+WHERE correo = 'kevin.araya@estudiante.ac.cr';
+
+UPDATE usuario SET clave_hash = '255c252297f858936cb12fea7f762500:951154f9f2bee89e4378279afd0ed527b9bb2a1c7df8a3a250734dec5543eb1c3c8106a08f74e9135c0cad9d000f44f5b7ad5df8d3df281c84b8710eb7a87d83'
+WHERE correo = 'valeria.chaves@estudiante.ac.cr';
 GO
 
 -- ============================================================
