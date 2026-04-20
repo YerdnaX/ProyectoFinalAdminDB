@@ -161,6 +161,61 @@ router.post('/', async (req, res) => {
     if (!sec) return res.status(404).json({ ok: false, error: 'Seccion no encontrada o cerrada' });
     if (sec.cupo_disponible <= 0) return res.status(400).json({ ok: false, error: 'Sin cupos disponibles' });
 
+    // RF-07: Verificar prerrequisitos
+    const prereqs = await query(
+      `SELECT cp.id_curso_prerrequisito, c.codigo AS codigo_prereq, c.nombre AS nombre_prereq
+       FROM curso_prerrequisito cp
+       INNER JOIN curso c ON c.id_curso = cp.id_curso_prerrequisito
+       WHERE cp.id_curso = @idc`,
+      { idc: { type: sql.Int, value: sec.id_curso } }
+    );
+    if (prereqs.length > 0) {
+      const cumplidos = await query(
+        `SELECT DISTINCT s2.id_curso
+         FROM historial_academico ha
+         INNER JOIN seccion s2 ON s2.id_seccion = ha.id_seccion
+         WHERE ha.id_estudiante = @est
+           AND s2.id_curso IN (${prereqs.map(p => p.id_curso_prerrequisito).join(',')})
+           AND ha.estado IN ('Aprobada','Aprobado')`,
+        { est: { type: sql.Int, value: idEst } }
+      ).catch(() => []);
+      if (cumplidos.length < prereqs.length) {
+        const faltantes = prereqs.filter(p => !cumplidos.find(c => c.id_curso === p.id_curso_prerrequisito));
+        return res.status(400).json({
+          ok: false,
+          error: `Prerrequisitos no cumplidos: ${faltantes.map(f => f.codigo_prereq).join(', ')}`
+        });
+      }
+    }
+
+    // RF-12: Verificar conflicto de horario
+    const conflicto = await queryOne(`
+      SELECT TOP 1 c2.nombre AS curso_conflicto, s2.codigo_seccion,
+                   hs2.dia_semana,
+                   CONVERT(varchar,hs2.hora_inicio,108) AS hi,
+                   CONVERT(varchar,hs2.hora_fin,108)    AS hf
+      FROM detalle_matricula dm2
+      INNER JOIN matricula m2     ON m2.id_matricula  = dm2.id_matricula
+      INNER JOIN seccion s2       ON s2.id_seccion    = dm2.id_seccion
+      INNER JOIN curso c2         ON c2.id_curso      = s2.id_curso
+      INNER JOIN horario_seccion hs2   ON hs2.id_seccion = dm2.id_seccion
+      INNER JOIN horario_seccion hs_nv ON hs_nv.id_seccion = @sid
+        AND hs2.dia_semana   = hs_nv.dia_semana
+        AND hs2.hora_inicio  < hs_nv.hora_fin
+        AND hs2.hora_fin     > hs_nv.hora_inicio
+      WHERE m2.id_estudiante = @est
+        AND m2.id_periodo    = @per
+    `, { sid: { type: sql.Int, value: idSec },
+         est: { type: sql.Int, value: idEst },
+         per: { type: sql.Int, value: sec.id_periodo } }
+    ).catch(() => null);
+    if (conflicto) {
+      return res.status(400).json({
+        ok: false,
+        error: `Conflicto de horario con "${conflicto.curso_conflicto}" (${conflicto.dia_semana} ${conflicto.hi}–${conflicto.hf})`
+      });
+    }
+
     // Obtener o crear matricula
     let matricula = await queryOne(
       `SELECT id_matricula, total_creditos, total_monto FROM matricula WHERE id_estudiante=@est AND id_periodo=@per`,
@@ -236,6 +291,14 @@ router.post('/', async (req, res) => {
       await rCupo.query(`UPDATE seccion SET cupo_disponible=cupo_disponible-1 WHERE id_seccion=@sid`);
 
       await t.commit();
+
+      // RF-03: Bitácora
+      query(`INSERT INTO bitacora_auditoria(id_usuario,entidad,accion,descripcion)
+             VALUES(@u,'detalle_matricula','INSERT',@det)`,
+        { u:   { type: sql.Int,     value: req.session?.usuario?.id_usuario || 0 },
+          det: { type: sql.VarChar, value: `Sección ${idSec} agregada a matrícula ${matricula.id_matricula}` }
+        }).catch(() => {});
+
       res.json({ ok: true, mensaje: 'Seccion agregada a tu matricula', id_matricula: matricula.id_matricula });
     } catch (err2) {
       await t.rollback();
@@ -275,6 +338,13 @@ router.delete('/:idEstudiante/seccion/:idSeccion', async (req, res) => {
 
     await query(`UPDATE seccion SET cupo_disponible=cupo_disponible+1 WHERE id_seccion=@sid`,
       { sid: { type: sql.Int, value: idSec } });
+
+    // RF-03: Bitácora
+    query(`INSERT INTO bitacora_auditoria(id_usuario,entidad,accion,descripcion)
+           VALUES(@u,'detalle_matricula','DELETE',@det)`,
+      { u:   { type: sql.Int,     value: req.session?.usuario?.id_usuario || 0 },
+        det: { type: sql.VarChar, value: `Sección ${idSec} eliminada de matrícula ${detalle.id_matricula}` }
+      }).catch(() => {});
 
     res.json({ ok: true, mensaje: 'Seccion eliminada de tu matricula' });
   } catch (e) { res.status(500).json({ ok: false, error: e.message }); }
@@ -323,6 +393,21 @@ router.post('/:id/confirmar', async (req, res) => {
       const idFactura = rFacResult.recordset[0].id_factura;
 
       await t.commit();
+
+      // RF-03: Bitácora
+      query(`INSERT INTO bitacora_auditoria(id_usuario,entidad,accion,descripcion)
+             VALUES(@u,'matricula','UPDATE',@det)`,
+        { u:   { type: sql.Int,     value: req.session?.usuario?.id_usuario || 0 },
+          det: { type: sql.VarChar, value: `Matrícula ${idMat} confirmada. Comprobante: ${numComprobante}` }
+        }).catch(() => {});
+
+      // RF-23: Notificación automática al confirmar matrícula
+      query(`INSERT INTO notificacion(id_estudiante,tipo,asunto,mensaje,medio)
+             VALUES(@est,'Matricula','Matrícula confirmada',@msg,'Portal')`,
+        { est: { type: sql.Int,     value: mat.id_estudiante },
+          msg: { type: sql.VarChar, value: `Tu matrícula fue confirmada. Comprobante: ${numComprobante}. Factura: ${numFactura}.` }
+        }).catch(() => {});
+
       res.json({ ok: true, comprobante: numComprobante, id_factura: idFactura, mensaje: 'Matricula confirmada' });
     } catch (err2) {
       await t.rollback();

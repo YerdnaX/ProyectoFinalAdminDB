@@ -3,9 +3,7 @@
  * Estudiante: realizar pago de una factura
  */
 (function () {
-  const idEst = document.querySelector('meta[name=id-estudiante]')?.content
-              || document.body.dataset.idEstudiante
-              || 1;
+  const idEst = window._idEstudiante;
 
   const tbody    = document.getElementById('tbody-facturas-pend');
   const formPago = document.getElementById('form-pagar');

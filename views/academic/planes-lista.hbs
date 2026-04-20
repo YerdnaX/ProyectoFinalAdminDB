@@ -1,28 +1,5 @@
 <div class="app-wrapper">
-  <aside class="sidebar">
-    <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Panel Administrativo</div></div></div>
-    <nav class="sidebar-nav">
-      <div class="sidebar-seccion">General</div>
-      <a href="/admin"><span class="icono">📊</span> Dashboard</a>
-      <div class="sidebar-seccion">Académico</div>
-      <a href="/academic/programas"><span class="icono">🏛️</span> Programas académicos</a>
-      <a href="/academic/planes" class="activo"><span class="icono">📋</span> Planes de estudio</a>
-      <a href="/academic/cursos"><span class="icono">📚</span> Cursos</a>
-      <a href="/academic/periodos"><span class="icono">📅</span> Periodos académicos</a>
-      <a href="/academic/secciones"><span class="icono">🗂️</span> Secciones</a>
-      <a href="/academic/aulas"><span class="icono">🏫</span> Aulas</a>
-      <div class="sidebar-seccion">Estudiantes</div>
-      <a href="/students/lista"><span class="icono">🎓</span> Estudiantes</a>
-      <a href="/enrollment/lista"><span class="icono">✏️</span> Matrículas</a>
-      <div class="sidebar-seccion">Finanzas</div>
-      <a href="/billing/facturas"><span class="icono">🧾</span> Facturas</a>
-      <a href="/billing/pagos"><span class="icono">💳</span> Pagos</a>
-      <div class="sidebar-seccion">Sistema</div>
-      <a href="/reports"><span class="icono">📈</span> Reportes</a>
-      <a href="/audit"><span class="icono">🔍</span> Bitácora</a>
-    </nav>
-    <div class="sidebar-footer"><a href="/auth/logout">🚪 Cerrar sesión</a></div>
-  </aside>
+  {{> sidebar-admin}}
   <div class="contenido-principal">
     <header class="navbar">
       <div><div class="navbar-titulo">Planes de Estudio</div><div class="navbar-breadcrumb"><a href="/academic/programas">Programas</a><span class="separador"></span><span class="actual">Planes de estudio</span></div></div>
@@ -59,26 +36,26 @@
       <input type="hidden" id="plan-id">
       <div class="campo" style="margin:0;">
         <label>Código <span class="requerido">*</span></label>
-        <input id="plan-codigo" class="campo-input" required placeholder="ej. IS-2025">
+        <input id="plan-codigo" name="codigo" class="campo-input" required placeholder="ej. IS-2025">
       </div>
       <div class="campo" style="margin:0;">
         <label>Nombre <span class="requerido">*</span></label>
-        <input id="plan-nombre" class="campo-input" required placeholder="Nombre del plan">
+        <input id="plan-nombre" name="nombre" class="campo-input" required placeholder="Nombre del plan">
       </div>
       <div class="campo" style="margin:0;">
         <label>Programa <span class="requerido">*</span></label>
-        <select id="plan-programa" class="campo-input" required>
+        <select id="plan-programa" name="id_programa" class="campo-input" required>
           <option value="">Seleccionar programa…</option>
         </select>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
         <div class="campo" style="margin:0;">
-          <label>Vigencia inicio</label>
-          <input id="plan-inicio" class="campo-input" type="date">
+          <label>Vigencia inicio <span class="requerido">*</span></label>
+          <input id="plan-inicio" name="fecha_vigencia_inicio" class="campo-input" type="date" required>
         </div>
         <div class="campo" style="margin:0;">
           <label>Vigencia fin</label>
-          <input id="plan-fin" class="campo-input" type="date">
+          <input id="plan-fin" name="fecha_vigencia_fin" class="campo-input" type="date">
         </div>
       </div>
       <div style="display:flex;gap:.75rem;justify-content:flex-end;margin-top:.5rem;">

@@ -69,6 +69,29 @@ router.get('/facturas/estudiante/:id', async (req, res) => {
   } catch (e) { res.status(500).json({ ok: false, error: e.message }); }
 });
 
+/* GET /api/billing/facturas/:id — detalle de una factura */
+router.get('/facturas/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    const factura = await queryOne(`
+      SELECT f.id_factura, f.numero_factura, f.estado,
+             CONVERT(varchar,f.fecha_emision,103) AS fecha_emision,
+             f.subtotal, f.descuentos, f.recargos, f.total, f.saldo,
+             p.nombre AS periodo
+      FROM factura f
+      INNER JOIN periodo_academico p ON p.id_periodo = f.id_periodo
+      WHERE f.id_factura = @id
+    `, { id: { type: sql.Int, value: id } });
+    if (!factura) return res.status(404).json({ ok: false, error: 'Factura no encontrada' });
+
+    const lineas = await query(`
+      SELECT descripcion, monto FROM detalle_factura WHERE id_factura = @id
+    `, { id: { type: sql.Int, value: id } }).catch(() => []);
+
+    res.json({ ok: true, data: { ...factura, lineas } });
+  } catch (e) { res.status(500).json({ ok: false, error: e.message }); }
+});
+
 /* GET /api/billing/estado-cuenta/:id — estado de cuenta de un estudiante */
 router.get('/estado-cuenta/:id', async (req, res) => {
   try {
@@ -188,6 +211,21 @@ router.post('/pagar', async (req, res) => {
       `);
 
       await t.commit();
+
+      // RF-03: Bitácora
+      query(`INSERT INTO bitacora_auditoria(id_usuario,entidad,accion,descripcion)
+             VALUES(@u,'pago','INSERT',@det)`,
+        { u:   { type: sql.Int,     value: req.session?.usuario?.id_usuario || 0 },
+          det: { type: sql.VarChar, value: `Pago ${ref} de ${montoNum} registrado para factura ${id_factura} (${nuevoEstado})` }
+        }).catch(() => {});
+
+      // RF-24: Notificación automática al registrar pago
+      query(`INSERT INTO notificacion(id_estudiante,tipo,asunto,mensaje,medio)
+             VALUES(@est,'Pago','Pago recibido',@msg,'Portal')`,
+        { est: { type: sql.Int,     value: factura.id_estudiante },
+          msg: { type: sql.VarChar, value: `Se registró un pago de ${montoNum} para tu factura. Referencia: ${ref}.` }
+        }).catch(() => {});
+
       res.json({ ok: true, id_pago: idPago, referencia: ref, nuevo_estado: nuevoEstado, mensaje: 'Pago registrado exitosamente' });
     } catch (err2) {
       await t.rollback();

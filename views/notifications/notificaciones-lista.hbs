@@ -1,5 +1,9 @@
+{{#if idEstudiante}}<meta name="id-estudiante" content="{{idEstudiante}}">{{/if}}
 <div class="app-wrapper">
   <aside class="sidebar">
+
+    {{#if esEstudiante}}
+    <!-- Sidebar Estudiante -->
     <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Portal Estudiantil</div></div></div>
     <nav class="sidebar-nav">
       <div class="sidebar-seccion">General</div>
@@ -18,6 +22,11 @@
       <div class="sidebar-seccion">Comunicaciones</div>
       <a href="/notifications" class="activo"><span class="icono">🔔</span> Notificaciones</a>
     </nav>
+
+    {{else}}
+    {{> sidebar-admin activePage="notificaciones"}}
+    {{/if}}
+
     <div class="sidebar-footer"><a href="/auth/logout">🚪 Cerrar sesión</a></div>
   </aside>
 
@@ -25,37 +34,59 @@
     <header class="navbar">
       <div>
         <div class="navbar-titulo">Notificaciones</div>
-        <div class="navbar-breadcrumb"><a href="/students">Inicio</a><span class="separador"></span><span class="actual">Notificaciones</span></div>
+        <div class="navbar-breadcrumb">
+          {{#if esEstudiante}}
+          <a href="/students">Inicio</a>
+          {{else}}
+          <a href="/admin">Inicio</a>
+          {{/if}}
+          <span class="separador"></span><span class="actual">Notificaciones</span>
+        </div>
       </div>
       <div class="navbar-acciones">
-        <div class="navbar-usuario"><div class="avatar">LJ</div><div><div class="navbar-usuario-nombre">Laura Jiménez</div><div class="navbar-usuario-rol">Estudiante · 2024-0312</div></div></div>
+        <div class="icono-notif">🔔<span class="badge-notif"></span></div>
+        <div class="navbar-usuario"><div class="avatar"></div><div><div class="navbar-usuario-nombre"></div><div class="navbar-usuario-rol"></div></div></div>
       </div>
     </header>
 
     <main class="area-pagina">
       <div class="encabezado-pagina">
-        <div><h1>Mis notificaciones</h1><p>Mensajes del sistema, alertas y comunicados institucionales.</p></div>
-        <div class="acciones-encabezado">
-          <button class="btn btn-secundario btn-sm">Marcar todas como leídas</button>
+        <div>
+          <h1>{{#if esEstudiante}}Mis notificaciones{{else}}Notificaciones del sistema{{/if}}</h1>
+          <p>Mensajes del sistema, alertas y comunicados institucionales.</p>
         </div>
       </div>
 
-      <!-- Filtros -->
       <div class="barra-filtros mb-4">
-        <div style="display:flex;gap:.5rem;">
-          <button class="btn btn-secundario btn-sm" style="border-color:var(--verde-principal);color:var(--verde-principal);">Todas (8)</button>
-          <button class="btn btn-secundario btn-sm">No leídas (2)</button>
-          <button class="btn btn-secundario btn-sm">Matrícula</button>
-          <button class="btn btn-secundario btn-sm">Pagos</button>
-          <button class="btn btn-secundario btn-sm">Académico</button>
-        </div>
+        <select id="sel-tipo" class="filtro-select">
+          <option value="">Todos los tipos</option>
+          <option value="Matricula">Matrícula</option>
+          <option value="Pago">Pago</option>
+          <option value="Cobro">Cobro</option>
+          <option value="Academico">Académico</option>
+          <option value="Sistema">Sistema</option>
+        </select>
+        <select id="sel-estado-notif" class="filtro-select">
+          <option value="">Todos los estados</option>
+          <option value="Enviada">Enviada</option>
+          <option value="Pendiente">Pendiente</option>
+          <option value="Error">Error</option>
+        </select>
       </div>
 
       <div class="carta">
         <div class="tabla-contenedor">
           <table class="tabla">
             <thead>
-              <tr><th>Fecha</th><th>Hora</th><th>Estudiante</th><th>Tipo</th><th>Asunto / Mensaje</th><th>Medio</th><th>Estado</th></tr>
+              <tr>
+                <th>Fecha</th>
+                <th>Hora</th>
+                {{#unless esEstudiante}}<th>Estudiante</th>{{/unless}}
+                <th>Tipo</th>
+                <th>Asunto / Mensaje</th>
+                <th>Medio</th>
+                <th>Estado</th>
+              </tr>
             </thead>
             <tbody id="tbody-notif">
               <tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando…</td></tr>

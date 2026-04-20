@@ -40,13 +40,19 @@
       if (!a) return;
       const form = document.getElementById('form-editar-aula');
       if (!form) return;
-      form.querySelector('[name=nombre_aula]').value = a.nombre||'';
-      form.querySelector('[name=edificio]').value    = a.edificio||'';
-      form.querySelector('[name=capacidad]').value   = a.capacidad||'';
+      form.querySelector('[name=nombre]').value    = a.nombre || '';
+      form.querySelector('[name=edificio]').value  = a.edificio || '';
+      form.querySelector('[name=capacidad]').value = a.capacidad || '';
       form.dataset.id = id;
       U.openModal('modal-editar-aula');
-    } catch (e) { U.toast('Error', 'error'); }
+    } catch (e) { U.toast('Error al cargar aula', 'error'); }
   };
+
+  /* ── Abrir modal para CREAR ──────────────────────────────────── */
+  document.getElementById('btn-nueva-aula')?.addEventListener('click', () => {
+    document.getElementById('form-crear-aula')?.reset();
+    U.openModal('modal-crear-aula');
+  });
 
   document.getElementById('form-crear-aula')?.addEventListener('submit', async e => {
     e.preventDefault();

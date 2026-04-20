@@ -1,25 +1,5 @@
 <div class="app-wrapper">
-  <aside class="sidebar">
-    <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Panel Administrativo</div></div></div>
-    <nav class="sidebar-nav">
-      <div class="sidebar-seccion">General</div>
-      <a href="/admin"><span class="icono">📊</span> Dashboard</a>
-      <div class="sidebar-seccion">Académico</div>
-      <a href="/academic/programas"><span class="icono">🏛️</span> Programas académicos</a>
-      <a href="/academic/planes"><span class="icono">📋</span> Planes de estudio</a>
-      <a href="/academic/cursos"><span class="icono">📚</span> Cursos</a>
-      <a href="/academic/periodos"><span class="icono">📅</span> Periodos académicos</a>
-      <a href="/academic/secciones"><span class="icono">🗂️</span> Secciones</a>
-      <a href="/academic/aulas" class="activo"><span class="icono">🏫</span> Aulas</a>
-      <div class="sidebar-seccion">Estudiantes</div>
-      <a href="/students/lista"><span class="icono">🎓</span> Estudiantes</a>
-      <a href="/enrollment/lista"><span class="icono">✏️</span> Matrículas</a>
-      <div class="sidebar-seccion">Sistema</div>
-      <a href="/reports"><span class="icono">📈</span> Reportes</a>
-      <a href="/audit"><span class="icono">🔍</span> Bitácora</a>
-    </nav>
-    <div class="sidebar-footer"><a href="/auth/logout">🚪 Cerrar sesión</a></div>
-  </aside>
+  {{> sidebar-admin}}
   <div class="contenido-principal">
     <header class="navbar">
       <div><div class="navbar-titulo">Aulas</div><div class="navbar-breadcrumb"><span>Inicio</span><span class="separador"></span><span class="actual">Aulas</span></div></div>
@@ -28,7 +8,7 @@
     <main class="area-pagina">
       <div class="encabezado-pagina">
         <div><h1>Gestión de aulas</h1><p>Administra los espacios físicos y virtuales disponibles.</p></div>
-        <div class="acciones-encabezado"><button class="btn btn-primario">+ Nueva aula</button></div>
+        <div class="acciones-encabezado"><button id="btn-nueva-aula" class="btn btn-primario">+ Nueva aula</button></div>
       </div>
       <div class="carta">
         <div class="carta-cabecera">
@@ -48,6 +28,40 @@
         </div>
       </div>
     </main>
+  </div>
+</div>
+<!-- Modal crear aula -->
+<div id="modal-crear-aula" class="modal">
+  <div class="modal-overlay" onclick="U.closeModal('modal-crear-aula')"></div>
+  <div class="modal-caja" style="max-width:480px;">
+    <div class="modal-cabecera">
+      <div class="modal-titulo">Nueva aula</div>
+      <button class="modal-cerrar" onclick="U.closeModal('modal-crear-aula')">✕</button>
+    </div>
+    <form id="form-crear-aula" class="modal-cuerpo" style="display:flex;flex-direction:column;gap:1rem;">
+      <div class="campo" style="margin:0;">
+        <label>Código <span class="requerido">*</span></label>
+        <input name="codigo" class="campo-input" required placeholder="ej. A-101">
+      </div>
+      <div class="campo" style="margin:0;">
+        <label>Nombre <span class="requerido">*</span></label>
+        <input name="nombre" class="campo-input" required placeholder="Nombre del aula">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="campo" style="margin:0;">
+          <label>Edificio</label>
+          <input name="edificio" class="campo-input" placeholder="ej. Edificio A">
+        </div>
+        <div class="campo" style="margin:0;">
+          <label>Capacidad <span class="requerido">*</span></label>
+          <input name="capacidad" class="campo-input" type="number" min="1" required placeholder="ej. 30">
+        </div>
+      </div>
+      <div style="display:flex;gap:.75rem;justify-content:flex-end;margin-top:.5rem;">
+        <button type="button" class="btn btn-secundario" onclick="U.closeModal('modal-crear-aula')">Cancelar</button>
+        <button type="submit" class="btn btn-primario">Guardar</button>
+      </div>
+    </form>
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

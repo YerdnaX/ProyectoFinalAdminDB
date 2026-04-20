@@ -48,6 +48,49 @@
     U.renderPaginacion('#paginacion-secciones', { total, page, limit: LIMIT, onPage: p => { page = p; cargar(); } });
   }
 
+  /* ── Poblar selects del modal ────────────────────────────────── */
+  async function cargarCatalogos() {
+    const [resCursos, resPeriodos, resAulas, resDocentes] = await Promise.allSettled([
+      axios.get('/api/academic/cursos'),
+      axios.get('/api/academic/periodos'),
+      axios.get('/api/academic/aulas'),
+      axios.get('/api/usuarios', { params: { rol: 'Docente', limit: 200 } })
+    ]);
+
+    const poblar = (selId, items, valFn, textFn, primera = '') => {
+      const sel = document.getElementById(selId);
+      if (!sel) return;
+      const primerOpt = sel.options[0];
+      sel.innerHTML = '';
+      if (primera) sel.appendChild(new Option(primera, ''));
+      else sel.appendChild(primerOpt || new Option('', ''));
+      (items || []).forEach(i => sel.appendChild(new Option(textFn(i), valFn(i))));
+    };
+
+    if (resCursos.status === 'fulfilled')
+      poblar('sec-curso', resCursos.value.data.data,
+        c => c.id_curso, c => `${c.codigo} — ${c.nombre}`, 'Seleccionar curso…');
+
+    if (resPeriodos.status === 'fulfilled')
+      poblar('sec-periodo', resPeriodos.value.data.data,
+        p => p.id_periodo, p => p.nombre, 'Seleccionar periodo…');
+
+    if (resAulas.status === 'fulfilled')
+      poblar('sec-aula', resAulas.value.data.data,
+        a => a.id_aula, a => `${a.codigo} — ${a.nombre}`, 'Sin asignar');
+
+    if (resDocentes.status === 'fulfilled')
+      poblar('sec-docente', resDocentes.value.data.data,
+        u => u.id_usuario, u => `${u.nombre} ${u.apellido}`, 'Sin asignar');
+  }
+
+  /* ── Abrir modal para CREAR ──────────────────────────────────── */
+  document.getElementById('btn-nueva-seccion')?.addEventListener('click', async () => {
+    document.getElementById('form-crear-seccion')?.reset();
+    await cargarCatalogos();
+    U.openModal('modal-crear-seccion');
+  });
+
   let debounce;
   inBus?.addEventListener('input', e => { clearTimeout(debounce); debounce = setTimeout(() => { buscar = e.target.value.trim(); page = 1; cargar(); }, 400); });
 

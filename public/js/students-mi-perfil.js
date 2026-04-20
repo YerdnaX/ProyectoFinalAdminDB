@@ -1,5 +1,5 @@
 (function () {
-  const ID_EST = 1; // TODO: replace with session
+  const ID_EST = window._idEstudiante;
 
   async function cargar() {
     try {

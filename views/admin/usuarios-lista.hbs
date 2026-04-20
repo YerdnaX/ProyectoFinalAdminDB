@@ -1,33 +1,5 @@
 <div class="app-wrapper">
-  <aside class="sidebar">
-    <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Panel Administrativo</div></div></div>
-    <nav class="sidebar-nav">
-      <div class="sidebar-seccion">General</div>
-      <a href="/admin"><span class="icono">📊</span> Dashboard</a>
-      <div class="sidebar-seccion">Usuarios</div>
-      <a href="/admin/usuarios" class="activo"><span class="icono">👥</span> Usuarios</a>
-      <a href="/admin/roles-permisos"><span class="icono">🔐</span> Roles y permisos</a>
-      <div class="sidebar-seccion">Académico</div>
-      <a href="/academic/programas"><span class="icono">🏛️</span> Programas académicos</a>
-      <a href="/academic/planes"><span class="icono">📋</span> Planes de estudio</a>
-      <a href="/academic/cursos"><span class="icono">📚</span> Cursos</a>
-      <a href="/academic/periodos"><span class="icono">📅</span> Periodos académicos</a>
-      <div class="sidebar-seccion">Oferta</div>
-      <a href="/academic/secciones"><span class="icono">🗂️</span> Secciones</a>
-      <a href="/academic/aulas"><span class="icono">🏫</span> Aulas</a>
-      <div class="sidebar-seccion">Estudiantes</div>
-      <a href="/students/lista"><span class="icono">🎓</span> Estudiantes</a>
-      <a href="/enrollment/lista"><span class="icono">✏️</span> Matrículas</a>
-      <div class="sidebar-seccion">Finanzas</div>
-      <a href="/billing/facturas"><span class="icono">🧾</span> Facturas</a>
-      <a href="/billing/pagos"><span class="icono">💳</span> Pagos</a>
-      <div class="sidebar-seccion">Sistema</div>
-      <a href="/notifications"><span class="icono">🔔</span> Notificaciones</a>
-      <a href="/reports"><span class="icono">📈</span> Reportes</a>
-      <a href="/audit"><span class="icono">🔍</span> Bitácora</a>
-    </nav>
-    <div class="sidebar-footer"><a href="/auth/logout">🚪 Cerrar sesión</a></div>
-  </aside>
+  {{> sidebar-admin}}
 
   <div class="contenido-principal">
     <header class="navbar">
@@ -104,7 +76,7 @@
       <div class="campo"><label>Nombre</label><input class="campo-input" name="nombre" required></div>
       <div class="campo"><label>Apellido</label><input class="campo-input" name="apellido" required></div>
       <div class="campo"><label>Correo</label><input class="campo-input" type="email" name="correo" required></div>
-      <div class="campo"><label>Contraseña</label><input class="campo-input" type="password" name="password_hash" required></div>
+      <div class="campo"><label>Contraseña</label><input class="campo-input" type="password" name="contrasena" required></div>
       <div class="campo"><label>Identificador SSO</label><input class="campo-input" name="identificador_sso"></div>
       <div class="campo"><label>Rol</label>
         <select class="campo-input" name="id_rol" required>

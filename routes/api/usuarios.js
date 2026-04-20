@@ -4,8 +4,15 @@
  * NOTA: rutas especificas (/roles/...) DEBEN estar antes de la ruta dinamica (/:id)
  */
 const express = require('express');
+const crypto  = require('crypto');
 const router  = express.Router();
 const { sql, query, queryOne } = require('../../config/db');
+
+function hashPassword(plain) {
+  const salt = crypto.randomBytes(16).toString('hex');
+  const hash = crypto.scryptSync(plain, salt, 64).toString('hex');
+  return `${salt}:${hash}`;
+}
 
 /* ─────────────────────────────────────────
    GET /api/usuarios
@@ -111,7 +118,7 @@ router.get('/:id', async (req, res) => {
     const user = await queryOne(`
       SELECT u.id_usuario, u.nombre, u.apellido, u.correo,
              u.identificador_sso, u.activo,
-             CONVERT(varchar,u.fecha_creacion,103) AS fecha_creacion,
+             CONVERT(varchar,u.fecha_creacion,23) AS fecha_creacion,
              r.id_rol, r.nombre AS rol
       FROM usuario u
       INNER JOIN rol r ON u.id_rol = r.id_rol
@@ -130,9 +137,12 @@ router.get('/:id', async (req, res) => {
 ───────────────────────────────────────── */
 router.post('/', async (req, res) => {
   try {
-    const { nombre, apellido, correo, identificador_sso, id_rol, activo = 1 } = req.body;
+    const { nombre, apellido, correo, identificador_sso, id_rol, activo = 1, contrasena } = req.body;
     if (!nombre || !apellido || !correo || !identificador_sso || !id_rol) {
       return res.status(400).json({ ok: false, error: 'Faltan campos obligatorios' });
+    }
+    if (!contrasena) {
+      return res.status(400).json({ ok: false, error: 'La contraseña es obligatoria' });
     }
 
     const existe = await queryOne(
@@ -141,16 +151,19 @@ router.post('/', async (req, res) => {
     );
     if (existe) return res.status(409).json({ ok: false, error: 'El correo o SSO ya existe' });
 
+    const clave_hash = hashPassword(contrasena);
+
     const result = await query(`
-      INSERT INTO usuario (id_rol,identificador_sso,nombre,apellido,correo,activo,fecha_creacion)
+      INSERT INTO usuario (id_rol,identificador_sso,nombre,apellido,correo,clave_hash,activo,fecha_creacion)
       OUTPUT INSERTED.id_usuario
-      VALUES (@id_rol,@sso,@nombre,@apellido,@correo,@activo,GETDATE())
+      VALUES (@id_rol,@sso,@nombre,@apellido,@correo,@hash,@activo,GETDATE())
     `, {
       id_rol:   { type: sql.Int,     value: parseInt(id_rol) },
       sso:      { type: sql.VarChar, value: identificador_sso },
       nombre:   { type: sql.VarChar, value: nombre },
       apellido: { type: sql.VarChar, value: apellido },
       correo:   { type: sql.VarChar, value: correo },
+      hash:     { type: sql.VarChar, value: clave_hash },
       activo:   { type: sql.Bit,     value: activo ? 1 : 0 }
     });
 

@@ -119,4 +119,74 @@ router.get('/financiero', async (req, res) => {
   } catch (e) { res.status(500).json({ ok: false, error: e.message }); }
 });
 
+/* GET /api/reports/export/matriculas — CSV de matrículas del periodo activo (RF-22) */
+router.get('/export/matriculas', async (req, res) => {
+  try {
+    const { periodo = '' } = req.query;
+    const params = {};
+    let where = 'WHERE 1=1';
+    if (periodo) { where += ' AND m.id_periodo=@per'; params.per = { type: require('../../config/db').sql.Int, value: parseInt(periodo) }; }
+
+    const rows = await query(`
+      SELECT e.carne, u.nombre + ' ' + u.apellido AS estudiante,
+             pa.nombre AS programa, p.nombre AS periodo,
+             m.estado, m.total_creditos, m.total_monto,
+             m.confirmada,
+             CONVERT(varchar,m.fecha_matricula,103) AS fecha_matricula,
+             m.comprobante,
+             (SELECT COUNT(*) FROM detalle_matricula WHERE id_matricula=m.id_matricula) AS num_cursos
+      FROM matricula m
+      INNER JOIN estudiante e ON e.id_estudiante=m.id_estudiante
+      INNER JOIN usuario u ON u.id_usuario=e.id_usuario
+      INNER JOIN programa_academico pa ON pa.id_programa=e.id_programa
+      INNER JOIN periodo_academico p ON p.id_periodo=m.id_periodo
+      ${where}
+      ORDER BY m.fecha_matricula DESC
+    `, params);
+
+    const header = ['Carné','Estudiante','Programa','Período','Estado','Créditos','Monto','Confirmada','Fecha','Comprobante','Cursos'];
+    const csv = [header.join(','),
+      ...rows.map(r => [
+        r.carne, `"${(r.estudiante||'').replace(/"/g,'""')}"`, `"${(r.programa||'').replace(/"/g,'""')}"`,
+        `"${(r.periodo||'').replace(/"/g,'""')}"`, r.estado, r.total_creditos, r.total_monto,
+        r.confirmada ? 'Sí' : 'No', r.fecha_matricula, r.comprobante||'', r.num_cursos
+      ].join(','))
+    ].join('\r\n');
+
+    res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+    res.setHeader('Content-Disposition', 'attachment; filename="matriculas.csv"');
+    res.send('\uFEFF' + csv);
+  } catch (e) { res.status(500).json({ ok: false, error: e.message }); }
+});
+
+/* GET /api/reports/export/pagos — CSV de pagos (RF-22) */
+router.get('/export/pagos', async (req, res) => {
+  try {
+    const rows = await query(`
+      SELECT CONVERT(varchar,pg.fecha_pago,103) AS fecha_pago,
+             e.carne, u.nombre + ' ' + u.apellido AS estudiante,
+             f.numero_factura, pg.monto, pg.metodo_pago,
+             pg.referencia_pasarela, pg.estado, pg.observacion
+      FROM pago pg
+      INNER JOIN factura f ON f.id_factura=pg.id_factura
+      INNER JOIN estudiante e ON e.id_estudiante=f.id_estudiante
+      INNER JOIN usuario u ON u.id_usuario=e.id_usuario
+      ORDER BY pg.fecha_pago DESC
+    `, {});
+
+    const header = ['Fecha','Carné','Estudiante','Factura','Monto','Método','Referencia','Estado','Observación'];
+    const csv = [header.join(','),
+      ...rows.map(r => [
+        r.fecha_pago, r.carne, `"${(r.estudiante||'').replace(/"/g,'""')}"`,
+        r.numero_factura, r.monto, r.metodo_pago,
+        r.referencia_pasarela||'', r.estado, `"${(r.observacion||'').replace(/"/g,'""')}"`
+      ].join(','))
+    ].join('\r\n');
+
+    res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+    res.setHeader('Content-Disposition', 'attachment; filename="pagos.csv"');
+    res.send('\uFEFF' + csv);
+  } catch (e) { res.status(500).json({ ok: false, error: e.message }); }
+});
+
 module.exports = router;

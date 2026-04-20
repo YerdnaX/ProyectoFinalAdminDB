@@ -79,24 +79,24 @@
     const tbody = document.getElementById('ep-tbody-cursos');
     try {
       const { data } = await axios.get(`/api/enrollment/${idEst}`);
-      const m = data;
+      const m = data.data || data;
       document.getElementById('ep-mat-titulo').textContent = m.periodo || '—';
       document.getElementById('ep-mat-subtitulo').textContent = m.estado
-        ? `${m.estado} — ${(m.cursos || []).length} cursos`
+        ? `${m.estado} — ${(m.detalle || []).length} cursos`
         : 'Sin matrícula activa';
       const compUrl = `/enrollment/comprobante?id=${m.id_matricula}`;
       document.getElementById('ep-mat-comprobante').href = compUrl;
       document.getElementById('ep-link-comprobante').href = compUrl;
 
-      const cursos = m.cursos || [];
+      const cursos = m.detalle || [];
       tbody.innerHTML = cursos.length
         ? cursos.map(c => `<tr>
-            <td><span style="font-family:monospace;font-size:.875rem;color:var(--verde-principal);">${c.codigo}</span></td>
-            <td>${c.nombre}</td>
-            <td>${c.seccion || '—'}</td>
-            <td>${c.creditos}</td>
+            <td><span style="font-family:monospace;font-size:.875rem;color:var(--verde-principal);">${c.curso_codigo || c.codigo || '—'}</span></td>
+            <td>${c.curso_nombre || c.nombre || '—'}</td>
+            <td>${c.codigo_seccion || c.seccion || '—'}</td>
+            <td>${c.creditos || '—'}</td>
             <td class="texto-muted">${c.horario || '—'}</td>
-            <td>${U.badgeEstado('Matriculado')}</td>
+            <td>${U.badgeEstado(c.estado || 'Matriculada')}</td>
           </tr>`).join('')
         : '<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--gris-suave);">Sin cursos matriculados.</td></tr>';
     } catch (_) {
@@ -140,7 +140,7 @@
       const facturas = resp.data.data || resp.data.facturas || resp.data;
       tbody.innerHTML = facturas.length
         ? facturas.map(f => `<tr>
-            <td><span style="font-family:monospace;font-weight:700;">${f.numero || f.id_factura}</span></td>
+            <td><span style="font-family:monospace;font-weight:700;">${f.numero_factura || f.id_factura}</span></td>
             <td>${f.periodo || '—'}</td>
             <td style="text-align:right;">${U.colones(f.total || 0)}</td>
             <td style="text-align:right;">${U.colones(f.saldo || 0)}</td>

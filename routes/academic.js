@@ -1,38 +1,29 @@
 var express = require('express');
 var router  = express.Router();
-const { requireAuth, requireRole } = require('../middleware/auth');
+const { requireAuth, requirePermiso } = require('../middleware/auth');
 
-// Administrador y Docente acceden a módulo académico
-const acadAuth = [requireAuth, requireRole('Administrador', 'Docente')];
-
-/* GET programas académicos */
-router.get('/programas', acadAuth, function (req, res) {
-  res.render('academic/programas-lista', { title: 'Programas Académicos' });
+router.get('/programas', requireAuth, requirePermiso('GESTION_PROGRAMAS'), function (req, res) {
+  res.render('academic/programas-lista', { title: 'Programas Académicos', activePage: 'programas' });
 });
 
-/* GET planes de estudio */
-router.get('/planes', acadAuth, function (req, res) {
-  res.render('academic/planes-lista', { title: 'Planes de Estudio' });
+router.get('/planes', requireAuth, requirePermiso('GESTION_PLANES'), function (req, res) {
+  res.render('academic/planes-lista', { title: 'Planes de Estudio', activePage: 'planes' });
 });
 
-/* GET catálogo de cursos */
-router.get('/cursos', acadAuth, function (req, res) {
-  res.render('academic/cursos-lista', { title: 'Catálogo de Cursos' });
+router.get('/cursos', requireAuth, requirePermiso('GESTION_CURSOS'), function (req, res) {
+  res.render('academic/cursos-lista', { title: 'Catálogo de Cursos', activePage: 'cursos' });
 });
 
-/* GET periodos académicos */
-router.get('/periodos', acadAuth, function (req, res) {
-  res.render('academic/periodos-lista', { title: 'Periodos Académicos' });
+router.get('/periodos', requireAuth, requirePermiso('GESTION_PROGRAMAS'), function (req, res) {
+  res.render('academic/periodos-lista', { title: 'Periodos Académicos', activePage: 'periodos' });
 });
 
-/* GET secciones */
-router.get('/secciones', acadAuth, function (req, res) {
-  res.render('academic/secciones-lista', { title: 'Secciones' });
+router.get('/secciones', requireAuth, requirePermiso('GESTION_SECCIONES'), function (req, res) {
+  res.render('academic/secciones-lista', { title: 'Secciones', activePage: 'secciones' });
 });
 
-/* GET aulas */
-router.get('/aulas', acadAuth, function (req, res) {
-  res.render('academic/aulas-lista', { title: 'Aulas' });
+router.get('/aulas', requireAuth, requirePermiso('GESTION_SECCIONES'), function (req, res) {
+  res.render('academic/aulas-lista', { title: 'Aulas', activePage: 'aulas' });
 });
 
 module.exports = router;

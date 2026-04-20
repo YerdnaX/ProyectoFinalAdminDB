@@ -29,8 +29,24 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-// Registrar directorio de partials HBS
-hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
+// Registrar partials HBS de forma síncrona para evitar race conditions
+const fs = require('fs');
+const partialsDir = path.join(__dirname, 'views', 'partials');
+if (fs.existsSync(partialsDir)) {
+  fs.readdirSync(partialsDir).forEach(file => {
+    if (file.endsWith('.hbs') || file.endsWith('.html')) {
+      const name = file.replace(/\.(hbs|html)$/i, '');
+      const content = fs.readFileSync(path.join(partialsDir, file), 'utf8');
+      hbs.registerPartial(name, content);
+    }
+  });
+}
+
+// Compatibilidad con archivo legado fuera de /views/partials
+const legacySidebarPath = path.join(__dirname, 'views', '_sidebar_admin.html');
+if (!hbs.handlebars.partials['sidebar-admin'] && fs.existsSync(legacySidebarPath)) {
+  hbs.registerPartial('sidebar-admin', fs.readFileSync(legacySidebarPath, 'utf8'));
+}
 
 // Helper HBS: igualdad
 hbs.registerHelper('eq', (a, b) => a === b);
@@ -56,6 +72,20 @@ app.use((req, res, next) => {
   res.locals.isDocente    = u ? u.rol === 'Docente'       : false;
   res.locals.isEstudiante = u ? u.rol === 'Estudiante'    : false;
   res.locals.isFinanzas   = u ? u.rol === 'Finanzas'      : false;
+
+  // Mapa de permisos para uso en plantillas HBS: {{#if permisos.GESTION_USUARIOS}}
+  const lista = (u && u.permisos) ? u.permisos : [];
+  const p = {};
+  lista.forEach(n => { p[n] = true; });
+  res.locals.permisos = p;
+
+  // Helpers compuestos para cabeceras de sección en sidebar
+  res.locals.puedeVerUsuarios   = !!(p.GESTION_USUARIOS || p.GESTION_ROLES);
+  res.locals.puedeVerAcademico  = !!(p.GESTION_PROGRAMAS || p.GESTION_PLANES || p.GESTION_CURSOS);
+  res.locals.puedeVerOferta     = !!(p.GESTION_SECCIONES);
+  res.locals.puedeVerEstudiantes= !!(u && u.rol === 'Administrador');
+  res.locals.puedeVerFinanzas   = !!(p.GENERAR_FACTURAS || p.REGISTRAR_PAGOS);
+  res.locals.puedeVerBitacora   = !!(p.CONSULTAR_AUDITORIA);
   next();
 });
 

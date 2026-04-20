@@ -1,33 +1,5 @@
 <div class="app-wrapper">
-  <aside class="sidebar">
-    <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Panel Administrativo</div></div></div>
-    <nav class="sidebar-nav">
-      <div class="sidebar-seccion">General</div>
-      <a href="/admin"><span class="icono">📊</span> Dashboard</a>
-      <div class="sidebar-seccion">Usuarios</div>
-      <a href="/admin/usuarios"><span class="icono">👥</span> Usuarios</a>
-      <a href="/admin/roles-permisos"><span class="icono">🔐</span> Roles y permisos</a>
-      <div class="sidebar-seccion">Académico</div>
-      <a href="/academic/programas"><span class="icono">🏛️</span> Programas académicos</a>
-      <a href="/academic/planes"><span class="icono">📋</span> Planes de estudio</a>
-      <a href="/academic/cursos"><span class="icono">📚</span> Cursos</a>
-      <a href="/academic/periodos" class="activo"><span class="icono">📅</span> Periodos académicos</a>
-      <div class="sidebar-seccion">Oferta</div>
-      <a href="/academic/secciones"><span class="icono">🗂️</span> Secciones</a>
-      <a href="/academic/aulas"><span class="icono">🏫</span> Aulas</a>
-      <div class="sidebar-seccion">Estudiantes</div>
-      <a href="/students/lista"><span class="icono">🎓</span> Estudiantes</a>
-      <a href="/enrollment/lista"><span class="icono">✏️</span> Matrículas</a>
-      <div class="sidebar-seccion">Finanzas</div>
-      <a href="/billing/facturas"><span class="icono">🧾</span> Facturas</a>
-      <a href="/billing/pagos"><span class="icono">💳</span> Pagos</a>
-      <div class="sidebar-seccion">Sistema</div>
-      <a href="/notifications"><span class="icono">🔔</span> Notificaciones</a>
-      <a href="/reports"><span class="icono">📈</span> Reportes</a>
-      <a href="/audit"><span class="icono">🔍</span> Bitácora</a>
-    </nav>
-    <div class="sidebar-footer"><a href="/auth/logout">🚪 Cerrar sesión</a></div>
-  </aside>
+  {{> sidebar-admin}}
 
   <div class="contenido-principal">
     <header class="navbar">
@@ -43,7 +15,7 @@
     <main class="area-pagina">
       <div class="encabezado-pagina">
         <div><h1>Periodos académicos</h1><p>Gestiona los semestres, cuatrimestres y la apertura de matrícula.</p></div>
-        <div class="acciones-encabezado"><button class="btn btn-primario">+ Nuevo periodo</button></div>
+        <div class="acciones-encabezado"><button id="btn-nuevo-periodo" class="btn btn-primario">+ Nuevo periodo</button></div>
       </div>
 
       <!-- Periodo activo destacado -->
@@ -91,6 +63,65 @@
         </div>
       </div>
     </main>
+  </div>
+</div>
+<!-- Modal crear periodo -->
+<div id="modal-crear-periodo" class="modal">
+  <div class="modal-overlay" onclick="U.closeModal('modal-crear-periodo')"></div>
+  <div class="modal-caja" style="max-width:560px;">
+    <div class="modal-cabecera">
+      <div class="modal-titulo">Nuevo periodo académico</div>
+      <button class="modal-cerrar" onclick="U.closeModal('modal-crear-periodo')">✕</button>
+    </div>
+    <form id="form-crear-periodo" class="modal-cuerpo" style="display:flex;flex-direction:column;gap:1rem;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="campo" style="margin:0;">
+          <label>Código <span class="requerido">*</span></label>
+          <input name="codigo" class="campo-input" required placeholder="ej. 2025-I">
+        </div>
+        <div class="campo" style="margin:0;">
+          <label>Tipo <span class="requerido">*</span></label>
+          <select name="tipo_periodo" class="campo-input" required>
+            <option value="">Seleccionar…</option>
+            <option value="Semestral">Semestral</option>
+            <option value="Cuatrimestral">Cuatrimestral</option>
+            <option value="Trimestral">Trimestral</option>
+          </select>
+        </div>
+      </div>
+      <div class="campo" style="margin:0;">
+        <label>Nombre <span class="requerido">*</span></label>
+        <input name="nombre" class="campo-input" required placeholder="ej. I Semestre 2025">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="campo" style="margin:0;">
+          <label>Inicio lectivo <span class="requerido">*</span></label>
+          <input name="fecha_inicio" class="campo-input" type="date" required>
+        </div>
+        <div class="campo" style="margin:0;">
+          <label>Fin lectivo <span class="requerido">*</span></label>
+          <input name="fecha_fin" class="campo-input" type="date" required>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="campo" style="margin:0;">
+          <label>Inicio matrícula</label>
+          <input name="fecha_inicio_matricula" class="campo-input" type="date">
+        </div>
+        <div class="campo" style="margin:0;">
+          <label>Fin matrícula</label>
+          <input name="fecha_fin_matricula" class="campo-input" type="date">
+        </div>
+      </div>
+      <div class="campo" style="margin:0;">
+        <label>Límite de créditos</label>
+        <input name="limite_creditos" class="campo-input" type="number" min="1" max="30" placeholder="ej. 20">
+      </div>
+      <div style="display:flex;gap:.75rem;justify-content:flex-end;margin-top:.5rem;">
+        <button type="button" class="btn btn-secundario" onclick="U.closeModal('modal-crear-periodo')">Cancelar</button>
+        <button type="submit" class="btn btn-primario">Guardar</button>
+      </div>
+    </form>
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

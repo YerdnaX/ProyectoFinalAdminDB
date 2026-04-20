@@ -56,6 +56,15 @@ router.post('/login', async (req, res) => {
       id_estudiante = est ? est.id_estudiante : null;
     }
 
+    // Cargar permisos del rol
+    const permisosRol = await query(
+      `SELECT p.nombre FROM rol_permiso rp
+       INNER JOIN permiso p ON p.id_permiso = rp.id_permiso
+       WHERE rp.id_rol = @rol`,
+      { rol: { type: sql.Int, value: usuario.id_rol } }
+    ).catch(() => []);
+    const permisos = permisosRol.map(p => p.nombre);
+
     // Crear sesión
     req.session.user = {
       id_usuario    : usuario.id_usuario,
@@ -65,7 +74,8 @@ router.post('/login', async (req, res) => {
       id_rol        : usuario.id_rol,
       rol           : usuario.rol,
       id_estudiante : id_estudiante,
-      identificador_sso: usuario.identificador_sso
+      identificador_sso: usuario.identificador_sso,
+      permisos      : permisos
     };
 
     // Registrar en bitácora

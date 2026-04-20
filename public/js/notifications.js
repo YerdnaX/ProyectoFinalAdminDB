@@ -5,8 +5,9 @@
 (function () {
   let page = 1;
   const LIMIT = 20;
-  const isAdmin = !document.querySelector('meta[name=id-estudiante]'); // admin si no hay meta tag
-  const idEst   = document.querySelector('meta[name=id-estudiante]')?.content;
+  const idEst    = document.querySelector('meta[name=id-estudiante]')?.content;
+  const esEstudiante = !!idEst;
+  const cols     = esEstudiante ? 6 : 7;
 
   const tbody    = document.getElementById('tbody-notif');
   const formEnvio= document.getElementById('form-enviar-notif');
@@ -15,7 +16,7 @@
 
   async function cargar() {
     if (!tbody) return;
-    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando…</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="${cols}" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando…</td></tr>`;
     try {
       const params = { page, limit: LIMIT };
       if (idEst) params.id_estudiante = idEst;
@@ -25,22 +26,22 @@
       if (!data.ok) throw new Error(data.error);
       renderTabla(data.data, data.total);
     } catch (e) {
-      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--rojo-peligro);">${e.message}</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="${cols}" style="text-align:center;color:var(--rojo-peligro);">${e.message}</td></tr>`;
     }
   }
 
   function renderTabla(rows, total) {
-    const tipoBadge = { Informativa:'badge-info', Financiera:'badge-pendiente', Académica:'badge-activo', Urgente:'badge-error' };
+    const tipoBadge = { Matricula:'badge-activo', Pago:'badge-info', Cobro:'badge-pendiente', Academico:'badge-info', Sistema:'badge-info' };
     if (!rows.length) {
-      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:2rem;">Sin notificaciones</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="${cols}" style="text-align:center;padding:2rem;">Sin notificaciones</td></tr>`;
     } else {
       tbody.innerHTML = rows.map(n => `
         <tr>
           <td class="texto-muted">${esc(n.fecha_envio)}</td>
           <td class="texto-muted">${esc(n.hora_envio)}</td>
-          <td>${esc(n.estudiante)}</td>
+          ${esEstudiante ? '' : `<td>${esc(n.estudiante)}</td>`}
           <td><span class="badge ${tipoBadge[n.tipo]||'badge-info'}">${esc(n.tipo)}</span></td>
-          <td><strong>${esc(n.asunto)}</strong><div class="detalle-secundario">${esc(n.mensaje?.slice(0,80))}…</div></td>
+          <td><strong>${esc(n.asunto)}</strong><br><span class="texto-muted" style="font-size:.8rem;">${esc((n.mensaje||'').slice(0,100))}${(n.mensaje||'').length>100?'…':''}</span></td>
           <td><span class="badge badge-info">${esc(n.medio)}</span></td>
           <td>${U.badgeEstado(n.estado)}</td>
         </tr>`).join('');

@@ -1,26 +1,5 @@
 <div class="app-wrapper">
-  <aside class="sidebar">
-    <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Panel Administrativo</div></div></div>
-    <nav class="sidebar-nav">
-      <div class="sidebar-seccion">General</div>
-      <a href="/admin"><span class="icono">📊</span> Dashboard</a>
-      <div class="sidebar-seccion">Académico</div>
-      <a href="/academic/programas"><span class="icono">🏛️</span> Programas académicos</a>
-      <a href="/academic/cursos"><span class="icono">📚</span> Cursos</a>
-      <a href="/academic/periodos"><span class="icono">📅</span> Periodos académicos</a>
-      <a href="/academic/secciones"><span class="icono">🗂️</span> Secciones</a>
-      <div class="sidebar-seccion">Estudiantes</div>
-      <a href="/students/lista"><span class="icono">🎓</span> Estudiantes</a>
-      <a href="/enrollment/lista" class="activo"><span class="icono">✏️</span> Matrículas</a>
-      <div class="sidebar-seccion">Finanzas</div>
-      <a href="/billing/facturas"><span class="icono">🧾</span> Facturas</a>
-      <a href="/billing/pagos"><span class="icono">💳</span> Pagos</a>
-      <div class="sidebar-seccion">Sistema</div>
-      <a href="/reports"><span class="icono">📈</span> Reportes</a>
-      <a href="/audit"><span class="icono">🔍</span> Bitácora</a>
-    </nav>
-    <div class="sidebar-footer"><a href="/auth/logout">🚪 Cerrar sesión</a></div>
-  </aside>
+  {{> sidebar-admin}}
   <div class="contenido-principal">
     <header class="navbar">
       <div><div class="navbar-titulo">Matrículas</div><div class="navbar-breadcrumb"><span>Inicio</span><span class="separador"></span><span class="actual">Matrículas</span></div></div>
@@ -29,7 +8,7 @@
     <main class="area-pagina">
       <div class="encabezado-pagina">
         <div><h1>Gestión de matrículas</h1><p>Consulta y administra todas las matrículas del I Semestre 2025.</p></div>
-        <div class="acciones-encabezado"><button class="btn btn-secundario">Exportar</button></div>
+        <div class="acciones-encabezado"><a id="btn-exportar-matriculas" href="/api/reports/export/matriculas" class="btn btn-secundario">Exportar CSV</a></div>
       </div>
       <div class="grid-4 mb-4">
         <div class="carta-metrica"><div class="metrica-icono">✏️</div><div class="metrica-etiqueta">Total matrículas</div><div class="metrica-valor" id="met-total">—</div></div>

@@ -3,9 +3,7 @@
  * Mi matrícula — muestra cursos seleccionados, permite quitar, y confirmar matrícula
  */
 (function () {
-  const idEst = document.querySelector('meta[name=id-estudiante]')?.content
-              || document.body.dataset.idEstudiante
-              || 1;
+  const idEst = window._idEstudiante;
 
   const tbody      = document.getElementById('tbody-matricula');
   const resumen    = document.getElementById('resumen-cobro');

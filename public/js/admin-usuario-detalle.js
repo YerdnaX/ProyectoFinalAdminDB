@@ -47,13 +47,13 @@
       };
 
       // actividad (bitácora)
-      const items = resAudit.data.registros || resAudit.data || [];
+      const items = resAudit.data.data || [];
       const activ = document.getElementById('det-actividad');
       if (items.length) {
         activ.innerHTML = items.map(a => `
           <div class="timeline-item">
             <div class="timeline-punto"></div>
-            <div class="timeline-fecha">${a.fecha ? new Date(a.fecha).toLocaleString('es-CR') : '—'}</div>
+            <div class="timeline-fecha">${a.fecha ? `${a.fecha} ${a.hora || ''}`.trim() : '—'}</div>
             <div class="timeline-contenido">${a.descripcion || a.accion || '—'}</div>
           </div>`).join('');
       } else {

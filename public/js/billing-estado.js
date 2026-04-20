@@ -3,9 +3,7 @@
  * Estudiante: estado de cuenta (estado_cuenta + saldo)
  */
 (function () {
-  const idEst = document.querySelector('meta[name=id-estudiante]')?.content
-              || document.body.dataset.idEstudiante
-              || 1;
+  const idEst = window._idEstudiante;
 
   async function cargar() {
     try {

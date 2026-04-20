@@ -1,33 +1,5 @@
 <div class="app-wrapper">
-  <aside class="sidebar">
-    <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Panel Administrativo</div></div></div>
-    <nav class="sidebar-nav">
-      <div class="sidebar-seccion">General</div>
-      <a href="/admin"><span class="icono">📊</span> Dashboard</a>
-      <div class="sidebar-seccion">Usuarios</div>
-      <a href="/admin/usuarios"><span class="icono">👥</span> Usuarios</a>
-      <a href="/admin/roles-permisos"><span class="icono">🔐</span> Roles y permisos</a>
-      <div class="sidebar-seccion">Académico</div>
-      <a href="/academic/programas"><span class="icono">🏛️</span> Programas académicos</a>
-      <a href="/academic/planes"><span class="icono">📋</span> Planes de estudio</a>
-      <a href="/academic/cursos" class="activo"><span class="icono">📚</span> Cursos</a>
-      <a href="/academic/periodos"><span class="icono">📅</span> Periodos académicos</a>
-      <div class="sidebar-seccion">Oferta</div>
-      <a href="/academic/secciones"><span class="icono">🗂️</span> Secciones</a>
-      <a href="/academic/aulas"><span class="icono">🏫</span> Aulas</a>
-      <div class="sidebar-seccion">Estudiantes</div>
-      <a href="/students/lista"><span class="icono">🎓</span> Estudiantes</a>
-      <a href="/enrollment/lista"><span class="icono">✏️</span> Matrículas</a>
-      <div class="sidebar-seccion">Finanzas</div>
-      <a href="/billing/facturas"><span class="icono">🧾</span> Facturas</a>
-      <a href="/billing/pagos"><span class="icono">💳</span> Pagos</a>
-      <div class="sidebar-seccion">Sistema</div>
-      <a href="/notifications"><span class="icono">🔔</span> Notificaciones</a>
-      <a href="/reports"><span class="icono">📈</span> Reportes</a>
-      <a href="/audit"><span class="icono">🔍</span> Bitácora</a>
-    </nav>
-    <div class="sidebar-footer"><a href="/auth/logout">🚪 Cerrar sesión</a></div>
-  </aside>
+  {{> sidebar-admin}}
 
   <div class="contenido-principal">
     <header class="navbar">
@@ -45,7 +17,7 @@
         <div><h1>Catálogo de cursos</h1><p>Administra el catálogo completo de cursos del sistema.</p></div>
         <div class="acciones-encabezado">
           <button class="btn btn-secundario">Exportar</button>
-          <button class="btn btn-primario">+ Nuevo curso</button>
+          <button id="btn-nuevo-curso" class="btn btn-primario">+ Nuevo curso</button>
         </div>
       </div>
 
@@ -78,6 +50,44 @@
         <div id="paginacion-cursos" class="paginacion"></div>
       </div>
     </main>
+  </div>
+</div>
+<!-- Modal crear curso -->
+<div id="modal-crear-curso" class="modal">
+  <div class="modal-overlay" onclick="U.closeModal('modal-crear-curso')"></div>
+  <div class="modal-caja" style="max-width:520px;">
+    <div class="modal-cabecera">
+      <div class="modal-titulo">Nuevo curso</div>
+      <button class="modal-cerrar" onclick="U.closeModal('modal-crear-curso')">✕</button>
+    </div>
+    <form id="form-crear-curso" class="modal-cuerpo" style="display:flex;flex-direction:column;gap:1rem;">
+      <div class="campo" style="margin:0;">
+        <label>Código <span class="requerido">*</span></label>
+        <input name="codigo" class="campo-input" required placeholder="ej. IS-1101">
+      </div>
+      <div class="campo" style="margin:0;">
+        <label>Nombre <span class="requerido">*</span></label>
+        <input name="nombre" class="campo-input" required placeholder="Nombre del curso">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="campo" style="margin:0;">
+          <label>Créditos <span class="requerido">*</span></label>
+          <input name="creditos" class="campo-input" type="number" min="1" max="10" required placeholder="ej. 4">
+        </div>
+        <div class="campo" style="margin:0;">
+          <label>Horas semanales</label>
+          <input name="horas_semanales" class="campo-input" type="number" min="1" placeholder="ej. 4">
+        </div>
+      </div>
+      <div class="campo" style="margin:0;">
+        <label>Descripción</label>
+        <textarea name="descripcion" class="campo-input" rows="3" placeholder="Descripción opcional del curso"></textarea>
+      </div>
+      <div style="display:flex;gap:.75rem;justify-content:flex-end;margin-top:.5rem;">
+        <button type="button" class="btn btn-secundario" onclick="U.closeModal('modal-crear-curso')">Cancelar</button>
+        <button type="submit" class="btn btn-primario">Guardar</button>
+      </div>
+    </form>
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

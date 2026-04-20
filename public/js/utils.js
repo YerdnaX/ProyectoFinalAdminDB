@@ -88,6 +88,35 @@ function badgeEstado(estado) {
 
 window.U = { toast, showLoading, hideLoading, colones, initials, renderPaginacion, openModal, closeModal, badgeEstado };
 
+// ── Botón de notificaciones ────────────────────────────────────────────────
+(function initNotifBell() {
+  const bell = document.querySelector('.icono-notif');
+  if (!bell) return;
+
+  // Navegar al hacer clic
+  bell.style.cursor = 'pointer';
+  bell.setAttribute('title', 'Notificaciones');
+  bell.addEventListener('click', function () {
+    window.location.href = '/notifications';
+  });
+
+  // Cargar contador real (solo muestra si hay pendientes)
+  axios.get('/api/notifications', { params: { estado: 'Enviada', limit: 1 } })
+    .then(function (r) {
+      if (!r.data.ok) return;
+      const badge = bell.querySelector('.badge-notif');
+      const total = r.data.total || 0;
+      if (badge) {
+        if (total > 0) {
+          badge.textContent = total > 99 ? '99+' : String(total);
+          badge.style.display = '';
+        } else {
+          badge.style.display = 'none';
+        }
+      }
+    }).catch(function () {});
+})();
+
 // ── Auto-inyectar info de usuario en navbar + dropdown de sesión ───────────
 (function injectUserNav() {
   const usuarioEl = document.querySelector('.navbar-usuario');

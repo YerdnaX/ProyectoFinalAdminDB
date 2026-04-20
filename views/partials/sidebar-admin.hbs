@@ -1,0 +1,75 @@
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="sidebar-logo-icono">🎓</div>
+    <div>
+      <div class="sidebar-logo-texto">UniMatrícula</div>
+      <div class="sidebar-logo-subtexto">Panel Administrativo</div>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+
+    {{#if isAdmin}}
+    <div class="sidebar-seccion">General</div>
+    <a href="/admin" {{#eq activePage "dashboard"}}class="activo"{{/eq}}><span class="icono">📊</span> Dashboard</a>
+    {{/if}}
+
+    {{#if puedeVerUsuarios}}
+    <div class="sidebar-seccion">Usuarios</div>
+    {{#if permisos.GESTION_USUARIOS}}
+    <a href="/admin/usuarios" {{#eq activePage "usuarios"}}class="activo"{{/eq}}><span class="icono">👥</span> Usuarios</a>
+    {{/if}}
+    {{#if permisos.GESTION_ROLES}}
+    <a href="/admin/roles-permisos" {{#eq activePage "roles"}}class="activo"{{/eq}}><span class="icono">🔐</span> Roles y permisos</a>
+    {{/if}}
+    {{/if}}
+
+    {{#if puedeVerAcademico}}
+    <div class="sidebar-seccion">Académico</div>
+    {{#if permisos.GESTION_PROGRAMAS}}
+    <a href="/academic/programas" {{#eq activePage "programas"}}class="activo"{{/eq}}><span class="icono">🏛️</span> Programas académicos</a>
+    {{/if}}
+    {{#if permisos.GESTION_PLANES}}
+    <a href="/academic/planes" {{#eq activePage "planes"}}class="activo"{{/eq}}><span class="icono">📋</span> Planes de estudio</a>
+    {{/if}}
+    {{#if permisos.GESTION_CURSOS}}
+    <a href="/academic/cursos" {{#eq activePage "cursos"}}class="activo"{{/eq}}><span class="icono">📚</span> Cursos</a>
+    {{/if}}
+    {{#if permisos.GESTION_PROGRAMAS}}
+    <a href="/academic/periodos" {{#eq activePage "periodos"}}class="activo"{{/eq}}><span class="icono">📅</span> Periodos académicos</a>
+    {{/if}}
+    {{/if}}
+
+    {{#if puedeVerOferta}}
+    <div class="sidebar-seccion">Oferta</div>
+    <a href="/academic/secciones" {{#eq activePage "secciones"}}class="activo"{{/eq}}><span class="icono">🗂️</span> Secciones</a>
+    <a href="/academic/aulas" {{#eq activePage "aulas"}}class="activo"{{/eq}}><span class="icono">🏫</span> Aulas</a>
+    {{/if}}
+
+    {{#if puedeVerEstudiantes}}
+    <div class="sidebar-seccion">Estudiantes</div>
+    <a href="/students/lista" {{#eq activePage "estudiantes"}}class="activo"{{/eq}}><span class="icono">🎓</span> Estudiantes</a>
+    <a href="/enrollment/lista" {{#eq activePage "matriculas"}}class="activo"{{/eq}}><span class="icono">✏️</span> Matrículas</a>
+    {{/if}}
+
+    {{#if puedeVerFinanzas}}
+    <div class="sidebar-seccion">Finanzas</div>
+    {{#if permisos.GENERAR_FACTURAS}}
+    <a href="/billing/facturas" {{#eq activePage "facturas"}}class="activo"{{/eq}}><span class="icono">🧾</span> Facturas</a>
+    {{/if}}
+    {{#if permisos.REGISTRAR_PAGOS}}
+    <a href="/billing/pagos" {{#eq activePage "pagos"}}class="activo"{{/eq}}><span class="icono">💳</span> Pagos</a>
+    {{/if}}
+    {{/if}}
+
+    <div class="sidebar-seccion">Sistema</div>
+    <a href="/notifications" {{#eq activePage "notificaciones"}}class="activo"{{/eq}}><span class="icono">🔔</span> Notificaciones</a>
+    {{#if isAdmin}}
+    <a href="/reports" {{#eq activePage "reportes"}}class="activo"{{/eq}}><span class="icono">📈</span> Reportes</a>
+    {{/if}}
+    {{#if puedeVerBitacora}}
+    <a href="/audit" {{#eq activePage "bitacora"}}class="activo"{{/eq}}><span class="icono">🔍</span> Bitácora</a>
+    {{/if}}
+
+  </nav>
+  <div class="sidebar-footer"><a href="/auth/logout">🚪 Cerrar sesión</a></div>
+</aside>

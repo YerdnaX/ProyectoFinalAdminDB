@@ -6,7 +6,7 @@
     try {
       const { data } = await axios.get('/api/academic/periodos');
       const sel = document.getElementById('sel-periodo');
-      (data.periodos || data).forEach(p => {
+      (data.data || []).forEach(p => {
         const opt = document.createElement('option');
         opt.value = p.id_periodo;
         opt.textContent = p.nombre;

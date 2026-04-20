@@ -1,22 +1,5 @@
 <div class="app-wrapper">
-  <aside class="sidebar">
-    <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Panel Administrativo</div></div></div>
-    <nav class="sidebar-nav">
-      <div class="sidebar-seccion">General</div>
-      <a href="/admin"><span class="icono">📊</span> Dashboard</a>
-      <div class="sidebar-seccion">Usuarios</div>
-      <a href="/admin/usuarios" class="activo"><span class="icono">👥</span> Usuarios</a>
-      <a href="/admin/roles-permisos"><span class="icono">🔐</span> Roles y permisos</a>
-      <div class="sidebar-seccion">Académico</div>
-      <a href="/academic/programas"><span class="icono">🏛️</span> Programas académicos</a>
-      <a href="/academic/cursos"><span class="icono">📚</span> Cursos</a>
-      <a href="/academic/periodos"><span class="icono">📅</span> Periodos académicos</a>
-      <div class="sidebar-seccion">Sistema</div>
-      <a href="/reports"><span class="icono">📈</span> Reportes</a>
-      <a href="/audit"><span class="icono">🔍</span> Bitácora</a>
-    </nav>
-    <div class="sidebar-footer"><a href="/auth/logout">🚪 Cerrar sesión</a></div>
-  </aside>
+  {{> sidebar-admin}}
   <div class="contenido-principal">
     <header class="navbar">
       <div><div class="navbar-titulo">Detalle de Usuario</div><div class="navbar-breadcrumb"><a href="/admin/usuarios">Usuarios</a><span class="separador"></span><span class="actual">Laura Jiménez Rojas</span></div></div>

@@ -51,6 +51,12 @@
     } catch (e) { U.toast('Error', 'error'); }
   };
 
+  /* ── Abrir modal para CREAR ──────────────────────────────────── */
+  document.getElementById('btn-nuevo-periodo')?.addEventListener('click', () => {
+    document.getElementById('form-crear-periodo')?.reset();
+    U.openModal('modal-crear-periodo');
+  });
+
   document.getElementById('form-crear-periodo')?.addEventListener('submit', async e => {
     e.preventDefault();
     const form = e.target, btn = form.querySelector('[type=submit]');

@@ -88,6 +88,12 @@
     } finally { U.hideLoading(btn); }
   });
 
+  /* ── Abrir modal para CREAR ──────────────────────────────────── */
+  document.getElementById('btn-nuevo-curso')?.addEventListener('click', () => {
+    document.getElementById('form-crear-curso')?.reset();
+    U.openModal('modal-crear-curso');
+  });
+
   let debounce;
   inBus?.addEventListener('input', e => { clearTimeout(debounce); debounce = setTimeout(() => { buscar = e.target.value.trim(); page = 1; cargar(); }, 400); });
   selCr?.addEventListener('change', e => { creditos = e.target.value; page = 1; cargar(); });
