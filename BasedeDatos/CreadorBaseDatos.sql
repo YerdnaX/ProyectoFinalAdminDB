@@ -1,32 +1,24 @@
 -- ============================================================
 -- SISTEMA DE MATRICULA UNIVERSITARIA
--- Script de creacion de base de datos (alineado al codigo fuente)
+-- Script de creacion de estructura (alineado al codigo fuente)
 -- Motor: SQL Server
+-- Requiere ejecutar dentro de una base de datos ya creada
 -- ============================================================
 
 SET NOCOUNT ON;
 GO
 
-USE master;
-GO
-
-IF DB_ID('SistemaMatriculaUniversitaria') IS NOT NULL
+IF DB_NAME() IS NULL OR DB_NAME() = 'master'
 BEGIN
-    ALTER DATABASE SistemaMatriculaUniversitaria SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-    DROP DATABASE SistemaMatriculaUniversitaria;
+    RAISERROR('Seleccione primero la base de datos destino y luego ejecute este script.', 16, 1);
+    RETURN;
 END
-GO
-
-CREATE DATABASE SistemaMatriculaUniversitaria;
-GO
-
-USE SistemaMatriculaUniversitaria;
 GO
 
 -- ============================================================
 -- LIMPIEZA ESTRUCTURAL
--- Nota: algunos entornos tienen tablas heredadas en model.
---       Se eliminan primero para garantizar una creacion limpia.
+-- Elimina objetos dentro de la base de datos actualmente seleccionada
+-- para garantizar una creacion limpia.
 -- ============================================================
 DROP TABLE IF EXISTS rol_permiso;
 DROP TABLE IF EXISTS curso_correquisito;

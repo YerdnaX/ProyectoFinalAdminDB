@@ -1,17 +1,28 @@
 /**
  * config/db.js
- * Conexion a SQL Server usando msnodesqlv8 + ODBC con Windows Authentication
- * Mismo patron que el proyecto de referencia (puravia)
+ * Conexion a SQL Server usando mssql/msnodesqlv8 + ODBC.
+ * Soporta autenticacion integrada (Trusted_Connection) y SQL Auth por .env.
  */
 require('dotenv').config();
 const sql = require('mssql/msnodesqlv8');
 
-const DB_SERVER   = process.env.DB_SERVER   || 'localhost';
+const DB_SERVER = process.env.DB_SERVER || 'localhost';
 const DB_DATABASE = process.env.DB_DATABASE || 'SistemaMatriculaUniversitaria';
+const DB_PORT = process.env.DB_PORT || '1433';
+const DB_AUTH_TYPE = String(process.env.DB_AUTH_TYPE || 'trusted').toLowerCase();
+const DB_USER = process.env.DB_USER || '';
+const DB_PASSWORD = process.env.DB_PASSWORD || '';
+const DB_ENCRYPT = String(process.env.DB_ENCRYPT || 'yes').toLowerCase();
+const DB_TRUST_SERVER_CERT = String(process.env.DB_TRUST_SERVER_CERT || 'yes').toLowerCase();
+
+const useSqlAuth = DB_AUTH_TYPE === 'sql';
+const authPart = useSqlAuth
+  ? `Uid=${DB_USER};Pwd=${DB_PASSWORD};`
+  : 'Trusted_Connection=yes;';
 
 const config = {
   connectionString:
-    `Driver={ODBC Driver 17 for SQL Server};Server=${DB_SERVER};Database=${DB_DATABASE};Trusted_Connection=yes;`
+    `Driver={ODBC Driver 17 for SQL Server};Server=${DB_SERVER},${DB_PORT};Database=${DB_DATABASE};${authPart}Encrypt=${DB_ENCRYPT};TrustServerCertificate=${DB_TRUST_SERVER_CERT};`
 };
 
 // Pool compartido — mismo patron del proyecto funcional

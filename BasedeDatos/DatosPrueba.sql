@@ -1,10 +1,14 @@
 -- ============================================================
 -- SISTEMA DE MATRICULA UNIVERSITARIA
 -- Datos de prueba (alineados al codigo fuente)
--- Ejecutar despues de CreadorBaseDatos.sql
+-- Ejecutar despues de CreadorBaseDatos.sql en la base ya seleccionada
 -- ============================================================
 
-USE SistemaMatriculaUniversitaria;
+IF DB_NAME() IS NULL OR DB_NAME() = 'master'
+BEGIN
+    RAISERROR('Seleccione primero la base de datos destino y luego ejecute este script.', 16, 1);
+    RETURN;
+END
 GO
 
 SET NOCOUNT ON;
