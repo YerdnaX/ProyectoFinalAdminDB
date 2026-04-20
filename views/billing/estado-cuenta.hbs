@@ -7,7 +7,6 @@
       <div class="sidebar-seccion">Matrícula</div>
       <a href="/enrollment/buscar"><span class="icono">🔍</span> Buscar cursos</a>
       <a href="/enrollment/mi-matricula"><span class="icono">✏️</span> Mi matrícula</a>
-      <a href="/enrollment/comprobante"><span class="icono">🖨️</span> Comprobante</a>
       <div class="sidebar-seccion">Mi información</div>
       <a href="/students/mi-perfil"><span class="icono">👤</span> Mi perfil</a>
       <a href="/students/historial"><span class="icono">📊</span> Historial académico</a>
@@ -74,11 +73,11 @@
             <thead>
               <tr>
                 <th>Fecha</th>
-                <th>Descripción</th>
-                <th>Tipo</th>
-                <th style="text-align:right;">Cargo</th>
-                <th style="text-align:right;">Abono</th>
-                <th style="text-align:right;">Saldo</th>
+                <th>Periodo</th>
+                <th style="text-align:right;">Total facturado</th>
+                <th style="text-align:right;">Pagado</th>
+                <th style="text-align:right;">Saldo pendiente</th>
+                <th>Estado</th>
               </tr>
             </thead>
             <tbody id="tbody-estados">
@@ -88,9 +87,9 @@
         </div>
         <div class="carta-pie">
           <div style="display:flex;justify-content:flex-end;gap:2rem;font-size:.9rem;">
-            <div class="flex-entre" style="gap:1rem;"><span class="texto-gris">Total cargos:</span><span style="color:var(--rojo-peligro);font-weight:700;">₡185,000</span></div>
-            <div class="flex-entre" style="gap:1rem;"><span class="texto-gris">Total abonos:</span><span style="color:var(--cyan-exito);font-weight:700;">₡0</span></div>
-            <div class="flex-entre" style="gap:1rem;"><span class="texto-gris">Saldo actual:</span><span style="color:var(--rojo-peligro);font-weight:700;font-size:1rem;">₡185,000</span></div>
+            <div class="flex-entre" style="gap:1rem;"><span class="texto-gris">Total facturado:</span><span id="est-total-cargos" style="color:var(--rojo-peligro);font-weight:700;">—</span></div>
+            <div class="flex-entre" style="gap:1rem;"><span class="texto-gris">Total pagado:</span><span id="est-total-abonos" style="color:var(--cyan-exito);font-weight:700;">—</span></div>
+            <div class="flex-entre" style="gap:1rem;"><span class="texto-gris">Saldo actual:</span><span id="est-saldo-pie" style="font-weight:700;font-size:1rem;">—</span></div>
           </div>
         </div>
       </div>

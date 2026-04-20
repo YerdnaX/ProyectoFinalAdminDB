@@ -9,21 +9,66 @@ const { sql, query, queryOne, getPool } = require('../../config/db');
 /* GET /api/enrollment/secciones — buscar secciones disponibles */
 router.get('/secciones', async (req, res) => {
   try {
-    const { buscar = '', programa = '', dia = '', modalidad = '', periodo } = req.query;
+    const { buscar = '', modalidad = '', periodo } = req.query;
+    // Preferir sesión sobre query param para el id del estudiante
+    const idEstudiante = req.session?.user?.id_estudiante || (req.query.id_estudiante ? parseInt(req.query.id_estudiante) : null);
 
-    // Usar el periodo activo si no se especifica
+    // Periodo activo
     let idPeriodo = periodo ? parseInt(periodo) : null;
+    let nombrePeriodo = null;
     if (!idPeriodo) {
-      const per = await queryOne(`SELECT TOP 1 id_periodo FROM periodo_academico WHERE activo=1 ORDER BY fecha_inicio DESC`);
-      if (per) idPeriodo = per.id_periodo;
+      const per = await queryOne(`SELECT TOP 1 id_periodo, nombre FROM periodo_academico WHERE activo=1 ORDER BY fecha_inicio DESC`);
+      if (per) { idPeriodo = per.id_periodo; nombrePeriodo = per.nombre; }
+    } else {
+      const per = await queryOne(`SELECT nombre FROM periodo_academico WHERE id_periodo=@id`, { id: { type: sql.Int, value: idPeriodo } });
+      if (per) nombrePeriodo = per.nombre;
     }
     if (!idPeriodo) return res.json({ ok: true, data: [], mensaje: 'No hay periodo activo' });
 
-    let where = 'WHERE s.id_periodo=@per AND s.estado=\'Abierta\' AND s.cupo_disponible > 0';
+    // Obtener IDs de cursos del plan del estudiante
+    let cursosDelPlan = null;
+    let debugInfo = { idEstudiante, idPrograma: null, cursosEnPlan: 0, planEncontrado: false };
+
+    if (idEstudiante) {
+      const estInfo = await queryOne(
+        `SELECT e.id_programa, pa.nombre AS nombre_programa
+         FROM estudiante e
+         INNER JOIN programa_academico pa ON pa.id_programa = e.id_programa
+         WHERE e.id_estudiante = @id`,
+        { id: { type: sql.Int, value: idEstudiante } }
+      ).catch(() => null);
+
+      if (estInfo) {
+        debugInfo.idPrograma = estInfo.id_programa;
+        debugInfo.nombrePrograma = estInfo.nombre_programa;
+
+        const planCursos = await query(
+          `SELECT pec.id_curso, c.codigo, c.nombre
+           FROM plan_estudio_curso pec
+           INNER JOIN plan_estudio pe ON pe.id_plan = pec.id_plan
+           INNER JOIN curso c ON c.id_curso = pec.id_curso
+           WHERE pe.id_programa = @prog`,
+          { prog: { type: sql.Int, value: estInfo.id_programa } }
+        ).catch(() => []);
+
+        debugInfo.planEncontrado = true;
+        debugInfo.cursosEnPlan = planCursos.length;
+        debugInfo.cursosList = planCursos.map(r => `${r.codigo} - ${r.nombre}`);
+
+        if (planCursos.length > 0) {
+          cursosDelPlan = planCursos.map(r => r.id_curso);
+        }
+      }
+    }
+
+    console.log('[secciones] debug:', JSON.stringify(debugInfo));
+
+    let where = `WHERE s.id_periodo=@per AND s.estado='Abierta'`;
     const params = { per: { type: sql.Int, value: idPeriodo } };
 
     if (buscar) { where += ' AND (c.nombre LIKE @b OR c.codigo LIKE @b)'; params.b = `%${buscar}%`; }
     if (modalidad && modalidad !== 'Todas') { where += ' AND s.modalidad=@mod'; params.mod = modalidad; }
+    if (cursosDelPlan) { where += ` AND c.id_curso IN (${cursosDelPlan.join(',')})`; }
 
     const rows = await query(`
       SELECT s.id_seccion, s.codigo_seccion, s.cupo_maximo, s.cupo_disponible, s.modalidad, s.estado,
@@ -44,8 +89,11 @@ router.get('/secciones', async (req, res) => {
       ORDER BY c.codigo, s.codigo_seccion
     `, params);
 
-    res.json({ ok: true, data: rows, periodo: idPeriodo });
-  } catch (e) { res.status(500).json({ ok: false, error: e.message }); }
+    res.json({ ok: true, data: rows, periodo: idPeriodo, nombre_periodo: nombrePeriodo, _debug: debugInfo });
+  } catch (e) {
+    console.error('[secciones] Error:', e.message);
+    res.status(500).json({ ok: false, error: e.message });
+  }
 });
 
 /* GET /api/enrollment/lista — lista admin con metricas
@@ -161,6 +209,46 @@ router.post('/', async (req, res) => {
     if (!sec) return res.status(404).json({ ok: false, error: 'Seccion no encontrada o cerrada' });
     if (sec.cupo_disponible <= 0) return res.status(400).json({ ok: false, error: 'Sin cupos disponibles' });
 
+    // Regla: no permitir matricular un curso ya matriculado o ya finalizado/aprobado
+    const cursoPrevio = await queryOne(
+      `SELECT TOP 1
+          s2.id_curso,
+          dm2.estado AS estado_detalle,
+          m2.estado  AS estado_matricula,
+          m2.confirmada,
+          CONVERT(varchar,m2.fecha_matricula,23) AS fecha_matricula
+       FROM detalle_matricula dm2
+       INNER JOIN matricula m2 ON m2.id_matricula = dm2.id_matricula
+       INNER JOIN seccion s2   ON s2.id_seccion   = dm2.id_seccion
+       WHERE m2.id_estudiante = @est
+         AND s2.id_curso      = @cur
+         AND m2.estado       <> 'Cancelada'
+         AND dm2.estado IN ('Matriculada','Reservada')
+       ORDER BY m2.confirmada DESC, m2.fecha_matricula DESC`,
+      {
+        est: { type: sql.Int, value: idEst },
+        cur: { type: sql.Int, value: sec.id_curso }
+      }
+    ).catch(() => null);
+
+    if (cursoPrevio) {
+      const yaFinalizado = Number(cursoPrevio.confirmada) === 1
+        && cursoPrevio.estado_matricula === 'Confirmada'
+        && cursoPrevio.estado_detalle === 'Matriculada';
+
+      if (yaFinalizado) {
+        return res.status(409).json({
+          ok: false,
+          error: 'No puedes matricular un curso que ya aprobaste/finalizaste'
+        });
+      }
+
+      return res.status(409).json({
+        ok: false,
+        error: 'No puedes matricular un curso que ya tienes matriculado'
+      });
+    }
+
     // RF-07: Verificar prerrequisitos
     const prereqs = await query(
       `SELECT cp.id_curso_prerrequisito, c.codigo AS codigo_prereq, c.nombre AS nombre_prereq
@@ -172,11 +260,14 @@ router.post('/', async (req, res) => {
     if (prereqs.length > 0) {
       const cumplidos = await query(
         `SELECT DISTINCT s2.id_curso
-         FROM historial_academico ha
-         INNER JOIN seccion s2 ON s2.id_seccion = ha.id_seccion
-         WHERE ha.id_estudiante = @est
-           AND s2.id_curso IN (${prereqs.map(p => p.id_curso_prerrequisito).join(',')})
-           AND ha.estado IN ('Aprobada','Aprobado')`,
+         FROM detalle_matricula dm2
+         INNER JOIN matricula m2 ON m2.id_matricula = dm2.id_matricula
+           AND m2.id_estudiante = @est
+           AND m2.confirmada = 1
+           AND m2.estado = 'Confirmada'
+         INNER JOIN seccion s2 ON s2.id_seccion = dm2.id_seccion
+         WHERE s2.id_curso IN (${prereqs.map(p => p.id_curso_prerrequisito).join(',')})
+           AND dm2.estado = 'Matriculada'`,
         { est: { type: sql.Int, value: idEst } }
       ).catch(() => []);
       if (cumplidos.length < prereqs.length) {
@@ -205,6 +296,9 @@ router.post('/', async (req, res) => {
         AND hs2.hora_fin     > hs_nv.hora_inicio
       WHERE m2.id_estudiante = @est
         AND m2.id_periodo    = @per
+        AND m2.estado       <> 'Cancelada'
+        AND dm2.estado       = 'Matriculada'
+        AND dm2.id_seccion  <> @sid
     `, { sid: { type: sql.Int, value: idSec },
          est: { type: sql.Int, value: idEst },
          per: { type: sql.Int, value: sec.id_periodo } }
@@ -295,7 +389,7 @@ router.post('/', async (req, res) => {
       // RF-03: Bitácora
       query(`INSERT INTO bitacora_auditoria(id_usuario,entidad,accion,descripcion)
              VALUES(@u,'detalle_matricula','INSERT',@det)`,
-        { u:   { type: sql.Int,     value: req.session?.usuario?.id_usuario || 0 },
+        { u:   { type: sql.Int,     value: req.session?.user?.id_usuario || 0 },
           det: { type: sql.VarChar, value: `Sección ${idSec} agregada a matrícula ${matricula.id_matricula}` }
         }).catch(() => {});
 
@@ -342,7 +436,7 @@ router.delete('/:idEstudiante/seccion/:idSeccion', async (req, res) => {
     // RF-03: Bitácora
     query(`INSERT INTO bitacora_auditoria(id_usuario,entidad,accion,descripcion)
            VALUES(@u,'detalle_matricula','DELETE',@det)`,
-      { u:   { type: sql.Int,     value: req.session?.usuario?.id_usuario || 0 },
+      { u:   { type: sql.Int,     value: req.session?.user?.id_usuario || 0 },
         det: { type: sql.VarChar, value: `Sección ${idSec} eliminada de matrícula ${detalle.id_matricula}` }
       }).catch(() => {});
 
@@ -397,7 +491,7 @@ router.post('/:id/confirmar', async (req, res) => {
       // RF-03: Bitácora
       query(`INSERT INTO bitacora_auditoria(id_usuario,entidad,accion,descripcion)
              VALUES(@u,'matricula','UPDATE',@det)`,
-        { u:   { type: sql.Int,     value: req.session?.usuario?.id_usuario || 0 },
+        { u:   { type: sql.Int,     value: req.session?.user?.id_usuario || 0 },
           det: { type: sql.VarChar, value: `Matrícula ${idMat} confirmada. Comprobante: ${numComprobante}` }
         }).catch(() => {});
 
@@ -416,94 +510,6 @@ router.post('/:id/confirmar', async (req, res) => {
   } catch (e) { res.status(500).json({ ok: false, error: e.message }); }
 });
 
-/* GET /api/enrollment/comprobante/estudiante/:id — comprobante por estudiante */
-router.get('/comprobante/estudiante/:id', async (req, res) => {
-  try {
-    const id = parseInt(req.params.id);
-    const matricula = await queryOne(`
-      SELECT TOP 1 m.id_matricula, m.estado, m.total_creditos, m.total_monto,
-             m.confirmada, m.comprobante,
-             CONVERT(varchar,m.fecha_matricula,120) AS fecha,
-             p.nombre AS periodo,
-             e.carne,
-             u.nombre + ' ' + u.apellido AS nombre_estudiante,
-             pa.nombre AS programa
-      FROM matricula m
-      INNER JOIN periodo_academico p ON p.id_periodo = m.id_periodo
-      INNER JOIN estudiante e ON e.id_estudiante = m.id_estudiante
-      INNER JOIN usuario u ON u.id_usuario = e.id_usuario
-      INNER JOIN programa_academico pa ON pa.id_programa = e.id_programa
-      WHERE m.id_estudiante = @id
-      ORDER BY m.fecha_matricula DESC
-    `, { id: { type: sql.Int, value: id } });
-
-    if (!matricula) return res.json({ ok: true, data: null });
-
-    const cursos = await query(`
-      SELECT c.codigo, c.nombre, c.creditos, s.codigo_seccion AS seccion,
-             a.nombre AS aula,
-             (SELECT STRING_AGG(hs.dia_semana+' '+CONVERT(varchar,hs.hora_inicio,108)+'-'+CONVERT(varchar,hs.hora_fin,108),', ')
-              FROM horario_seccion hs WHERE hs.id_seccion=s.id_seccion) AS horario
-      FROM detalle_matricula dm
-      INNER JOIN seccion s ON s.id_seccion = dm.id_seccion
-      INNER JOIN curso c ON c.id_curso = s.id_curso
-      LEFT JOIN aula a ON a.id_aula = s.id_aula
-      WHERE dm.id_matricula = @mid
-    `, { mid: { type: sql.Int, value: matricula.id_matricula } });
-
-    const factura = await queryOne(`
-      SELECT TOP 1 f.numero_factura, f.estado AS estado_pago, f.saldo AS saldo_factura,
-             f.subtotal, f.recargos, f.descuentos, f.total
-      FROM factura f WHERE f.id_estudiante=@id ORDER BY f.fecha_emision DESC
-    `, { id: { type: sql.Int, value: id } });
-
-    res.json({ ok: true, data: { ...matricula, cursos, ...factura, numero: matricula.comprobante || `MAT-${matricula.id_matricula}` } });
-  } catch (e) { res.status(500).json({ ok: false, error: e.message }); }
-});
-
-/* GET /api/enrollment/comprobante/:id — comprobante por ID matrícula */
-router.get('/comprobante/:id', async (req, res) => {
-  try {
-    const id = parseInt(req.params.id);
-    const matricula = await queryOne(`
-      SELECT m.id_matricula, m.estado, m.total_creditos, m.total_monto,
-             m.confirmada, m.comprobante,
-             CONVERT(varchar,m.fecha_matricula,120) AS fecha,
-             p.nombre AS periodo,
-             e.carne, e.id_estudiante,
-             u.nombre + ' ' + u.apellido AS nombre_estudiante,
-             pa.nombre AS programa
-      FROM matricula m
-      INNER JOIN periodo_academico p ON p.id_periodo = m.id_periodo
-      INNER JOIN estudiante e ON e.id_estudiante = m.id_estudiante
-      INNER JOIN usuario u ON u.id_usuario = e.id_usuario
-      INNER JOIN programa_academico pa ON pa.id_programa = e.id_programa
-      WHERE m.id_matricula = @id
-    `, { id: { type: sql.Int, value: id } });
-
-    if (!matricula) return res.status(404).json({ ok: false, error: 'Matrícula no encontrada' });
-
-    const cursos = await query(`
-      SELECT c.codigo, c.nombre, c.creditos, s.codigo_seccion AS seccion,
-             a.nombre AS aula,
-             (SELECT STRING_AGG(hs.dia_semana+' '+CONVERT(varchar,hs.hora_inicio,108)+'-'+CONVERT(varchar,hs.hora_fin,108),', ')
-              FROM horario_seccion hs WHERE hs.id_seccion=s.id_seccion) AS horario
-      FROM detalle_matricula dm
-      INNER JOIN seccion s ON s.id_seccion = dm.id_seccion
-      INNER JOIN curso c ON c.id_curso = s.id_curso
-      LEFT JOIN aula a ON a.id_aula = s.id_aula
-      WHERE dm.id_matricula = @mid
-    `, { mid: { type: sql.Int, value: id } });
-
-    const factura = await queryOne(`
-      SELECT TOP 1 f.numero_factura, f.estado AS estado_pago, f.saldo AS saldo_factura,
-             f.subtotal, f.recargos, f.descuentos, f.total
-      FROM factura f WHERE f.id_estudiante=@eid ORDER BY f.fecha_emision DESC
-    `, { eid: { type: sql.Int, value: matricula.id_estudiante } });
-
-    res.json({ ok: true, data: { ...matricula, cursos, ...factura, numero: matricula.comprobante || `MAT-${matricula.id_matricula}` } });
-  } catch (e) { res.status(500).json({ ok: false, error: e.message }); }
-});
 
 /* NOTE: GET /lista is registered earlier, before /:idEstudiante */
 
@@ -537,3 +543,4 @@ router.get('/lista/admin', async (req, res) => {
 });
 
 module.exports = router;
+

@@ -1,10 +1,10 @@
-<div class="app-wrapper">
+﻿<div class="app-wrapper">
   {{> sidebar-admin}}
 
   <div class="contenido-principal">
     <header class="navbar">
       <div>
-        <div class="navbar-titulo">Facturación</div>
+        <div class="navbar-titulo">Facturacion</div>
         <div class="navbar-breadcrumb"><span>Inicio</span><span class="separador"></span><span class="actual">Facturas</span></div>
       </div>
       <div class="navbar-acciones">
@@ -14,25 +14,23 @@
 
     <main class="area-pagina">
       <div class="encabezado-pagina">
-        <div><h1>Gestión de facturas</h1><p>Consulta y administra todas las facturas del sistema.</p></div>
+        <div><h1>Gestion de facturas</h1><p>Consulta y administra todas las facturas del sistema.</p></div>
         <div class="acciones-encabezado">
-          <button class="btn btn-secundario">Exportar</button>
+          <a href="/api/reports/export/facturas" class="btn btn-secundario">Exportar</a>
         </div>
-      </div>
-
-      <!-- Métricas -->
-      <div class="grid-4 mb-4">
-        <div class="carta-metrica"><div class="metrica-icono">🧾</div><div class="metrica-etiqueta">Total emitidas</div><div class="metrica-valor">3,842</div><div class="metrica-cambio positivo">I Semestre 2025</div></div>
-        <div class="carta-metrica"><div class="metrica-icono">✅</div><div class="metrica-etiqueta">Pagadas</div><div class="metrica-valor">2,999</div><div class="metrica-cambio positivo">78.1%</div></div>
-        <div class="carta-metrica amarillo"><div class="metrica-icono">⏳</div><div class="metrica-etiqueta">Pendientes</div><div class="metrica-valor">843</div><div class="metrica-cambio negativo">21.9%</div></div>
-        <div class="carta-metrica rojo"><div class="metrica-icono">💰</div><div class="metrica-etiqueta">Saldo por cobrar</div><div class="metrica-valor">₡82M</div><div class="metrica-cambio negativo">Requiere gestión</div></div>
       </div>
 
       <div class="carta">
         <div class="carta-cabecera">
           <div class="barra-filtros" style="margin:0;flex:1;">
-            <div class="barra-busqueda"><span class="icono-buscar">🔍</span><input id="input-buscar" type="text" placeholder="Buscar por N.° factura, carné o estudiante..."></div>
-            <select id="sel-estado" class="filtro-select"><option value="">Todos los estados</option><option>Pagada</option><option>Pendiente</option><option>Parcial</option><option>Anulada</option></select>
+            <div class="barra-busqueda"><span class="icono-buscar">&#128269;</span><input id="input-buscar" type="text" placeholder="Buscar por N. factura, carne, estudiante o periodo..."></div>
+            <select id="sel-estado" class="filtro-select">
+              <option value="">Todos los estados</option>
+              <option value="Pagada">Pagada</option>
+              <option value="Pendiente">Pendiente</option>
+              <option value="Parcial">Parcial</option>
+              <option value="Anulada">Anulada</option>
+            </select>
           </div>
         </div>
 
@@ -40,10 +38,10 @@
           <table class="tabla">
             <thead>
               <tr>
-                <th>N.° Factura</th>
+                <th>N. Factura</th>
                 <th>Estudiante</th>
                 <th>Periodo</th>
-                <th>Emisión</th>
+                <th>Emision</th>
                 <th style="text-align:right;">Total</th>
                 <th style="text-align:right;">Saldo</th>
                 <th>Estado</th>
@@ -51,17 +49,20 @@
               </tr>
             </thead>
             <tbody id="tbody-facturas">
-              <tr><td colspan="9" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando…</td></tr>
-                <td><div class="nombre-principal">Laura Jiménez Rojas</div><div class="detalle-secundario">2024-0312</div></td>
-                <td class="texto-muted">I Sem. 2025</td>
+              <tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando...</td></tr>
             </tbody>
           </table>
         </div>
+
         <div id="paginacion-facturas" class="paginacion"></div>
       </div>
     </main>
   </div>
 </div>
+
+{{> modal-detalle-factura}}
+
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="/js/utils.js"></script>
+<script src="/js/billing-detalle-factura.js"></script>
 <script src="/js/billing-facturas.js"></script>

@@ -7,7 +7,6 @@
       <div class="sidebar-seccion">Matrícula</div>
       <a href="/enrollment/buscar" class="activo"><span class="icono">🔍</span> Buscar cursos</a>
       <a href="/enrollment/mi-matricula"><span class="icono">✏️</span> Mi matrícula</a>
-      <a href="/enrollment/comprobante"><span class="icono">🖨️</span> Comprobante</a>
       <div class="sidebar-seccion">Mi información</div>
       <a href="/students/mi-perfil"><span class="icono">👤</span> Mi perfil</a>
       <a href="/students/historial"><span class="icono">📊</span> Historial académico</a>
@@ -35,11 +34,11 @@
 
     <main class="area-pagina">
       <div class="encabezado-pagina">
-        <div><h1>Oferta académica</h1><p>I Semestre 2025 — Selecciona los cursos que deseas matricular.</p></div>
+        <div><h1>Oferta académica</h1><p><span id="span-periodo-buscar">Cargando periodo…</span> — Selecciona los cursos que deseas matricular.</p></div>
         <div class="acciones-encabezado">
           <div style="background:var(--verde-bg);border:1px solid var(--verde-claro);border-radius:var(--radio-borde);padding:.5rem 1rem;font-size:.875rem;display:flex;align-items:center;gap:.5rem;">
             <span>✏️</span>
-            <span>Cursos seleccionados: <strong>2</strong> / Créditos: <strong>7 / 20</strong></span>
+            <span id="span-contador-buscar">Cursos seleccionados: <strong>0</strong> / Créditos: <strong>0 / 20</strong></span>
           </div>
           <a href="/enrollment/mi-matricula" class="btn btn-primario">Ver mi selección →</a>
         </div>
@@ -48,7 +47,7 @@
       <!-- Restricciones activas -->
       <div class="alerta alerta-info mb-4">
         <span class="alerta-icono">ℹ️</span>
-        <div><span class="alerta-titulo">Límite de créditos:</span> Puedes matricular hasta <strong>20 créditos</strong> en este periodo. Llevas 7 créditos seleccionados. El sistema validará automáticamente prerrequisitos, cupos y conflictos de horario.</div>
+        <div><span class="alerta-titulo">Límite de créditos:</span> Puedes matricular hasta <strong id="span-lim-cred-buscar">20</strong> créditos en este periodo. Llevas <strong id="span-cred-actual-buscar">0</strong> créditos seleccionados. El sistema validará automáticamente prerrequisitos, cupos y conflictos de horario.</div>
       </div>
 
       <!-- Filtros -->

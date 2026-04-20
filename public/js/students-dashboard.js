@@ -3,10 +3,7 @@
 
   async function cargar() {
     try {
-      const [resDash, resNotif] = await Promise.all([
-        axios.get(`/api/students/${ID_EST}/dashboard`),
-        axios.get('/api/notifications', { params: { limit: 5 } })
-      ]);
+      const resDash = await axios.get(`/api/students/${ID_EST}/dashboard`);
       const d = resDash.data; // dashboard returns flat object: { ok, nombre, carne, ... }
 
       // Saludo
@@ -66,9 +63,9 @@
           <div style="padding:.875rem 1.5rem;display:flex;gap:.875rem;align-items:flex-start;${i < Math.min(notifs.length, 3) - 1 ? 'border-bottom:1px solid var(--gris-linea);' : ''}">
             <span style="font-size:1.2rem;">${n.tipo === 'Pago' ? '💳' : n.tipo === 'Matricula' ? '✅' : '🔔'}</span>
             <div>
-              <div style="font-size:.875rem;font-weight:600;">${n.titulo || n.mensaje}</div>
-              ${n.mensaje && n.titulo ? `<div class="texto-pequeno">${n.mensaje}</div>` : ''}
-              <div class="texto-pequeno" style="margin-top:.125rem;color:var(--gris-suave);">${n.fecha ? new Date(n.fecha).toLocaleDateString('es-CR') : '—'}</div>
+              <div style="font-size:.875rem;font-weight:600;">${n.asunto || n.mensaje || '—'}</div>
+              ${n.mensaje && n.asunto ? `<div class="texto-pequeno">${n.mensaje}</div>` : ''}
+              <div class="texto-pequeno" style="margin-top:.125rem;color:var(--gris-suave);">${n.fecha_envio ? new Date(n.fecha_envio).toLocaleDateString('es-CR') : '—'}</div>
             </div>
           </div>`).join('');
       } else {

@@ -193,17 +193,24 @@ router.get('/:id/dashboard', requireOwnerOrAdmin, async (req, res) => {
       WHERE dm.id_matricula = @mid
     `, { mid: { type: sql.Int, value: matriculaActual.id_matricula } }) : [];
 
-    const planInfo = await queryOne(`
-      SELECT pe.creditos_totales, COUNT(dm.id_detalle_matricula) AS creditos_aprobados
-      FROM plan_estudio pe
-      LEFT JOIN plan_estudio_curso pc ON pc.id_plan = pe.id_plan
-      LEFT JOIN curso c2 ON c2.id_curso = pc.id_curso
-      LEFT JOIN seccion s2 ON s2.id_curso = c2.id_curso
-      LEFT JOIN detalle_matricula dm ON dm.id_seccion = s2.id_seccion
-        AND dm.estado = 'Matriculada'
-      LEFT JOIN matricula m2 ON m2.id_matricula = dm.id_matricula AND m2.id_estudiante = @id
-      WHERE pe.activo = 1
-      GROUP BY pe.creditos_totales
+    const planCreditos = await queryOne(`
+      SELECT ISNULL(SUM(c2.creditos), 0) AS creditos_totales
+      FROM estudiante est2
+      INNER JOIN programa_academico pa2 ON pa2.id_programa = est2.id_programa
+      INNER JOIN plan_estudio pe2 ON pe2.id_programa = pa2.id_programa AND pe2.activo = 1
+      INNER JOIN plan_estudio_curso pc2 ON pc2.id_plan = pe2.id_plan
+      INNER JOIN curso c2 ON c2.id_curso = pc2.id_curso
+      WHERE est2.id_estudiante = @id
+    `, { id: { type: sql.Int, value: id } }).catch(() => null);
+
+    const creditosAprobados = await queryOne(`
+      SELECT ISNULL(SUM(c3.creditos), 0) AS creditos_aprobados
+      FROM detalle_matricula dm3
+      INNER JOIN matricula m3 ON m3.id_matricula = dm3.id_matricula
+        AND m3.id_estudiante = @id AND m3.confirmada = 1
+      INNER JOIN seccion s3 ON s3.id_seccion = dm3.id_seccion
+      INNER JOIN curso c3 ON c3.id_curso = s3.id_curso
+      WHERE dm3.estado = 'Matriculada'
     `, { id: { type: sql.Int, value: id } }).catch(() => null);
 
     res.json({
@@ -217,8 +224,8 @@ router.get('/:id/dashboard', requireOwnerOrAdmin, async (req, res) => {
       num_cursos: cursos.length,
       creditos_actuales: matriculaActual?.total_creditos || 0,
       limite_creditos: matriculaActual?.limite_creditos || 20,
-      creditos_aprobados: planInfo?.creditos_aprobados || 0,
-      creditos_plan: planInfo?.creditos_totales || 160,
+      creditos_aprobados: creditosAprobados?.creditos_aprobados || 0,
+      creditos_plan: planCreditos?.creditos_totales || 0,
       cursos
     });
   } catch (e) { res.status(500).json({ ok: false, error: e.message }); }

@@ -41,16 +41,6 @@ router.get('/perfil-admin/:id/estado-cuenta', requireAuth, requireRole('Administ
   });
 });
 
-router.get('/perfil-admin/:id/comprobante', requireAuth, requireRole('Administrador'), function (req, res) {
-  const idEstudiante = parseInt(req.params.id, 10);
-  if (!Number.isInteger(idEstudiante)) return res.redirect('/students/lista');
-  res.render('students/estudiante-comprobante-admin', {
-    title: 'Comprobante de Matricula',
-    activePage: 'estudiantes',
-    id_estudiante: idEstudiante
-  });
-});
-
 /* Compatibilidad: ruta antigua redirige al nuevo perfil administrativo */
 router.get('/:id', requireAuth, requireRole('Administrador'), function (req, res) {
   return res.redirect(`/students/perfil-admin/${req.params.id}`);

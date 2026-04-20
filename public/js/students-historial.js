@@ -22,7 +22,7 @@
       const creditosPlan = 160; // default
 
       document.getElementById('hist-cred-aprobados').textContent = creditosAprobados;
-      document.getElementById('hist-cred-plan').textContent = resumen.creditos_acumulados || creditosPlan;
+      document.getElementById('hist-cred-plan').textContent = creditosPlan;
       document.getElementById('hist-cursos-aprobados').textContent = aprobados.length;
       document.getElementById('hist-promedio').textContent = '—';
 

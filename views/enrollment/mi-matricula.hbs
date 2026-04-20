@@ -7,7 +7,6 @@
       <div class="sidebar-seccion">Matrícula</div>
       <a href="/enrollment/buscar"><span class="icono">🔍</span> Buscar cursos</a>
       <a href="/enrollment/mi-matricula" class="activo"><span class="icono">✏️</span> Mi matrícula</a>
-      <a href="/enrollment/comprobante"><span class="icono">🖨️</span> Comprobante</a>
       <div class="sidebar-seccion">Mi información</div>
       <a href="/students/mi-perfil"><span class="icono">👤</span> Mi perfil</a>
       <a href="/students/historial"><span class="icono">📊</span> Historial académico</a>
@@ -33,14 +32,6 @@
     </header>
 
     <main class="area-pagina">
-      <!-- Pasos del proceso -->
-      <div class="pasos mb-5">
-        <div class="paso completado"><div class="paso-num">✓</div><span class="paso-etiqueta">Selección</span></div>
-        <div class="paso activo"><div class="paso-num">2</div><span class="paso-etiqueta">Resumen</span></div>
-        <div class="paso"><div class="paso-num">3</div><span class="paso-etiqueta">Pago</span></div>
-        <div class="paso"><div class="paso-num">4</div><span class="paso-etiqueta">Confirmación</span></div>
-      </div>
-
       <div style="display:grid;grid-template-columns:1fr 340px;gap:1.5rem;">
         <div>
           <h2 style="margin-bottom:1.25rem;">Resumen de matrícula</h2>
@@ -76,18 +67,8 @@
           <div class="carta mb-3">
             <div class="carta-cabecera"><div class="carta-titulo">Resumen de cobro</div></div>
             <div class="carta-cuerpo">
-              <div style="display:flex;flex-direction:column;gap:.75rem;font-size:.9rem;">
-                <div class="flex-entre"><span class="texto-gris">Estructuras de Datos (4 cr.)</span><span>₡56,000</span></div>
-                <div class="flex-entre"><span class="texto-gris">Base de Datos I (3 cr.)</span><span>₡42,000</span></div>
-                <div class="flex-entre"><span class="texto-gris">Cálculo I (4 cr.)</span><span>₡56,000</span></div>
-                <div class="flex-entre"><span class="texto-gris">Inglés Técnico I (1 cr.)</span><span>₡14,000</span></div>
-                <hr class="divisor" style="margin:.25rem 0;">
-                <div class="flex-entre"><span class="texto-gris">Subtotal</span><span style="font-weight:600;">₡168,000</span></div>
-                <div class="flex-entre"><span class="texto-gris">Descuentos</span><span style="color:var(--cyan-exito);">−₡0</span></div>
-                <div class="flex-entre"><span class="texto-gris">Recargos</span><span>₡17,000</span></div>
-                <div class="flex-entre"><span class="texto-gris">Saldo anterior</span><span style="color:var(--rojo-peligro);">₡0</span></div>
-                <hr class="divisor" style="margin:.25rem 0;">
-                <div class="flex-entre" style="font-size:1.1rem;"><strong>Total a pagar</strong><strong style="color:var(--verde-principal);">₡185,000</strong></div>
+              <div id="resumen-cobro" style="display:flex;flex-direction:column;gap:.75rem;font-size:.9rem;">
+                <div style="text-align:center;color:var(--gris-suave);padding:.5rem 0;">Cargando resumen…</div>
               </div>
             </div>
           </div>

@@ -1,83 +1,93 @@
-/**
- * public/js/billing-pagar.js
- * Estudiante: realizar pago de una factura
+﻿/**
+ * Estudiante: realizar pago de facturas pendientes
  */
 (function () {
   const idEst = window._idEstudiante;
+  const params = new URLSearchParams(window.location.search);
+  const facturaPreseleccionada = params.get('factura');
 
-  const tbody    = document.getElementById('tbody-facturas-pend');
+  const tbody = document.getElementById('tbody-facturas-pend');
   const formPago = document.getElementById('form-pagar');
-  const selFac   = document.getElementById('sel-factura');
+  const selFactura = document.getElementById('sel-factura');
+  const inpMonto = document.getElementById('inp-monto');
 
-  // Cargar facturas pendientes del estudiante
   async function cargarFacturas() {
     try {
       const { data } = await axios.get(`/api/billing/facturas/estudiante/${idEst}`);
-      if (!data.ok) throw new Error(data.error);
-      const pendientes = data.data.filter(f => f.estado !== 'Pagada' && f.estado !== 'Anulada');
+      if (!data.ok) throw new Error(data.error || 'No se pudo cargar facturas');
+
+      const facturas = Array.isArray(data.data) ? data.data : [];
+      const pendientes = facturas.filter(f => f.estado !== 'Pagada' && f.estado !== 'Anulada' && parseFloat(f.saldo || 0) > 0);
 
       if (tbody) {
-        if (!pendientes.length) {
-          tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--cyan-exito);">✅ No tienes facturas pendientes</td></tr>';
-        } else {
-          tbody.innerHTML = pendientes.map(f => `
-            <tr>
-              <td><span style="font-family:monospace;">${esc(f.numero_factura)}</span></td>
-              <td class="texto-muted">${esc(f.periodo)}</td>
-              <td style="font-weight:600;">${U.colones(f.total)}</td>
-              <td style="color:var(--rojo-peligro);font-weight:600;">${U.colones(f.saldo)}</td>
-              <td>${U.badgeEstado(f.estado)}</td>
-            </tr>`).join('');
-        }
+        tbody.innerHTML = pendientes.length
+          ? pendientes.map(f => `
+              <tr>
+                <td><span style="font-family:monospace;">${esc(f.numero_factura)}</span></td>
+                <td class="texto-muted">${esc(f.periodo)}</td>
+                <td style="font-weight:600;">${U.colones(f.total || 0)}</td>
+                <td style="color:var(--rojo-peligro);font-weight:700;">${U.colones(f.saldo || 0)}</td>
+                <td>${U.badgeEstado(f.estado)}</td>
+              </tr>`).join('')
+          : '<tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--cyan-exito);">No tienes facturas pendientes.</td></tr>';
       }
 
-      if (selFac) {
-        selFac.innerHTML = '<option value="">Seleccionar factura…</option>';
+      if (selFactura) {
+        selFactura.innerHTML = '<option value="">Seleccionar factura...</option>';
         pendientes.forEach(f => {
-          selFac.insertAdjacentHTML('beforeend',
-            `<option value="${f.id_factura}" data-saldo="${f.saldo}">${esc(f.numero_factura)} — Saldo: ${U.colones(f.saldo)}</option>`
+          selFactura.insertAdjacentHTML(
+            'beforeend',
+            `<option value="${f.id_factura}" data-saldo="${f.saldo}">${esc(f.numero_factura)} - Saldo: ${U.colones(f.saldo || 0)}</option>`
           );
         });
+
+        if (facturaPreseleccionada && pendientes.some(f => String(f.id_factura) === String(facturaPreseleccionada))) {
+          selFactura.value = String(facturaPreseleccionada);
+          actualizarMontoSegunFactura();
+        }
       }
     } catch (e) {
       U.toast('Error al cargar facturas: ' + e.message, 'error');
     }
   }
 
-  selFac?.addEventListener('change', () => {
-    const opt = selFac.selectedOptions[0];
+  function actualizarMontoSegunFactura() {
+    const opt = selFactura?.selectedOptions?.[0];
     const saldo = opt?.dataset?.saldo;
-    const montoEl = document.getElementById('inp-monto');
-    if (montoEl && saldo) montoEl.value = parseFloat(saldo).toFixed(2);
-  });
+    if (inpMonto && saldo) inpMonto.value = parseFloat(saldo).toFixed(2);
+  }
+
+  selFactura?.addEventListener('change', actualizarMontoSegunFactura);
 
   formPago?.addEventListener('submit', async e => {
     e.preventDefault();
     const btn = formPago.querySelector('[type=submit]');
     U.showLoading(btn);
     try {
-      const body = {
-        id_factura:  selFac?.value,
-        monto:       document.getElementById('inp-monto')?.value,
-        metodo_pago: document.getElementById('sel-metodo')?.value,
-      };
-      if (!body.id_factura || !body.monto || !body.metodo_pago)
-        throw new Error('Completa todos los campos');
+      const idFactura = parseInt(selFactura?.value || '', 10);
+      const monto = parseFloat(inpMonto?.value || '0');
+      const metodo = document.getElementById('sel-metodo')?.value;
+      if (!Number.isInteger(idFactura) || !monto || monto <= 0 || !metodo) {
+        throw new Error('Completa todos los campos obligatorios');
+      }
 
-      const { data } = await axios.post('/api/billing/pagar', body);
-      if (!data.ok) throw new Error(data.error);
+      const { data } = await axios.post('/api/billing/pagar', {
+        id_factura: idFactura,
+        monto,
+        metodo_pago: metodo
+      });
+      if (!data.ok) throw new Error(data.error || 'No se pudo registrar el pago');
 
       U.toast(`Pago registrado. Referencia: ${data.referencia}`, 'exito');
       formPago.reset();
-      cargarFacturas();
+      await cargarFacturas();
 
-      // Mostrar comprobante inline
       const compEl = document.getElementById('comprobante-resultado');
       if (compEl) {
         compEl.style.display = 'block';
         compEl.innerHTML = `
           <div class="alerta alerta-verde">
-            <span class="alerta-icono">✅</span>
+            <span class="alerta-icono">OK</span>
             <div>
               <div><strong>Pago registrado exitosamente</strong></div>
               <div>Referencia: <code>${esc(data.referencia)}</code> · Nuevo estado: ${esc(data.nuevo_estado)}</div>
@@ -86,9 +96,17 @@
       }
     } catch (err) {
       U.toast('Error: ' + (err.response?.data?.error || err.message), 'error');
-    } finally { U.hideLoading(btn); }
+    } finally {
+      U.hideLoading(btn);
+    }
   });
 
-  function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function esc(s) {
+    return String(s || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
   cargarFacturas();
 })();

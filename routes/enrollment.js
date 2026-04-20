@@ -12,22 +12,6 @@ router.get('/mi-matricula', requireAuth, requireRole('Estudiante'), function (re
   res.render('enrollment/mi-matricula', { title: 'Mi Matricula', id_estudiante: req.session.user.id_estudiante });
 });
 
-/* GET comprobante de matricula - Estudiante */
-router.get('/comprobante', requireAuth, requireRole('Estudiante'), function (req, res) {
-  res.render('enrollment/comprobante', { title: 'Comprobante de Matricula', id_estudiante: req.session.user.id_estudiante });
-});
-
-/* GET comprobante de matricula - Administrador (vista separada) */
-router.get('/comprobante-admin/:id', requireAuth, requireRole('Administrador'), function (req, res) {
-  const idMatricula = parseInt(req.params.id, 10);
-  if (!Number.isInteger(idMatricula)) return res.redirect('/enrollment/lista');
-  res.render('enrollment/comprobante-admin', {
-    title: 'Comprobante de Matricula (Administracion)',
-    activePage: 'matriculas',
-    id_matricula: idMatricula
-  });
-});
-
 /* GET lista de matriculas - Administrador */
 router.get('/lista', requireAuth, requireRole('Administrador'), function (req, res) {
   res.render('enrollment/matriculas-lista', { title: 'Matriculas', activePage: 'matriculas' });

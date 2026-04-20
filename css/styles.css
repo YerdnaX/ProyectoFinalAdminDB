@@ -685,17 +685,24 @@ p  { color: var(--gris-suave); line-height: 1.7; }
 .tab-boton.activo { color: var(--verde-principal); border-bottom-color: var(--verde-principal); font-weight: 600; }
 
 /* ── Modal ──────────────────────────────────────────────────── */
-.modal-fondo {
+.modal {
+  display: none;
   position: fixed;
   inset: 0;
   background: rgba(15,23,42,.5);
-  display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
   padding: 1rem;
 }
-.modal {
+.modal.abierto {
+  display: flex;
+}
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+}
+.modal-caja {
   background: var(--fondo-carta);
   border-radius: var(--radio-grande);
   box-shadow: var(--sombra-modal);
@@ -703,6 +710,8 @@ p  { color: var(--gris-suave); line-height: 1.7; }
   max-width: 560px;
   max-height: 90vh;
   overflow-y: auto;
+  position: relative;
+  z-index: 1;
 }
 .modal-cabecera {
   padding: 1.5rem 1.75rem 1.25rem;
@@ -720,7 +729,7 @@ p  { color: var(--gris-suave); line-height: 1.7; }
   justify-content: flex-end;
   gap: .75rem;
 }
-.btn-cerrar-modal {
+.modal-cerrar, .btn-cerrar-modal {
   background: none; border: none;
   font-size: 1.375rem;
   color: var(--gris-suave);
@@ -728,7 +737,7 @@ p  { color: var(--gris-suave); line-height: 1.7; }
   line-height: 1;
   padding: .25rem;
 }
-.btn-cerrar-modal:hover { color: var(--gris-oscuro); }
+.modal-cerrar:hover, .btn-cerrar-modal:hover { color: var(--gris-oscuro); }
 
 /* ── Línea divisora ─────────────────────────────────────────── */
 .divisor { border: none; border-top: 1px solid var(--gris-linea); margin: 1.5rem 0; }

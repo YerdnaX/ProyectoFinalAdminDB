@@ -19,6 +19,12 @@ function verifyPassword(password, stored) {
   }
 }
 
+/** Genera hash de contrasena (scrypt) */
+function hashPassword(password) {
+  const salt = crypto.randomBytes(16).toString('hex');
+  const hash = crypto.scryptSync(password, salt, 64).toString('hex');
+  return `${salt}:${hash}`;
+}
 /* ── POST /api/auth/login ───────────────────────────────────────────────── */
 router.post('/login', async (req, res) => {
   try {
@@ -124,6 +130,55 @@ router.post('/logout', (req, res) => {
 });
 
 /* ── GET /api/auth/me ───────────────────────────────────────────────────── */
+/* POST /api/auth/cambiar-contrasena */
+router.post('/cambiar-contrasena', async (req, res) => {
+  try {
+    const idUsuario = req.session?.user?.id_usuario;
+    if (!idUsuario) return res.status(401).json({ ok: false, error: 'No autenticado' });
+
+    const { contrasena_actual, contrasena_nueva, contrasena_confirmacion } = req.body || {};
+    const actual = String(contrasena_actual || '');
+    const nueva = String(contrasena_nueva || '');
+    const confirmacion = String(contrasena_confirmacion || '');
+
+    if (!actual || !nueva || !confirmacion) {
+      return res.status(400).json({ ok: false, error: 'Todos los campos son obligatorios' });
+    }
+    if (nueva.length < 6) {
+      return res.status(400).json({ ok: false, error: 'La nueva contrasena debe tener al menos 6 caracteres' });
+    }
+    if (nueva !== confirmacion) {
+      return res.status(400).json({ ok: false, error: 'Las contrasenas nuevas no coinciden' });
+    }
+    if (actual === nueva) {
+      return res.status(400).json({ ok: false, error: 'La nueva contrasena debe ser diferente a la actual' });
+    }
+
+    const usuario = await queryOne(
+      `SELECT id_usuario, clave_hash FROM usuario WHERE id_usuario = @id`,
+      { id: { type: sql.Int, value: idUsuario } }
+    );
+    if (!usuario || !usuario.clave_hash) {
+      return res.status(404).json({ ok: false, error: 'Usuario no encontrado' });
+    }
+    if (!verifyPassword(actual, usuario.clave_hash)) {
+      return res.status(400).json({ ok: false, error: 'La contrasena actual es incorrecta' });
+    }
+
+    const nuevoHash = hashPassword(nueva);
+    await query(
+      `UPDATE usuario SET clave_hash = @hash WHERE id_usuario = @id`,
+      {
+        hash: { type: sql.VarChar, value: nuevoHash },
+        id: { type: sql.Int, value: idUsuario }
+      }
+    );
+
+    return res.json({ ok: true, mensaje: 'Contrasena actualizada' });
+  } catch (e) {
+    return res.status(500).json({ ok: false, error: 'Error interno del servidor' });
+  }
+});
 router.get('/me', (req, res) => {
   if (!req.session || !req.session.user) {
     return res.status(401).json({ ok: false, error: 'No autenticado' });
@@ -132,3 +187,4 @@ router.get('/me', (req, res) => {
 });
 
 module.exports = router;
+

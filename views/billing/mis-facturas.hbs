@@ -1,44 +1,57 @@
 <div class="app-wrapper">
   <aside class="sidebar">
-    <div class="sidebar-logo"><div class="sidebar-logo-icono">🎓</div><div><div class="sidebar-logo-texto">UniMatrícula</div><div class="sidebar-logo-subtexto">Portal Estudiantil</div></div></div>
+    <div class="sidebar-logo"><div class="sidebar-logo-icono">&#127891;</div><div><div class="sidebar-logo-texto">UniMatricula</div><div class="sidebar-logo-subtexto">Portal Estudiantil</div></div></div>
     <nav class="sidebar-nav">
       <div class="sidebar-seccion">General</div>
-      <a href="/students"><span class="icono">🏠</span> Mi portal</a>
-      <div class="sidebar-seccion">Matrícula</div>
-      <a href="/enrollment/buscar"><span class="icono">🔍</span> Buscar cursos</a>
-      <a href="/enrollment/mi-matricula"><span class="icono">✏️</span> Mi matrícula</a>
-      <a href="/enrollment/comprobante"><span class="icono">🖨️</span> Comprobante</a>
-      <div class="sidebar-seccion">Mi información</div>
-      <a href="/students/mi-perfil"><span class="icono">👤</span> Mi perfil</a>
-      <a href="/students/historial"><span class="icono">📊</span> Historial académico</a>
+      <a href="/students"><span class="icono">&#127968;</span> Mi portal</a>
+      <div class="sidebar-seccion">Matricula</div>
+      <a href="/enrollment/buscar"><span class="icono">&#128269;</span> Buscar cursos</a>
+      <a href="/enrollment/mi-matricula"><span class="icono">&#9997;&#65039;</span> Mi matricula</a>
+      <div class="sidebar-seccion">Mi informacion</div>
+      <a href="/students/mi-perfil"><span class="icono">&#128100;</span> Mi perfil</a>
+      <a href="/students/historial"><span class="icono">&#128202;</span> Historial academico</a>
       <div class="sidebar-seccion">Finanzas</div>
-      <a href="/billing/estado-cuenta"><span class="icono">📄</span> Estado de cuenta</a>
-      <a href="/billing/mis-facturas" class="activo"><span class="icono">🧾</span> Mis facturas</a>
-      <a href="/billing/pagar"><span class="icono">💳</span> Realizar pago</a>
+      <a href="/billing/estado-cuenta"><span class="icono">&#128196;</span> Estado de cuenta</a>
+      <a href="/billing/mis-facturas" class="activo"><span class="icono">&#129534;</span> Mis facturas</a>
+      <a href="/billing/pagar"><span class="icono">&#128179;</span> Realizar pago</a>
       <div class="sidebar-seccion">Comunicaciones</div>
-      <a href="/notifications"><span class="icono">🔔</span> Notificaciones</a>
+      <a href="/notifications"><span class="icono">&#128276;</span> Notificaciones</a>
     </nav>
-    <div class="sidebar-footer"><a href="/auth/logout">🚪 Cerrar sesión</a></div>
+    <div class="sidebar-footer"><a href="/auth/logout">Cerrar sesion</a></div>
   </aside>
+
   <div class="contenido-principal">
     <header class="navbar">
       <div><div class="navbar-titulo">Mis Facturas</div><div class="navbar-breadcrumb"><a href="/students">Inicio</a><span class="separador"></span><span class="actual">Mis facturas</span></div></div>
-      <div class="navbar-acciones"><div class="navbar-usuario"><div class="avatar">LJ</div><div><div class="navbar-usuario-nombre">Laura Jiménez</div><div class="navbar-usuario-rol">Estudiante · 2024-0312</div></div></div></div>
+      <div class="navbar-acciones"><div class="navbar-usuario"><div class="avatar">LJ</div><div><div class="navbar-usuario-nombre">Laura Jimenez</div><div class="navbar-usuario-rol">Estudiante</div></div></div></div>
     </header>
+
     <main class="area-pagina">
       <div class="encabezado-pagina">
         <div><h1>Mis facturas</h1><p>Historial completo de facturas de tu cuenta estudiantil.</p></div>
       </div>
+
       <div id="alerta-pendientes" class="alerta alerta-alerta mb-4" style="display:none;">
-        <span class="alerta-icono">⚠️</span>
-        <div id="alerta-pendientes-texto">Tienes facturas pendientes de pago. <a href="/billing/pagar">Pagar ahora →</a></div>
+        <span class="alerta-icono">!</span>
+        <div id="alerta-pendientes-texto">Tienes facturas pendientes de pago.</div>
       </div>
+
       <div class="carta">
         <div class="tabla-contenedor">
           <table class="tabla">
-            <thead><tr><th>N.° Factura</th><th>Periodo</th><th>Emisión</th><th style="text-align:right;">Total</th><th style="text-align:right;">Saldo</th><th>Estado</th><th>Acciones</th></tr></thead>
+            <thead>
+              <tr>
+                <th>N. Factura</th>
+                <th>Periodo</th>
+                <th>Emision</th>
+                <th style="text-align:right;">Total</th>
+                <th style="text-align:right;">Saldo</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
             <tbody id="tbody-mis-facturas">
-              <tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando…</td></tr>
+              <tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando...</td></tr>
             </tbody>
           </table>
         </div>
@@ -47,33 +60,11 @@
     </main>
   </div>
 </div>
-<!-- Modal: Detalle de factura -->
-<div id="modal-detalle-factura" class="modal-overlay" style="display:none;" onclick="if(event.target===this)U.closeModal('modal-detalle-factura')">
-  <div class="modal-caja" style="max-width:520px;">
-    <div class="modal-encabezado">
-      <h2 class="modal-titulo">Detalle de factura</h2>
-      <button class="modal-cerrar" onclick="U.closeModal('modal-detalle-factura')">✕</button>
-    </div>
-    <div class="modal-cuerpo">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem 1.5rem;margin-bottom:1rem;">
-        <div><div class="texto-muted" style="font-size:.8rem;">N.° Factura</div><div style="font-family:monospace;font-weight:700;" id="modal-det-numero">—</div></div>
-        <div><div class="texto-muted" style="font-size:.8rem;">Período</div><div id="modal-det-periodo">—</div></div>
-        <div><div class="texto-muted" style="font-size:.8rem;">Fecha emisión</div><div id="modal-det-fecha">—</div></div>
-        <div><div class="texto-muted" style="font-size:.8rem;">Estado</div><div id="modal-det-estado">—</div></div>
-        <div><div class="texto-muted" style="font-size:.8rem;">Total</div><div style="font-weight:600;" id="modal-det-total">—</div></div>
-        <div><div class="texto-muted" style="font-size:.8rem;">Saldo pendiente</div><div style="font-weight:600;" id="modal-det-saldo">—</div></div>
-      </div>
-      <table class="tabla" style="width:100%;">
-        <thead><tr><th>Descripción</th><th style="text-align:right;">Monto</th></tr></thead>
-        <tbody id="modal-det-lineas"></tbody>
-      </table>
-    </div>
-    <div class="modal-pie">
-      <button class="btn btn-secundario" onclick="U.closeModal('modal-detalle-factura')">Cerrar</button>
-    </div>
-  </div>
-</div>
+
+{{> modal-detalle-factura}}
+
 <script>window._idEstudiante = {{id_estudiante}};</script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="/js/utils.js"></script>
+<script src="/js/billing-detalle-factura.js"></script>
 <script src="/js/billing-mis-facturas.js"></script>

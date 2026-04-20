@@ -37,6 +37,52 @@
       console.error('Error cargando perfil:', e);
     }
   }
+  function activarCambioContrasena() {
+    const btn = document.getElementById('btn-cambiar-contrasena-sso');
+    if (!btn) return;
 
-  document.addEventListener('DOMContentLoaded', cargar);
+    btn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const actual = window.prompt('Digite su contrasena actual:');
+      if (actual === null) return;
+      const nueva = window.prompt('Digite su nueva contrasena:');
+      if (nueva === null) return;
+      const confirmar = window.prompt('Confirme su nueva contrasena:');
+      if (confirmar === null) return;
+
+      if (!actual || !nueva || !confirmar) {
+        U.toast('Todos los campos son obligatorios.', 'error');
+        return;
+      }
+      if (nueva.length < 6) {
+        U.toast('La nueva contrasena debe tener al menos 6 caracteres.', 'error');
+        return;
+      }
+      if (nueva !== confirmar) {
+        U.toast('Las contrasenas nuevas no coinciden.', 'error');
+        return;
+      }
+      if (actual === nueva) {
+        U.toast('La nueva contrasena debe ser diferente a la actual.', 'error');
+        return;
+      }
+
+      try {
+        const { data } = await axios.post('/api/auth/cambiar-contrasena', {
+          contrasena_actual: actual,
+          contrasena_nueva: nueva,
+          contrasena_confirmacion: confirmar
+        });
+        if (!data?.ok) throw new Error(data?.error || 'No se pudo cambiar la contrasena');
+        U.toast('Contrasena actualizada.', 'exito');
+      } catch (err) {
+        U.toast(err?.response?.data?.error || err.message || 'Error al cambiar contrasena.', 'error');
+      }
+    });
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    cargar();
+    activarCambioContrasena();
+  });
 })();
+
