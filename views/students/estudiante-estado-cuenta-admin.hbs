@@ -1,0 +1,73 @@
+<div class="app-wrapper">
+  {{> sidebar-admin}}
+
+  <div class="contenido-principal">
+    <header class="navbar">
+      <div>
+        <div class="navbar-titulo">Estado de Cuenta (Administracion)</div>
+        <div class="navbar-breadcrumb">
+          <a href="/students/lista">Estudiantes</a><span class="separador"></span><a href="/students/perfil-admin/{{id_estudiante}}">Perfil</a><span class="separador"></span><span class="actual">Estado de cuenta</span>
+        </div>
+      </div>
+      <div class="navbar-acciones">
+        <a href="/students/perfil-admin/{{id_estudiante}}" class="btn btn-secundario btn-sm">Volver al perfil</a>
+        <div class="navbar-usuario"><div class="avatar">AM</div><div><div class="navbar-usuario-nombre">Ana Mora</div><div class="navbar-usuario-rol">Administradora TI</div></div></div>
+      </div>
+    </header>
+
+    <main class="area-pagina">
+      <div class="encabezado-pagina">
+        <div><h1>Estado de cuenta del estudiante</h1><p>Consulta financiera para gestion administrativa.</p></div>
+      </div>
+
+      <div class="grid-3 mb-4">
+        <div style="background:var(--rojo-peligro-bg);border:1px solid #FECACA;border-radius:var(--radio-grande);padding:1.5rem;text-align:center;">
+          <div style="font-size:.875rem;font-weight:600;color:var(--rojo-peligro);margin-bottom:.5rem;">Saldo pendiente</div>
+          <div id="est-saldo" style="font-size:2rem;font-weight:700;color:var(--rojo-peligro);">-</div>
+        </div>
+        <div style="background:var(--verde-bg);border:1px solid var(--verde-claro);border-radius:var(--radio-grande);padding:1.5rem;text-align:center;">
+          <div style="font-size:.875rem;font-weight:600;color:var(--verde-principal);margin-bottom:.5rem;">Estudiante</div>
+          <div id="est-nombre" style="font-size:1.25rem;font-weight:700;color:var(--verde-principal);">-</div>
+          <div id="est-carne" class="texto-pequeno" style="margin-top:.375rem;"></div>
+        </div>
+        <div style="background:var(--gris-fondo);border-radius:var(--radio-grande);padding:1.5rem;text-align:center;">
+          <div style="font-size:.875rem;font-weight:600;margin-bottom:.5rem;">Accion</div>
+          <a href="/billing/facturas" class="btn btn-primario btn-sm">Ir a facturas</a>
+        </div>
+      </div>
+
+      <div id="alerta-bloqueo" class="alerta alerta-peligro mb-4" style="display:none;">
+        <span class="alerta-icono">!</span>
+        <div><span class="alerta-titulo">Cuenta bloqueada financieramente.</span></div>
+      </div>
+
+      <div class="carta">
+        <div class="carta-cabecera">
+          <div><div class="carta-titulo">Movimientos de estado de cuenta</div></div>
+        </div>
+        <div class="tabla-contenedor">
+          <table class="tabla">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Periodo</th>
+                <th>Total</th>
+                <th>Pagado</th>
+                <th>Saldo</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-estados">
+              <tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>window._idEstudiante = {{id_estudiante}};</script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/students-estado-cuenta-admin.js"></script>

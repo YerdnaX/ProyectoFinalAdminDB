@@ -77,11 +77,21 @@
       <div class="campo"><label>Apellido</label><input class="campo-input" name="apellido" required></div>
       <div class="campo"><label>Correo</label><input class="campo-input" type="email" name="correo" required></div>
       <div class="campo"><label>Contraseña</label><input class="campo-input" type="password" name="contrasena" required></div>
-      <div class="campo"><label>Identificador SSO</label><input class="campo-input" name="identificador_sso"></div>
+      <div class="campo"><label>Identificador SSO <span class="requerido">*</span></label><input class="campo-input" name="identificador_sso" required></div>
       <div class="campo"><label>Rol</label>
         <select class="campo-input" name="id_rol" required>
           <option value="">Seleccionar…</option>
         </select>
+      </div>
+      <div class="campo bloque-estudiante" style="display:none;">
+        <label>Programa académico <span class="requerido">*</span></label>
+        <select class="campo-input" name="id_programa">
+          <option value="">Seleccionar programa...</option>
+        </select>
+      </div>
+      <div class="campo bloque-estudiante" style="display:none;">
+        <label>Carné (opcional)</label>
+        <input class="campo-input" name="carne" placeholder="Se genera automáticamente si se deja vacío">
       </div>
       <div style="display:flex;gap:.75rem;justify-content:flex-end;">
         <button type="button" onclick="U.closeModal('modal-crear')" class="btn btn-secundario">Cancelar</button>
@@ -103,6 +113,16 @@
         <select class="campo-input" name="id_rol" required>
           <option value="">Seleccionar…</option>
         </select>
+      </div>
+      <div class="campo bloque-estudiante" style="display:none;">
+        <label>Programa académico <span class="requerido">*</span></label>
+        <select class="campo-input" name="id_programa">
+          <option value="">Seleccionar programa...</option>
+        </select>
+      </div>
+      <div class="campo bloque-estudiante" style="display:none;">
+        <label>Carné (opcional)</label>
+        <input class="campo-input" name="carne" placeholder="Actualizar carné (opcional)">
       </div>
       <div style="display:flex;gap:.75rem;justify-content:flex-end;">
         <button type="button" onclick="U.closeModal('modal-editar')" class="btn btn-secundario">Cancelar</button>

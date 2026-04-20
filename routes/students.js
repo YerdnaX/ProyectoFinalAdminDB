@@ -23,8 +23,37 @@ router.get('/mi-perfil', requireAuth, requireRole('Estudiante'), function (req, 
 });
 
 /* GET perfil de estudiante por ID — Administrador — debe ir después de las rutas nombradas */
+router.get('/perfil-admin/:id', requireAuth, requireRole('Administrador'), function (req, res) {
+  res.render('students/estudiante-perfil-admin', {
+    title: 'Perfil Administrativo del Estudiante',
+    activePage: 'estudiantes',
+    id_estudiante: parseInt(req.params.id, 10) || null
+  });
+});
+
+router.get('/perfil-admin/:id/estado-cuenta', requireAuth, requireRole('Administrador'), function (req, res) {
+  const idEstudiante = parseInt(req.params.id, 10);
+  if (!Number.isInteger(idEstudiante)) return res.redirect('/students/lista');
+  res.render('students/estudiante-estado-cuenta-admin', {
+    title: 'Estado de Cuenta del Estudiante',
+    activePage: 'estudiantes',
+    id_estudiante: idEstudiante
+  });
+});
+
+router.get('/perfil-admin/:id/comprobante', requireAuth, requireRole('Administrador'), function (req, res) {
+  const idEstudiante = parseInt(req.params.id, 10);
+  if (!Number.isInteger(idEstudiante)) return res.redirect('/students/lista');
+  res.render('students/estudiante-comprobante-admin', {
+    title: 'Comprobante de Matricula',
+    activePage: 'estudiantes',
+    id_estudiante: idEstudiante
+  });
+});
+
+/* Compatibilidad: ruta antigua redirige al nuevo perfil administrativo */
 router.get('/:id', requireAuth, requireRole('Administrador'), function (req, res) {
-  res.render('students/estudiante-perfil', { title: 'Perfil del Estudiante' });
+  return res.redirect(`/students/perfil-admin/${req.params.id}`);
 });
 
 module.exports = router;

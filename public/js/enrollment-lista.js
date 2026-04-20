@@ -57,7 +57,7 @@
         <td style="text-align:center;font-weight:700;">${m.creditos || 0}</td>
         <td style="font-weight:600;">${U.colones(m.monto || 0)}</td>
         <td>${U.badgeEstado(m.estado)}</td>
-        <td><div class="acciones-fila"><a href="/enrollment/comprobante?id=${m.id_matricula}" class="btn btn-secundario btn-sm">Ver</a></div></td>
+        <td><div class="acciones-fila"><a href="/enrollment/comprobante-admin/${m.id_matricula}" class="btn btn-secundario btn-sm">Ver</a></div></td>
       </tr>`).join('');
 
       U.renderPaginacion('#paginacion-matriculas', { total, page, limit: LIMIT, onPage: cargar });

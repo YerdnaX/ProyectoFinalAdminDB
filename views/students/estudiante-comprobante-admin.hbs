@@ -1,0 +1,100 @@
+<div class="app-wrapper">
+  {{> sidebar-admin}}
+
+  <div class="contenido-principal">
+    <header class="navbar">
+      <div>
+        <div class="navbar-titulo">Comprobante de Matricula (Administracion)</div>
+        <div class="navbar-breadcrumb">
+          <a href="/students/lista">Estudiantes</a><span class="separador"></span><a href="/students/perfil-admin/{{id_estudiante}}">Perfil</a><span class="separador"></span><span class="actual">Comprobante</span>
+        </div>
+      </div>
+      <div class="navbar-acciones">
+        <a id="btn-volver-perfil" href="/students/perfil-admin/{{id_estudiante}}" class="btn btn-secundario btn-sm">Volver al perfil</a>
+        <button class="btn btn-secundario btn-sm" onclick="window.print()">Imprimir</button>
+      </div>
+    </header>
+
+    <main class="area-pagina">
+      <div id="alerta-estado" class="alerta alerta-exito mb-4" style="display:none;">
+        <span class="alerta-icono">OK</span>
+        <div id="alerta-estado-texto"></div>
+      </div>
+
+      <div id="comprobante-cuerpo" class="comprobante" style="display:none;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem;">
+          <div>
+            <div style="font-size:1.125rem;font-weight:700;color:var(--gris-oscuro);">Universidad Nacional</div>
+            <div class="texto-pequeno">Registro Academico y Admisiones</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:.75rem;color:var(--gris-suave);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.25rem;">Comprobante No.</div>
+            <div id="comp-numero" style="font-size:1.375rem;font-weight:700;font-family:monospace;color:var(--verde-principal);">-</div>
+          </div>
+        </div>
+
+        <div style="text-align:center;margin-bottom:2rem;">
+          <div style="font-size:1.25rem;font-weight:700;color:var(--gris-oscuro);">COMPROBANTE DE MATRICULA</div>
+          <div id="comp-periodo-fecha" class="texto-muted">-</div>
+        </div>
+
+        <div style="background:var(--gris-fondo);border-radius:var(--radio-borde);padding:1.25rem;margin-bottom:1.5rem;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem 2rem;">
+            <div class="comprobante-campo" style="border:none;padding:.25rem 0;"><span class="comprobante-etiqueta">Nombre completo:</span><span id="comp-nombre" class="comprobante-valor">-</span></div>
+            <div class="comprobante-campo" style="border:none;padding:.25rem 0;"><span class="comprobante-etiqueta">Carne:</span><span id="comp-carne" class="comprobante-valor">-</span></div>
+            <div class="comprobante-campo" style="border:none;padding:.25rem 0;"><span class="comprobante-etiqueta">Programa:</span><span id="comp-programa" class="comprobante-valor">-</span></div>
+            <div class="comprobante-campo" style="border:none;padding:.25rem 0;"><span class="comprobante-etiqueta">Plan de estudio:</span><span id="comp-plan" class="comprobante-valor">-</span></div>
+          </div>
+        </div>
+
+        <h4 style="margin-bottom:1rem;">Cursos matriculados</h4>
+        <div class="tabla-contenedor" style="margin-bottom:1.5rem;">
+          <table class="tabla">
+            <thead>
+              <tr><th>Codigo</th><th>Nombre del curso</th><th>Seccion</th><th>Horario</th><th>Aula</th><th>Creditos</th></tr>
+            </thead>
+            <tbody id="tbody-comp-cursos">
+              <tr><td colspan="6" style="text-align:center;padding:1.5rem;color:var(--gris-suave);">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;">
+          <div>
+            <h4 style="margin-bottom:.875rem;">Detalle de cobro</h4>
+            <div class="comprobante-campo"><span class="comprobante-etiqueta">Subtotal de matricula</span><span id="comp-subtotal" class="comprobante-valor">-</span></div>
+            <div class="comprobante-campo"><span class="comprobante-etiqueta">Recargos</span><span id="comp-recargos" class="comprobante-valor">-</span></div>
+            <div class="comprobante-campo"><span class="comprobante-etiqueta">Descuentos</span><span id="comp-descuentos" class="comprobante-valor" style="color:var(--cyan-exito);">-</span></div>
+            <div class="comprobante-total">
+              <div class="flex-entre"><strong>Total facturado</strong><strong id="comp-total" style="font-size:1.125rem;color:var(--verde-principal);">-</strong></div>
+            </div>
+          </div>
+          <div>
+            <h4 style="margin-bottom:.875rem;">Informacion de pago</h4>
+            <div class="comprobante-campo"><span class="comprobante-etiqueta">N. de factura</span><span id="comp-factura" class="comprobante-valor" style="font-family:monospace;">-</span></div>
+            <div class="comprobante-campo"><span class="comprobante-etiqueta">Estado</span><span id="comp-estado-pago">-</span></div>
+            <div id="comp-pagar-btn" style="margin-top:1rem;display:none;">
+              <a href="/billing/facturas" class="btn btn-primario w-full">Gestionar factura</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="comprobante-sello">
+          <div style="font-size:.75rem;color:var(--gris-suave);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem;">Documento generado electronicamente</div>
+          <div id="comp-verificacion" style="font-family:monospace;font-size:.875rem;color:var(--gris-oscuro);font-weight:600;">-</div>
+        </div>
+      </div>
+
+      <div id="comp-vacio" style="text-align:center;padding:3rem;color:var(--gris-suave);">
+        <div style="font-size:3rem;margin-bottom:1rem;">-</div>
+        <div style="font-size:1.125rem;font-weight:600;margin-bottom:.5rem;">Sin comprobante disponible</div>
+        <p>El estudiante no tiene una matricula registrada para mostrar comprobante.</p>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>window._idEstudiante = {{id_estudiante}};</script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/students-comprobante-admin.js"></script>

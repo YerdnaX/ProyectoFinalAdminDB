@@ -6,12 +6,56 @@
 const express = require('express');
 const crypto  = require('crypto');
 const router  = express.Router();
-const { sql, query, queryOne } = require('../../config/db');
+const { sql, query, queryOne, getPool } = require('../../config/db');
 
 function hashPassword(plain) {
   const salt = crypto.randomBytes(16).toString('hex');
   const hash = crypto.scryptSync(plain, salt, 64).toString('hex');
   return `${salt}:${hash}`;
+}
+
+function toBit(v, defaultValue = 1) {
+  if (v === undefined || v === null || v === '') return defaultValue ? 1 : 0;
+  if (v === true || v === 1 || v === '1') return 1;
+  if (v === false || v === 0 || v === '0') return 0;
+  return defaultValue ? 1 : 0;
+}
+
+async function obtenerRol(idRol) {
+  if (!Number.isInteger(idRol)) return null;
+  return await queryOne(
+    `SELECT id_rol, nombre
+     FROM rol
+     WHERE id_rol = @id`,
+    { id: { type: sql.Int, value: idRol } }
+  );
+}
+
+async function obtenerProgramaDefecto() {
+  return await queryOne(
+    `SELECT TOP 1 id_programa
+     FROM programa_academico
+     WHERE activo = 1
+     ORDER BY id_programa`
+  );
+}
+
+async function generarCarneUnico(idUsuario, tx = null) {
+  const year = new Date().getFullYear();
+  const base = `${year}${String(idUsuario).padStart(4, '0')}`;
+  const request = tx ? new sql.Request(tx) : (await getPool()).request();
+  request.input('carne', sql.VarChar, base);
+  const existe = await request.query('SELECT 1 AS x FROM estudiante WHERE carne = @carne');
+  if (!existe.recordset.length) return base;
+
+  for (let i = 1; i <= 999; i++) {
+    const candidato = `${base}${String(i).padStart(3, '0')}`;
+    const req2 = tx ? new sql.Request(tx) : (await getPool()).request();
+    req2.input('carne', sql.VarChar, candidato);
+    const ex2 = await req2.query('SELECT 1 AS x FROM estudiante WHERE carne = @carne');
+    if (!ex2.recordset.length) return candidato;
+  }
+  throw new Error('No se pudo generar un carne unico');
 }
 
 /* ─────────────────────────────────────────
@@ -119,9 +163,11 @@ router.get('/:id', async (req, res) => {
       SELECT u.id_usuario, u.nombre, u.apellido, u.correo,
              u.identificador_sso, u.activo,
              CONVERT(varchar,u.fecha_creacion,23) AS fecha_creacion,
-             r.id_rol, r.nombre AS rol
+             r.id_rol, r.nombre AS rol,
+             e.id_estudiante, e.carne, e.id_programa
       FROM usuario u
       INNER JOIN rol r ON u.id_rol = r.id_rol
+      LEFT JOIN estudiante e ON e.id_usuario = u.id_usuario
       WHERE u.id_usuario = @id
     `, { id: parseInt(req.params.id) });
 
@@ -137,7 +183,10 @@ router.get('/:id', async (req, res) => {
 ───────────────────────────────────────── */
 router.post('/', async (req, res) => {
   try {
-    const { nombre, apellido, correo, identificador_sso, id_rol, activo = 1, contrasena } = req.body;
+    const { nombre, apellido, correo, identificador_sso, id_rol, activo = 1, contrasena, id_programa, carne } = req.body;
+    const idRol = parseInt(id_rol, 10);
+    const idPrograma = id_programa ? parseInt(id_programa, 10) : null;
+    const carneClean = String(carne || '').trim();
     if (!nombre || !apellido || !correo || !identificador_sso || !id_rol) {
       return res.status(400).json({ ok: false, error: 'Faltan campos obligatorios' });
     }
@@ -152,23 +201,59 @@ router.post('/', async (req, res) => {
     if (existe) return res.status(409).json({ ok: false, error: 'El correo o SSO ya existe' });
 
     const clave_hash = hashPassword(contrasena);
+    const rol = await obtenerRol(idRol);
+    if (!rol) return res.status(400).json({ ok: false, error: 'Rol invalido' });
 
-    const result = await query(`
-      INSERT INTO usuario (id_rol,identificador_sso,nombre,apellido,correo,clave_hash,activo,fecha_creacion)
-      OUTPUT INSERTED.id_usuario
-      VALUES (@id_rol,@sso,@nombre,@apellido,@correo,@hash,@activo,GETDATE())
-    `, {
-      id_rol:   { type: sql.Int,     value: parseInt(id_rol) },
-      sso:      { type: sql.VarChar, value: identificador_sso },
-      nombre:   { type: sql.VarChar, value: nombre },
-      apellido: { type: sql.VarChar, value: apellido },
-      correo:   { type: sql.VarChar, value: correo },
-      hash:     { type: sql.VarChar, value: clave_hash },
-      activo:   { type: sql.Bit,     value: activo ? 1 : 0 }
-    });
+    const db = await getPool();
+    const tx = new sql.Transaction(db);
+    await tx.begin();
+    try {
+      const reqIns = new sql.Request(tx);
+      reqIns.input('id_rol', sql.Int, idRol);
+      reqIns.input('sso', sql.VarChar, identificador_sso);
+      reqIns.input('nombre', sql.VarChar, nombre);
+      reqIns.input('apellido', sql.VarChar, apellido);
+      reqIns.input('correo', sql.VarChar, correo);
+      reqIns.input('hash', sql.VarChar, clave_hash);
+      reqIns.input('activo', sql.Bit, toBit(activo, 1));
+      const result = await reqIns.query(`
+        INSERT INTO usuario (id_rol,identificador_sso,nombre,apellido,correo,clave_hash,activo,fecha_creacion)
+        OUTPUT INSERTED.id_usuario
+        VALUES (@id_rol,@sso,@nombre,@apellido,@correo,@hash,@activo,GETDATE())
+      `);
+      const idUsuario = result.recordset[0].id_usuario;
 
-    res.status(201).json({ ok: true, id: result[0].id_usuario, mensaje: 'Usuario creado' });
+      if (String(rol.nombre).toLowerCase() === 'estudiante') {
+        let programaFinal = idPrograma;
+        if (!Number.isInteger(programaFinal)) {
+          const programaDef = await obtenerProgramaDefecto();
+          programaFinal = programaDef?.id_programa || null;
+        }
+        if (!Number.isInteger(programaFinal)) {
+          throw new Error('No existe un programa academico activo para asignar al estudiante');
+        }
+
+        const carneFinal = carneClean || await generarCarneUnico(idUsuario, tx);
+        const reqEst = new sql.Request(tx);
+        reqEst.input('uid', sql.Int, idUsuario);
+        reqEst.input('carne', sql.VarChar, carneFinal);
+        reqEst.input('prog', sql.Int, programaFinal);
+        await reqEst.query(`
+          INSERT INTO estudiante (id_usuario, carne, id_programa, estado_academico, fecha_ingreso, saldo_pendiente, bloqueado_financiero, bloqueado_academico)
+          VALUES (@uid, @carne, @prog, 'Activo', CONVERT(date, GETDATE()), 0, 0, 0)
+        `);
+      }
+
+      await tx.commit();
+      res.status(201).json({ ok: true, id: idUsuario, mensaje: 'Usuario creado' });
+    } catch (txErr) {
+      await tx.rollback();
+      throw txErr;
+    }
   } catch (err) {
+    if (err && (err.number === 2627 || err.number === 2601)) {
+      return res.status(409).json({ ok: false, error: 'Correo, SSO o carne duplicado' });
+    }
     res.status(500).json({ ok: false, error: err.message });
   }
 });
@@ -178,8 +263,11 @@ router.post('/', async (req, res) => {
 ───────────────────────────────────────── */
 router.put('/:id', async (req, res) => {
   try {
-    const { nombre, apellido, correo, id_rol, activo } = req.body;
+    const { nombre, apellido, correo, id_rol, activo, id_programa, carne } = req.body;
     const id = parseInt(req.params.id);
+    const idRol = id_rol != null && id_rol !== '' ? parseInt(id_rol, 10) : null;
+    const idPrograma = id_programa != null && id_programa !== '' ? parseInt(id_programa, 10) : null;
+    const carneClean = carne != null ? String(carne).trim() : null;
 
     // Usa ISNULL para no sobrescribir campos que no vienen en el body
     await query(`
@@ -194,13 +282,66 @@ router.put('/:id', async (req, res) => {
       nombre:   nombre   != null ? { type: sql.VarChar, value: nombre }   : null,
       apellido: apellido != null ? { type: sql.VarChar, value: apellido } : null,
       correo:   correo   != null ? { type: sql.VarChar, value: correo }   : null,
-      id_rol:   id_rol   != null ? { type: sql.Int,     value: parseInt(id_rol) } : null,
-      activo:   activo   != null ? { type: sql.Bit,     value: activo ? 1 : 0 }  : null,
+      id_rol:   idRol != null && Number.isInteger(idRol) ? { type: sql.Int, value: idRol } : null,
+      activo:   activo   != null ? { type: sql.Bit,     value: toBit(activo, 1) }  : null,
       id:       { type: sql.Int, value: id }
     });
 
+    const user = await queryOne(
+      `SELECT u.id_usuario, u.id_rol, r.nombre AS rol
+       FROM usuario u
+       INNER JOIN rol r ON r.id_rol = u.id_rol
+       WHERE u.id_usuario = @id`,
+      { id: { type: sql.Int, value: id } }
+    );
+    if (!user) return res.status(404).json({ ok: false, error: 'Usuario no encontrado' });
+
+    if (String(user.rol).toLowerCase() === 'estudiante') {
+      let programaFinal = Number.isInteger(idPrograma) ? idPrograma : null;
+      if (!programaFinal) {
+        const ex = await queryOne('SELECT id_programa FROM estudiante WHERE id_usuario=@id', { id: { type: sql.Int, value: id } });
+        programaFinal = ex?.id_programa || null;
+      }
+      if (!programaFinal) {
+        const def = await obtenerProgramaDefecto();
+        programaFinal = def?.id_programa || null;
+      }
+      if (!programaFinal) {
+        return res.status(400).json({ ok: false, error: 'No existe programa activo para asignar al estudiante' });
+      }
+
+      const est = await queryOne('SELECT id_estudiante, carne FROM estudiante WHERE id_usuario=@id', { id: { type: sql.Int, value: id } });
+      if (!est) {
+        const carneFinal = carneClean || await generarCarneUnico(id);
+        await query(
+          `INSERT INTO estudiante (id_usuario, carne, id_programa, estado_academico, fecha_ingreso, saldo_pendiente, bloqueado_financiero, bloqueado_academico)
+           VALUES (@uid, @carne, @prog, 'Activo', CONVERT(date, GETDATE()), 0, 0, 0)`,
+          {
+            uid: { type: sql.Int, value: id },
+            carne: { type: sql.VarChar, value: carneFinal },
+            prog: { type: sql.Int, value: programaFinal }
+          }
+        );
+      } else {
+        await query(
+          `UPDATE estudiante
+           SET id_programa = ISNULL(@prog, id_programa),
+               carne = ISNULL(@carne, carne)
+           WHERE id_usuario = @uid`,
+          {
+            prog: Number.isInteger(idPrograma) ? { type: sql.Int, value: idPrograma } : null,
+            carne: carneClean ? { type: sql.VarChar, value: carneClean } : null,
+            uid: { type: sql.Int, value: id }
+          }
+        );
+      }
+    }
+
     res.json({ ok: true, mensaje: 'Usuario actualizado' });
   } catch (err) {
+    if (err && (err.number === 2627 || err.number === 2601)) {
+      return res.status(409).json({ ok: false, error: 'Datos duplicados (correo, SSO o carne)' });
+    }
     res.status(500).json({ ok: false, error: err.message });
   }
 });

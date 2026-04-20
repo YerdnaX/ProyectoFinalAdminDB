@@ -54,6 +54,12 @@ router.post('/login', async (req, res) => {
         { uid: { type: sql.Int, value: usuario.id_usuario } }
       );
       id_estudiante = est ? est.id_estudiante : null;
+      if (!id_estudiante) {
+        return res.status(403).json({
+          ok: false,
+          error: 'Perfil de estudiante incompleto. Contacte al administrador para finalizar su registro.'
+        });
+      }
     }
 
     // Cargar permisos del rol

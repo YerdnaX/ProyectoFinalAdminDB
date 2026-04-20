@@ -815,6 +815,43 @@ router.get('/secciones', async (req, res) => {
   } catch (e) { res.status(500).json({ ok: false, error: e.message }); }
 });
 
+router.get('/secciones/catalogos', async (req, res) => {
+  try {
+    const [cursos, periodos, aulas, docentes] = await Promise.all([
+      query(
+        `SELECT DISTINCT c.id_curso, c.codigo, c.nombre
+         FROM curso c
+         ORDER BY c.codigo`
+      ),
+      query(
+        `SELECT p.id_periodo, p.codigo, p.nombre, p.activo,
+                CONVERT(varchar, p.fecha_inicio, 23) AS fecha_inicio
+         FROM periodo_academico p
+         ORDER BY p.activo DESC, p.fecha_inicio DESC, p.nombre`
+      ),
+      query(
+        `SELECT a.id_aula, a.codigo, a.nombre, a.capacidad, a.activa
+         FROM aula a
+         ORDER BY a.activa DESC, a.edificio, a.codigo`
+      ),
+      query(
+        `SELECT u.id_usuario, u.nombre, u.apellido
+         FROM usuario u
+         INNER JOIN rol r ON r.id_rol = u.id_rol
+         WHERE (LOWER(r.nombre) LIKE '%docente%' OR LOWER(r.nombre) LIKE '%profesor%')
+         ORDER BY u.nombre, u.apellido`
+      )
+    ]);
+
+    return res.json({
+      ok: true,
+      data: { cursos, periodos, aulas, docentes }
+    });
+  } catch (e) {
+    return res.status(500).json({ ok: false, error: e.message });
+  }
+});
+
 router.get('/secciones/:id', async (req, res) => {
   try {
     const id = parseInt(req.params.id, 10);

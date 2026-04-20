@@ -71,7 +71,19 @@
               </div>
               <div class="alerta alerta-info">
                 <span class="alerta-icono">ℹ️</span>
-                <div>Si el rol es <strong>Estudiante</strong>, deberás completar adicionalmente los datos académicos en la sección de Gestión de Estudiantes.</div>
+                <div>Si el rol es <strong>Estudiante</strong>, debes completar los datos académicos para crear también su registro en la tabla de estudiantes.</div>
+              </div>
+              <div id="bloque-estudiante" style="display:none;">
+                <div class="campo">
+                  <label>Programa académico <span class="requerido">*</span></label>
+                  <select id="crear-programa" class="campo-input">
+                    <option value="">Selecciona un programa...</option>
+                  </select>
+                </div>
+                <div class="campo">
+                  <label>Carné (opcional)</label>
+                  <input id="crear-carne" class="campo-input" type="text" placeholder="Se genera automaticamente si se deja vacio">
+                </div>
               </div>
               <div class="campo">
                 <label class="campo-checkbox">

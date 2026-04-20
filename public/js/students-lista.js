@@ -1,20 +1,31 @@
 /**
  * public/js/students-lista.js
- * Lista de estudiantes con búsqueda, filtros y paginación
+ * Lista de estudiantes con busqueda, filtros y paginacion
  */
 (function () {
   let page = 1, buscar = '', programa = '', estado = '';
   const LIMIT = 10;
 
   const tbody  = document.getElementById('tbody-estudiantes');
-  const pgCont = document.getElementById('paginacion-estudiantes');
   const inBus  = document.getElementById('input-buscar');
   const selProg= document.getElementById('sel-programa');
   const selEst = document.getElementById('sel-estado');
 
+  async function cargarProgramas() {
+    if (!selProg) return;
+    try {
+      const { data } = await axios.get('/api/academic/programas');
+      if (!data?.ok) return;
+      const actual = selProg.value;
+      selProg.innerHTML = '<option value="">Todos los programas</option>' +
+        (data.data || []).map(p => `<option value="${p.id_programa}">${esc(p.nombre)}</option>`).join('');
+      if (actual) selProg.value = actual;
+    } catch (_) {}
+  }
+
   async function cargar() {
     if (!tbody) return;
-    tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando…</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando...</td></tr>`;
     try {
       const params = { page, limit: LIMIT };
       if (buscar)   params.buscar   = buscar;
@@ -22,9 +33,9 @@
       if (estado)   params.estado   = estado;
       const { data } = await axios.get('/api/students', { params });
       if (!data.ok) throw new Error(data.error);
-      renderTabla(data.data, data.total);
+      renderTabla(data.data || [], data.total || 0);
     } catch (e) {
-      tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--rojo-peligro);">Error: ${e.message}</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--rojo-peligro);">Error: ${esc(e.message)}</td></tr>`;
     }
   }
 
@@ -36,29 +47,33 @@
         const ini = U.initials(`${s.nombre} ${s.apellido}`);
         const saldo = parseFloat(s.saldo_pendiente) || 0;
         const bloqueos = [
-          s.bloqueado_financiero ? '<span class="badge badge-error">💰 Financiero</span>' : '',
-          s.bloqueado_academico  ? '<span class="badge badge-error">📚 Académico</span>'  : ''
-        ].filter(Boolean).join(' ') || '<span class="texto-muted">—</span>';
+          s.bloqueado_financiero ? '<span class="badge badge-error">Financiero</span>' : '',
+          s.bloqueado_academico  ? '<span class="badge badge-error">Academico</span>'  : ''
+        ].filter(Boolean).join(' ') || '<span class="texto-muted">-</span>';
         return `
           <tr>
             <td><div style="display:flex;align-items:center;gap:.75rem;">
               <div class="avatar">${ini}</div>
               <div><div class="nombre-principal">${esc(s.nombre)} ${esc(s.apellido)}</div>
-                   <div class="detalle-secundario">${esc(s.correo||'')}</div></div>
+                   <div class="detalle-secundario">${esc(s.correo || '')}</div></div>
             </div></td>
-            <td><span style="font-family:monospace;">${esc(s.carne)}</span></td>
-            <td class="texto-muted">${esc(s.programa||'—')}</td>
-            <td class="texto-muted">${s.anio_ingreso||'—'}</td>
+            <td><span style="font-family:monospace;">${esc(s.carne || '-')}</span></td>
+            <td class="texto-muted">${esc(s.programa || '-')}</td>
+            <td class="texto-muted">${s.fecha_ingreso || '-'}</td>
             <td>${U.badgeEstado(s.estado_academico)}</td>
-            <td style="color:${saldo>0?'var(--rojo-peligro)':'var(--cyan-exito)'};font-weight:600;">${U.colones(saldo)}</td>
+            <td style="color:${saldo > 0 ? 'var(--rojo-peligro)' : 'var(--cyan-exito)'};font-weight:600;">${U.colones(saldo)}</td>
             <td>${bloqueos}</td>
             <td><div class="acciones-fila">
-              <a href="/students/${s.id_estudiante}" class="btn btn-secundario btn-sm">Ver perfil</a>
+              <a href="/students/perfil-admin/${s.id_estudiante}" class="btn btn-secundario btn-sm">Ver perfil</a>
             </div></td>
           </tr>`;
       }).join('');
     }
-    U.renderPaginacion('#paginacion-estudiantes', { total, page, limit: LIMIT,
+
+    U.renderPaginacion('#paginacion-estudiantes', {
+      total,
+      page,
+      limit: LIMIT,
       onPage: p => { page = p; cargar(); }
     });
   }
@@ -69,8 +84,17 @@
     debounce = setTimeout(() => { buscar = e.target.value.trim(); page = 1; cargar(); }, 400);
   });
   selProg?.addEventListener('change', e => { programa = e.target.value; page = 1; cargar(); });
-  selEst?.addEventListener('change',  e => { estado   = e.target.value; page = 1; cargar(); });
+  selEst?.addEventListener('change', e => { estado = e.target.value; page = 1; cargar(); });
 
-  function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-  cargar();
+  function esc(s) {
+    return String(s || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  (async function init() {
+    await cargarProgramas();
+    await cargar();
+  })();
 })();

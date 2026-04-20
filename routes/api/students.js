@@ -5,9 +5,19 @@
 const express = require('express');
 const router  = express.Router();
 const { sql, query, queryOne } = require('../../config/db');
+const { requireRole } = require('../../middleware/auth');
+
+function requireOwnerOrAdmin(req, res, next) {
+  const user = req.session?.user;
+  if (!user) return res.status(401).json({ ok: false, error: 'No autenticado' });
+  if (user.rol === 'Administrador') return next();
+  const id = parseInt(req.params.id, 10);
+  if (user.rol === 'Estudiante' && Number.isInteger(id) && user.id_estudiante === id) return next();
+  return res.status(403).json({ ok: false, error: 'Sin permisos suficientes' });
+}
 
 /* GET /api/students — lista de estudiantes (admin) */
-router.get('/', async (req, res) => {
+router.get('/', requireRole('Administrador'), async (req, res) => {
   try {
     const { buscar = '', estado = '', programa = '', page = 1, limit = 10 } = req.query;
     const offset = (parseInt(page) - 1) * parseInt(limit);
@@ -24,8 +34,9 @@ router.get('/', async (req, res) => {
     const rows = await query(`
       SELECT e.id_estudiante, e.carne, e.estado_academico,
              CONVERT(varchar,e.fecha_ingreso,103) AS fecha_ingreso,
+             YEAR(e.fecha_ingreso) AS anio_ingreso,
              e.saldo_pendiente, e.bloqueado_financiero, e.bloqueado_academico,
-             u.nombre, u.apellido, u.correo, u.activo,
+             u.id_usuario, u.nombre, u.apellido, u.correo, u.identificador_sso, u.activo,
              pa.nombre AS programa
       FROM estudiante e
       INNER JOIN usuario u ON u.id_usuario = e.id_usuario
@@ -47,7 +58,7 @@ router.get('/', async (req, res) => {
 });
 
 /* GET /api/students/:id — perfil completo */
-router.get('/:id', async (req, res) => {
+router.get('/:id', requireOwnerOrAdmin, async (req, res) => {
   try {
     const estudiante = await queryOne(`
       SELECT e.id_estudiante, e.carne, e.estado_academico,
@@ -81,7 +92,7 @@ router.get('/:id', async (req, res) => {
 });
 
 /* GET /api/students/:id/historial — historial academico */
-router.get('/:id/historial', async (req, res) => {
+router.get('/:id/historial', requireOwnerOrAdmin, async (req, res) => {
   try {
     const detalle = await query(`
       SELECT dm.id_detalle_matricula, dm.estado, dm.costo,
@@ -114,7 +125,7 @@ router.get('/:id/historial', async (req, res) => {
 });
 
 /* PUT /api/students/:id — actualizar estado/bloqueos del estudiante */
-router.put('/:id', async (req, res) => {
+router.put('/:id', requireRole('Administrador'), async (req, res) => {
   try {
     const { estado_academico, bloqueado_financiero, bloqueado_academico } = req.body;
     await query(
@@ -130,7 +141,7 @@ router.put('/:id', async (req, res) => {
 });
 
 /* PUT /api/students/:id/bloqueo — toggle bloqueo financiero */
-router.put('/:id/bloqueo', async (req, res) => {
+router.put('/:id/bloqueo', requireRole('Administrador'), async (req, res) => {
   try {
     const id = parseInt(req.params.id);
     const { bloqueo } = req.body;
@@ -145,7 +156,7 @@ router.put('/:id/bloqueo', async (req, res) => {
 });
 
 /* GET /api/students/:id/dashboard — datos del portal estudiantil */
-router.get('/:id/dashboard', async (req, res) => {
+router.get('/:id/dashboard', requireOwnerOrAdmin, async (req, res) => {
   const id = parseInt(req.params.id);
   try {
     const perfil = await queryOne(`
@@ -214,7 +225,7 @@ router.get('/:id/dashboard', async (req, res) => {
 });
 
 /* GET /api/students/dashboard/:id — alias backward compat */
-router.get('/dashboard/:id', async (req, res) => {
+router.get('/dashboard/:id', requireOwnerOrAdmin, async (req, res) => {
   try {
     const id = parseInt(req.params.id);
 

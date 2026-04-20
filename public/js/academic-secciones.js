@@ -70,10 +70,20 @@
   }
 
   async function cargarCatalogos() {
-    catalogos.cursos = await fetchCatalogo('/api/academic/cursos');
-    catalogos.periodos = await fetchCatalogo('/api/academic/periodos');
-    catalogos.aulas = await fetchCatalogo('/api/academic/aulas');
-    catalogos.docentes = await fetchCatalogo('/api/usuarios', { rol: 'Docente', limit: 500 });
+    try {
+      const r = await axios.get('/api/academic/secciones/catalogos');
+      if (r.data?.ok && r.data?.data) {
+        catalogos.cursos = Array.isArray(r.data.data.cursos) ? r.data.data.cursos : [];
+        catalogos.periodos = Array.isArray(r.data.data.periodos) ? r.data.data.periodos : [];
+        catalogos.aulas = Array.isArray(r.data.data.aulas) ? r.data.data.aulas : [];
+        catalogos.docentes = Array.isArray(r.data.data.docentes) ? r.data.data.docentes : [];
+      }
+    } catch (_) {}
+
+    if (!catalogos.cursos.length)   catalogos.cursos = await fetchCatalogo('/api/academic/cursos');
+    if (!catalogos.periodos.length) catalogos.periodos = await fetchCatalogo('/api/academic/periodos');
+    if (!catalogos.aulas.length)    catalogos.aulas = await fetchCatalogo('/api/academic/aulas');
+    if (!catalogos.docentes.length) catalogos.docentes = await fetchCatalogo('/api/usuarios', { rol: 'Docente', limit: 500 });
 
     if (!catalogos.docentes.length) {
       try {

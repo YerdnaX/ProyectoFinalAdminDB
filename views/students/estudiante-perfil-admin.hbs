@@ -1,0 +1,137 @@
+﻿<div class="app-wrapper">
+  {{> sidebar-admin}}
+
+  <div class="contenido-principal">
+    <header class="navbar">
+      <div>
+        <div class="navbar-titulo">Perfil Administrativo del Estudiante</div>
+        <div class="navbar-breadcrumb"><span>Administracion</span><span class="separador"></span><a href="/students/lista">Oferta / Estudiantes</a><span class="separador"></span><span id="ep-breadcrumb" class="actual">Cargando...</span></div>
+      </div>
+      <div class="navbar-acciones">
+        <div class="navbar-usuario"><div class="avatar">AM</div><div><div class="navbar-usuario-nombre">Ana Mora</div><div class="navbar-usuario-rol">Administradora TI</div></div></div>
+      </div>
+    </header>
+
+    <main class="area-pagina">
+      <div class="carta mb-4">
+        <div class="carta-cuerpo">
+          <div style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
+            <div id="ep-avatar" class="avatar" style="width:72px;height:72px;font-size:1.75rem;flex-shrink:0;">-</div>
+            <div style="flex:1;min-width:240px;">
+              <div style="display:flex;align-items:center;gap:.875rem;flex-wrap:wrap;margin-bottom:.375rem;">
+                <h2 id="ep-nombre" style="margin:0;">Cargando...</h2>
+                <span id="ep-badge-estado">-</span>
+                <span class="badge badge-info">Vista administrativa</span>
+              </div>
+              <div style="display:flex;gap:1.5rem;flex-wrap:wrap;font-size:.875rem;color:var(--gris-suave);">
+                <span>Carne: <strong id="ep-carne" style="color:var(--gris-oscuro);">-</strong></span>
+                <span id="ep-email">Correo: -</span>
+                <span id="ep-ingreso">Ingreso: -</span>
+                <span id="ep-programa">Programa: -</span>
+              </div>
+            </div>
+            <div style="display:flex;gap:.75rem;">
+              <a href="/students/lista" class="btn btn-secundario">Volver al listado</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-4 mb-4">
+        <div style="background:var(--fondo-carta);border:1px solid var(--gris-linea);border-radius:var(--radio-borde);padding:1.25rem;text-align:center;">
+          <div id="ep-met-cred-aprobados" style="font-size:1.75rem;font-weight:700;color:var(--verde-principal);">-</div>
+          <div class="texto-pequeno">Creditos aprobados</div>
+        </div>
+        <div style="background:var(--fondo-carta);border:1px solid var(--gris-linea);border-radius:var(--radio-borde);padding:1.25rem;text-align:center;">
+          <div id="ep-met-cred-actuales" style="font-size:1.75rem;font-weight:700;color:var(--gris-oscuro);">-</div>
+          <div class="texto-pequeno">Creditos actuales</div>
+        </div>
+        <div style="background:var(--fondo-carta);border:1px solid var(--gris-linea);border-radius:var(--radio-borde);padding:1.25rem;text-align:center;">
+          <div id="ep-met-avance" style="font-size:1.75rem;font-weight:700;color:var(--azul-info);">-</div>
+          <div class="texto-pequeno">Avance del plan</div>
+        </div>
+        <div style="background:var(--fondo-carta);border:1px solid var(--gris-linea);border-radius:var(--radio-borde);padding:1.25rem;text-align:center;">
+          <div id="ep-met-saldo" style="font-size:1.75rem;font-weight:700;color:var(--cyan-exito);">-</div>
+          <div class="texto-pequeno">Saldo pendiente</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 340px;gap:1.5rem;">
+        <div>
+          <div class="carta">
+            <div class="carta-cuerpo" style="padding-bottom:0;">
+              <div class="tabs">
+                <button class="tab-boton activo" data-tab="matricula">Matricula actual</button>
+                <button class="tab-boton" data-tab="historial">Historial academico</button>
+                <button class="tab-boton" data-tab="pagos">Pagos y facturacion</button>
+              </div>
+            </div>
+            <div class="carta-cuerpo">
+              <div id="tab-matricula">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;">
+                  <div><h4 id="ep-mat-titulo" style="margin-bottom:.125rem;">-</h4><span id="ep-mat-subtitulo" class="texto-muted">-</span></div>
+                </div>
+                <div class="tabla-contenedor">
+                  <table class="tabla">
+                    <thead><tr><th>Codigo</th><th>Curso</th><th>Seccion</th><th>Creditos</th><th>Horario</th><th>Estado</th></tr></thead>
+                    <tbody id="ep-tbody-cursos">
+                      <tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando...</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div id="tab-historial" style="display:none;">
+                <div id="ep-historial-container" style="text-align:center;color:var(--gris-suave);padding:2rem;">Cargando...</div>
+              </div>
+              <div id="tab-pagos" style="display:none;">
+                <div class="tabla-contenedor">
+                  <table class="tabla">
+                    <thead><tr><th>N. Factura</th><th>Periodo</th><th>Total</th><th>Saldo</th><th>Estado</th></tr></thead>
+                    <tbody id="ep-tbody-facturas">
+                      <tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando...</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="carta mb-3">
+            <div class="carta-cabecera"><div class="carta-titulo">Estado del estudiante</div></div>
+            <div class="carta-cuerpo">
+              <div style="display:flex;flex-direction:column;gap:.875rem;font-size:.9rem;">
+                <div class="flex-entre"><span class="texto-gris">Estado academico</span><span id="ep-estado-acad">-</span></div>
+                <div class="flex-entre"><span class="texto-gris">Bloqueo financiero</span><span id="ep-bloqueo-fin">-</span></div>
+                <div class="flex-entre"><span class="texto-gris">Bloqueo academico</span><span id="ep-bloqueo-acad">-</span></div>
+                <div class="flex-entre"><span class="texto-gris">Saldo pendiente</span><span id="ep-saldo-panel" style="font-weight:700;">-</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="carta mb-3">
+            <div class="carta-cabecera"><div class="carta-titulo">Avance del plan</div></div>
+            <div class="carta-cuerpo">
+              <div style="margin-bottom:1rem;">
+                <div style="display:flex;justify-content:space-between;font-size:.875rem;margin-bottom:.5rem;"><span>Creditos aprobados</span><span id="ep-cred-texto" style="font-weight:700;">-</span></div>
+                <div class="progreso-contenedor"><div id="ep-barra" class="progreso-barra" style="width:0%;"></div></div>
+                <div id="ep-plan-nombre" class="texto-pequeno mt-1">-</div>
+              </div>
+            </div>
+          </div>
+          <div class="carta">
+            <div class="carta-cabecera"><div class="carta-titulo">Acciones rapidas</div></div>
+            <div class="carta-cuerpo" style="display:flex;flex-direction:column;gap:.625rem;">
+              <a id="ep-link-estado-cuenta" href="/students/perfil-admin/{{id_estudiante}}/estado-cuenta" class="btn btn-secundario w-full" style="justify-content:flex-start;gap:.75rem;">Ver estado de cuenta</a>
+              <a id="ep-link-comprobante" href="/students/perfil-admin/{{id_estudiante}}/comprobante" class="btn btn-secundario w-full" style="justify-content:flex-start;gap:.75rem;">Comprobante de matricula</a>
+              <button id="btn-bloquear" class="btn btn-peligro w-full" style="justify-content:flex-start;gap:.75rem;">Activar bloqueo</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/students-perfil-admin.js"></script>

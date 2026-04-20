@@ -4,7 +4,7 @@
   <div class="contenido-principal">
     <header class="navbar">
       <div>
-        <div class="navbar-titulo">Gestión de Estudiantes</div>
+        <div class="navbar-titulo">Gestion de Estudiantes</div>
         <div class="navbar-breadcrumb"><span>Inicio</span><span class="separador"></span><span class="actual">Estudiantes</span></div>
       </div>
       <div class="navbar-acciones">
@@ -14,7 +14,7 @@
 
     <main class="area-pagina">
       <div class="encabezado-pagina">
-        <div><h1>Estudiantes</h1><p>Consulta y gestiona el padrón completo de estudiantes.</p></div>
+        <div><h1>Estudiantes</h1><p>Consulta y gestiona el padron completo de estudiantes.</p></div>
         <div class="acciones-encabezado">
           <button class="btn btn-secundario">Exportar CSV</button>
         </div>
@@ -23,9 +23,15 @@
       <div class="carta">
         <div class="carta-cabecera">
           <div class="barra-filtros" style="margin:0;flex:1;">
-            <div class="barra-busqueda"><span class="icono-buscar">🔍</span><input id="input-buscar" type="text" placeholder="Buscar por nombre, carné o correo..."></div>
+            <div class="barra-busqueda"><span class="icono-buscar">&#128269;</span><input id="input-buscar" type="text" placeholder="Buscar por nombre, carne o correo..."></div>
             <select id="sel-programa" class="filtro-select"><option value="">Todos los programas</option></select>
-            <select id="sel-estado" class="filtro-select"><option value="">Todos los estados</option><option>Activo</option><option>Regular</option><option>Condicional</option><option>Egresado</option><option>Retirado</option></select>
+            <select id="sel-estado" class="filtro-select">
+              <option value="">Todos los estados</option>
+              <option value="Activo">Activo</option>
+              <option value="Inactivo">Inactivo</option>
+              <option value="Graduado">Graduado</option>
+              <option value="Suspendido">Suspendido</option>
+            </select>
           </div>
         </div>
 
@@ -34,17 +40,17 @@
             <thead>
               <tr>
                 <th>Estudiante</th>
-                <th>Carné</th>
+                <th>Carne</th>
                 <th>Programa</th>
                 <th>Ingreso</th>
-                <th>Estado académico</th>
+                <th>Estado academico</th>
                 <th>Saldo pendiente</th>
                 <th>Bloqueos</th>
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody id="tbody-estudiantes">
-              <tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando…</td></tr>
+              <tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando...</td></tr>
             </tbody>
           </table>
         </div>
