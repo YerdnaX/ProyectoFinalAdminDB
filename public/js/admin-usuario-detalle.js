@@ -25,6 +25,7 @@
       document.getElementById('det-id').textContent = `#${u.id_usuario}`;
       document.getElementById('det-nombre-info').textContent = nombreCompleto || '—';
       document.getElementById('det-correo').textContent = u.correo || '—';
+      document.getElementById('det-carne').textContent = u.carne || '—';
       document.getElementById('det-sso').textContent = u.identificador_sso || '—';
       document.getElementById('det-rol').innerHTML = `<span class="badge badge-verde">${u.rol || '—'}</span>`;
       document.getElementById('det-estado').innerHTML = U.badgeEstado(u.activo ? 'Activo' : 'Inactivo');

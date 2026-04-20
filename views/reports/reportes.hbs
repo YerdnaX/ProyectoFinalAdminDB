@@ -14,152 +14,137 @@
 
     <main class="area-pagina">
       <div class="encabezado-pagina">
-        <div><h1>Centro de reportes</h1><p>Genera y descarga reportes académicos, financieros y operativos.</p></div>
+        <div><h1>Centro de reportes</h1><p>Genera y descarga reportes academicos, financieros y operativos.</p></div>
       </div>
 
       <div class="tabs mb-4">
-        <button class="tab-boton activo">Académicos</button>
-        <button class="tab-boton">Financieros</button>
-        <button class="tab-boton">Matrícula</button>
-        <button class="tab-boton">Auditoría</button>
+        <button class="tab-boton activo" data-tab="academico">Academicos</button>
+        <button class="tab-boton" data-tab="financiero">Financieros</button>
+        <button class="tab-boton" data-tab="matricula">Matricula</button>
+        <button class="tab-boton" data-tab="auditoria">Auditoria</button>
       </div>
 
-      <!-- Reportes académicos -->
-      <div class="grid-3 mb-4">
-        <div class="carta">
-          <div class="carta-cuerpo">
-            <div style="font-size:2.5rem;margin-bottom:1rem;">📊</div>
-            <h4 style="margin-bottom:.375rem;">Matrícula por programa</h4>
-            <p style="font-size:.875rem;margin-bottom:1.25rem;">Total de estudiantes matriculados agrupados por carrera y periodo académico.</p>
-            <div style="display:flex;flex-direction:column;gap:.5rem;">
-              <div class="campo" style="margin:0;"><select class="campo-input"><option>I Semestre 2025</option><option>II Semestre 2024</option></select></div>
-              <div style="display:flex;gap:.5rem;">
-                <button class="btn btn-primario btn-sm" style="flex:1;">📄 Generar PDF</button>
-                <button class="btn btn-secundario btn-sm" style="flex:1;">📊 Exportar Excel</button>
-              </div>
+      <section id="tab-academico" class="report-tab">
+        <div class="carta mb-4">
+          <div class="carta-cabecera">
+            <div>
+              <div class="carta-titulo">Reporte academico por programa</div>
+              <div class="carta-subtitulo">Resumen de estudiantes y planes activos.</div>
+            </div>
+            <div style="display:flex;gap:.5rem;">
+              <button class="btn btn-primario btn-sm" data-export="academico" data-formato="pdf">Generar PDF</button>
+              <button class="btn btn-secundario btn-sm" data-export="academico" data-formato="excel">Exportar Excel</button>
             </div>
           </div>
         </div>
-
-        <div class="carta">
-          <div class="carta-cuerpo">
-            <div style="font-size:2.5rem;margin-bottom:1rem;">📚</div>
-            <h4 style="margin-bottom:.375rem;">Ocupación de secciones</h4>
-            <p style="font-size:.875rem;margin-bottom:1.25rem;">Cupos utilizados vs. disponibles por curso y sección en el periodo seleccionado.</p>
-            <div style="display:flex;flex-direction:column;gap:.5rem;">
-              <div class="campo" style="margin:0;"><select class="campo-input"><option>I Semestre 2025</option><option>II Semestre 2024</option></select></div>
-              <div style="display:flex;gap:.5rem;">
-                <button class="btn btn-primario btn-sm" style="flex:1;">📄 Generar PDF</button>
-                <button class="btn btn-secundario btn-sm" style="flex:1;">📊 Exportar Excel</button>
-              </div>
+        <div class="grid-2" style="gap:1.5rem;">
+          <div class="carta">
+            <div class="carta-cabecera"><div class="carta-titulo">Programas academicos</div></div>
+            <div class="tabla-contenedor">
+              <table class="tabla">
+                <thead><tr><th>Programa</th><th style="text-align:center;">Estudiantes</th><th style="text-align:center;">Planes</th></tr></thead>
+                <tbody id="tbody-programas"><tr><td colspan="3" style="text-align:center;padding:1.5rem;color:var(--gris-suave);">Cargando...</td></tr></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="carta">
+            <div class="carta-cabecera"><div class="carta-titulo">Distribucion por creditos</div></div>
+            <div class="tabla-contenedor">
+              <table class="tabla">
+                <thead><tr><th style="text-align:center;">Creditos</th><th style="text-align:center;">Cursos activos</th></tr></thead>
+                <tbody id="tbody-creditos"><tr><td colspan="2" style="text-align:center;padding:1.5rem;color:var(--gris-suave);">Cargando...</td></tr></tbody>
+              </table>
             </div>
           </div>
         </div>
+      </section>
 
-        <div class="carta">
-          <div class="carta-cuerpo">
-            <div style="font-size:2.5rem;margin-bottom:1rem;">🎓</div>
-            <h4 style="margin-bottom:.375rem;">Avance de planes de estudio</h4>
-            <p style="font-size:.875rem;margin-bottom:1.25rem;">Porcentaje de avance promedio por programa y cohorte de ingreso.</p>
-            <div style="display:flex;flex-direction:column;gap:.5rem;">
-              <div class="campo" style="margin:0;"><select class="campo-input"><option>Todos los programas</option><option>Ing. en Sistemas</option><option>Adm. de Empresas</option></select></div>
-              <div style="display:flex;gap:.5rem;">
-                <button class="btn btn-primario btn-sm" style="flex:1;">📄 Generar PDF</button>
-                <button class="btn btn-secundario btn-sm" style="flex:1;">📊 Exportar Excel</button>
-              </div>
+      <section id="tab-financiero" class="report-tab" style="display:none;">
+        <div class="carta mb-4">
+          <div class="carta-cabecera">
+            <div>
+              <div class="carta-titulo">Reporte financiero general</div>
+              <div class="carta-subtitulo">Facturas por estado y pagos por metodo.</div>
+            </div>
+            <div style="display:flex;gap:.5rem;">
+              <button class="btn btn-primario btn-sm" data-export="financiero" data-formato="pdf">Generar PDF</button>
+              <button class="btn btn-secundario btn-sm" data-export="financiero" data-formato="excel">Exportar Excel</button>
             </div>
           </div>
         </div>
-
-        <div class="carta">
-          <div class="carta-cuerpo">
-            <div style="font-size:2.5rem;margin-bottom:1rem;">🏫</div>
-            <h4 style="margin-bottom:.375rem;">Carga docente</h4>
-            <p style="font-size:.875rem;margin-bottom:1.25rem;">Número de secciones y estudiantes asignados por docente en el periodo.</p>
-            <div style="display:flex;flex-direction:column;gap:.5rem;">
-              <div class="campo" style="margin:0;"><select class="campo-input"><option>I Semestre 2025</option></select></div>
-              <div style="display:flex;gap:.5rem;">
-                <button class="btn btn-primario btn-sm" style="flex:1;">📄 Generar PDF</button>
-                <button class="btn btn-secundario btn-sm" style="flex:1;">📊 Exportar Excel</button>
-              </div>
+        <div class="grid-2" style="gap:1.5rem;">
+          <div class="carta">
+            <div class="carta-cabecera"><div class="carta-titulo">Facturas por estado</div></div>
+            <div class="tabla-contenedor">
+              <table class="tabla">
+                <thead><tr><th>Estado</th><th style="text-align:center;">Total</th><th>Monto</th></tr></thead>
+                <tbody id="tbody-fact-estado"><tr><td colspan="3" style="text-align:center;padding:1.5rem;color:var(--gris-suave);">Cargando...</td></tr></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="carta">
+            <div class="carta-cabecera"><div class="carta-titulo">Pagos por metodo</div></div>
+            <div class="tabla-contenedor">
+              <table class="tabla">
+                <thead><tr><th>Metodo</th><th style="text-align:center;">Transacciones</th><th>Monto</th></tr></thead>
+                <tbody id="tbody-fact-metodo"><tr><td colspan="3" style="text-align:center;padding:1.5rem;color:var(--gris-suave);">Cargando...</td></tr></tbody>
+              </table>
             </div>
           </div>
         </div>
+      </section>
 
-        <div class="carta">
-          <div class="carta-cuerpo">
-            <div style="font-size:2.5rem;margin-bottom:1rem;">⚠️</div>
-            <h4 style="margin-bottom:.375rem;">Estudiantes con restricciones</h4>
-            <p style="font-size:.875rem;margin-bottom:1.25rem;">Listado de estudiantes con bloqueos financieros o académicos activos.</p>
-            <div style="display:flex;flex-direction:column;gap:.5rem;">
-              <div class="campo" style="margin:0;"><select class="campo-input"><option>Todos los tipos</option><option>Bloqueo financiero</option><option>Bloqueo académico</option></select></div>
-              <div style="display:flex;gap:.5rem;">
-                <button class="btn btn-primario btn-sm" style="flex:1;">📄 Generar PDF</button>
-                <button class="btn btn-secundario btn-sm" style="flex:1;">📊 Exportar Excel</button>
-              </div>
+      <section id="tab-matricula" class="report-tab" style="display:none;">
+        <div class="carta mb-4">
+          <div class="carta-cabecera" style="gap:1rem;flex-wrap:wrap;">
+            <div>
+              <div class="carta-titulo">Reporte de matricula</div>
+              <div class="carta-subtitulo">Resumen y detalle de matriculas por periodo.</div>
+            </div>
+            <div style="display:flex;gap:.5rem;align-items:center;">
+              <select id="rep-periodo-matricula" class="campo-input" style="min-width:220px;"><option value="">Todos los periodos</option></select>
+              <button class="btn btn-primario btn-sm" data-export="matricula" data-formato="pdf">Generar PDF</button>
+              <button class="btn btn-secundario btn-sm" data-export="matricula" data-formato="excel">Exportar Excel</button>
             </div>
           </div>
         </div>
-
         <div class="carta">
-          <div class="carta-cuerpo">
-            <div style="font-size:2.5rem;margin-bottom:1rem;">📋</div>
-            <h4 style="margin-bottom:.375rem;">Prerrequisitos no cumplidos</h4>
-            <p style="font-size:.875rem;margin-bottom:1.25rem;">Estudiantes que intentaron matricular sin cumplir prerrequisitos.</p>
-            <div style="display:flex;flex-direction:column;gap:.5rem;">
-              <div class="campo" style="margin:0;"><select class="campo-input"><option>I Semestre 2025</option></select></div>
-              <div style="display:flex;gap:.5rem;">
-                <button class="btn btn-primario btn-sm" style="flex:1;">📄 Generar PDF</button>
-                <button class="btn btn-secundario btn-sm" style="flex:1;">📊 Exportar Excel</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Datos académicos en vivo -->
-      <div class="grid-2" style="gap:1.5rem;">
-        <div class="carta">
-          <div class="carta-cabecera"><div class="carta-titulo">Programas académicos</div></div>
           <div class="tabla-contenedor">
             <table class="tabla">
-              <thead><tr><th>Programa</th><th style="text-align:center;">Estudiantes</th><th style="text-align:center;">Planes</th></tr></thead>
-              <tbody id="tbody-programas"><tr><td colspan="3" style="text-align:center;padding:1.5rem;color:var(--gris-suave);">Cargando…</td></tr></tbody>
+              <thead><tr><th>Periodo</th><th style="text-align:center;">Total</th><th style="text-align:center;">Confirmadas</th><th style="text-align:center;">Pendientes</th><th style="text-align:center;">Creditos</th><th>Monto</th></tr></thead>
+              <tbody id="tbody-matricula-resumen"><tr><td colspan="6" style="text-align:center;padding:1.5rem;color:var(--gris-suave);">Cargando...</td></tr></tbody>
             </table>
           </div>
         </div>
-        <div class="carta">
-          <div class="carta-cabecera"><div class="carta-titulo">Distribución por créditos</div></div>
-          <div class="tabla-contenedor">
-            <table class="tabla">
-              <thead><tr><th style="text-align:center;">Créditos</th><th style="text-align:center;">Cursos activos</th></tr></thead>
-              <tbody id="tbody-creditos"><tr><td colspan="2" style="text-align:center;padding:1.5rem;color:var(--gris-suave);">Cargando…</td></tr></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+      </section>
 
-      <!-- Financiero en vivo -->
-      <div class="grid-2" style="gap:1.5rem;margin-top:1.5rem;">
-        <div class="carta">
-          <div class="carta-cabecera"><div class="carta-titulo">Facturas por estado</div></div>
-          <div class="tabla-contenedor">
-            <table class="tabla">
-              <thead><tr><th>Estado</th><th style="text-align:center;">Total</th><th>Monto</th></tr></thead>
-              <tbody id="tbody-fact-estado"><tr><td colspan="3" style="text-align:center;padding:1.5rem;color:var(--gris-suave);">Cargando…</td></tr></tbody>
-            </table>
+      <section id="tab-auditoria" class="report-tab" style="display:none;">
+        <div class="carta mb-4">
+          <div class="carta-cabecera" style="gap:1rem;flex-wrap:wrap;">
+            <div>
+              <div class="carta-titulo">Reporte de auditoria</div>
+              <div class="carta-subtitulo">Eventos recientes de bitacora del sistema.</div>
+            </div>
+            <div style="display:flex;gap:.5rem;align-items:center;">
+              <select id="rep-limit-auditoria" class="campo-input" style="min-width:180px;">
+                <option value="100">Ultimos 100</option>
+                <option value="200">Ultimos 200</option>
+                <option value="500">Ultimos 500</option>
+              </select>
+              <button class="btn btn-primario btn-sm" data-export="auditoria" data-formato="pdf">Generar PDF</button>
+              <button class="btn btn-secundario btn-sm" data-export="auditoria" data-formato="excel">Exportar Excel</button>
+            </div>
           </div>
         </div>
         <div class="carta">
-          <div class="carta-cabecera"><div class="carta-titulo">Pagos por método</div></div>
           <div class="tabla-contenedor">
             <table class="tabla">
-              <thead><tr><th>Método</th><th style="text-align:center;">Transacciones</th><th>Monto</th></tr></thead>
-              <tbody id="tbody-fact-metodo"><tr><td colspan="3" style="text-align:center;padding:1.5rem;color:var(--gris-suave);">Cargando…</td></tr></tbody>
+              <thead><tr><th>Fecha</th><th>Hora</th><th>Usuario</th><th>Rol</th><th>Entidad</th><th>Accion</th><th>Descripcion</th></tr></thead>
+              <tbody id="tbody-auditoria"><tr><td colspan="7" style="text-align:center;padding:1.5rem;color:var(--gris-suave);">Cargando...</td></tr></tbody>
             </table>
           </div>
         </div>
-      </div>
+      </section>
     </main>
   </div>
 </div>
