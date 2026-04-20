@@ -75,6 +75,27 @@
   </div>
 </div>
 
+<!-- Modal ver cursos del plan -->
+<div id="modal-ver-plan-cursos" class="modal">
+  <div class="modal-overlay" onclick="U.closeModal('modal-ver-plan-cursos')"></div>
+  <div class="modal-caja" style="max-width:760px;">
+    <div class="modal-cabecera">
+      <div class="modal-titulo" id="modal-ver-plan-cursos-titulo">Cursos del plan</div>
+      <button type="button" class="modal-cerrar" onclick="U.closeModal('modal-ver-plan-cursos')">x</button>
+    </div>
+    <div class="modal-cuerpo" style="display:flex;flex-direction:column;gap:1rem;">
+      <div class="tabla-contenedor">
+        <table class="tabla">
+          <thead><tr><th>Codigo</th><th>Nombre</th><th>Creditos</th><th>Horas/sem.</th><th>Estado</th></tr></thead>
+          <tbody id="tbody-plan-cursos">
+            <tr><td colspan="5" style="text-align:center;padding:1.5rem;color:var(--gris-suave);">Sin datos.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
 <style>
   #modal-plan {
     position: fixed;
@@ -113,6 +134,44 @@
     line-height: 1;
   }
   #modal-plan .modal-cerrar:hover { color: var(--gris-oscuro); }
+
+  #modal-ver-plan-cursos {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    max-width: none;
+    max-height: none;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    z-index: 1200;
+    background: rgba(15, 23, 42, .55);
+  }
+  #modal-ver-plan-cursos.abierto { display: flex; }
+  #modal-ver-plan-cursos .modal-overlay { position: absolute; inset: 0; }
+  #modal-ver-plan-cursos .modal-caja {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: var(--fondo-carta);
+    border-radius: var(--radio-grande);
+    box-shadow: var(--sombra-modal);
+  }
+  #modal-ver-plan-cursos .modal-cerrar {
+    background: none;
+    border: none;
+    color: var(--gris-suave);
+    font-size: 1.25rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+  #modal-ver-plan-cursos .modal-cerrar:hover { color: var(--gris-oscuro); }
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

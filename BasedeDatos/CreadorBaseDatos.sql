@@ -141,6 +141,7 @@ CREATE TABLE plan_estudio_curso (
     ciclo         INT  NULL,
     obligatorio   BIT  NOT NULL DEFAULT 1,
     CONSTRAINT UQ_plan_curso                 UNIQUE (id_plan, id_curso),
+    CONSTRAINT UQ_plan_curso_unico_por_curso UNIQUE (id_curso),
     CONSTRAINT FK_plan_estudio_curso_plan    FOREIGN KEY (id_plan)  REFERENCES plan_estudio(id_plan),
     CONSTRAINT FK_plan_estudio_curso_curso   FOREIGN KEY (id_curso) REFERENCES curso(id_curso),
     CONSTRAINT CHK_plan_estudio_curso_ciclo  CHECK (ciclo IS NULL OR ciclo > 0)

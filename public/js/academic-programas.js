@@ -59,6 +59,7 @@
           <td>${p.activo ? '<span class="badge badge-activo">Activo</span>' : '<span class="badge badge-inactivo">Inactivo</span>'}</td>
           <td>
             <div class="acciones-fila">
+              <button type="button" class="btn btn-secundario btn-sm" onclick="verProgramaPlanes(${id})">Ver</button>
               <button type="button" class="btn btn-secundario btn-sm" onclick="editarPrograma(${id})">Editar</button>
             </div>
           </td>
@@ -121,6 +122,44 @@
 
   window.editarPrograma = function (id) {
     abrirModalEditar(id);
+  };
+
+  window.verProgramaPlanes = async function (id) {
+    const idNum = Number(id);
+    if (!Number.isInteger(idNum) || idNum <= 0) {
+      U.toast('No se pudo determinar el programa.', 'error');
+      return;
+    }
+
+    const programa = cacheProgramas.find(x => Number(x.id_programa) === idNum);
+    const titulo = document.getElementById('modal-ver-programa-planes-titulo');
+    const tbodyPlanes = document.getElementById('tbody-programa-planes');
+    if (!tbodyPlanes) return;
+
+    if (titulo) titulo.textContent = `Planes de ${programa?.codigo || ''} ${programa?.nombre || ''}`.trim();
+    tbodyPlanes.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:1.5rem;color:var(--gris-suave);">Cargando...</td></tr>';
+    U.openModal('modal-ver-programa-planes');
+
+    try {
+      const { data } = await axios.get(`/api/academic/programas/${idNum}/planes`);
+      if (!data?.ok) throw new Error(data?.error || 'No se pudo cargar los planes');
+      const rows = Array.isArray(data.data) ? data.data : [];
+      if (!rows.length) {
+        tbodyPlanes.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:1.5rem;color:var(--gris-suave);">Este programa no tiene planes asignados.</td></tr>';
+        return;
+      }
+      tbodyPlanes.innerHTML = rows.map(pl => `
+        <tr>
+          <td><span style="font-family:monospace;font-weight:700;">${esc(pl.codigo)}</span></td>
+          <td>${esc(pl.nombre)}</td>
+          <td class="texto-muted">${esc(pl.fecha_inicio || '-')} a ${esc(pl.fecha_fin || '-')}</td>
+          <td style="text-align:center;">${Number(pl.total_cursos) || 0}</td>
+          <td>${pl.activo ? '<span class="badge badge-activo">Activo</span>' : '<span class="badge badge-inactivo">Inactivo</span>'}</td>
+        </tr>
+      `).join('');
+    } catch (err) {
+      tbodyPlanes.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:1.5rem;color:var(--rojo-peligro);">${esc(errorMsg(err, 'Error cargando planes del programa'))}</td></tr>`;
+    }
   };
 
   form.addEventListener('submit', async function (e) {

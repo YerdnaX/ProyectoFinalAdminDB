@@ -14,20 +14,19 @@
 
     <main class="area-pagina">
       <div class="encabezado-pagina">
-        <div><h1>Oferta de secciones</h1><p>Gestiona las secciones del I Semestre 2025. Asigna docentes, aulas y horarios.</p></div>
+        <div><h1>Oferta de secciones</h1><p>Gestiona secciones, docentes, aulas y horarios.</p></div>
         <div class="acciones-encabezado">
-          <button class="btn btn-secundario">Exportar horarios</button>
-          <button id="btn-nueva-seccion" class="btn btn-primario">+ Nueva sección</button>
+          <button id="btn-nueva-seccion" class="btn btn-primario">+ Nueva seccion</button>
         </div>
       </div>
 
       <div class="carta">
         <div class="carta-cabecera">
           <div class="barra-filtros" style="margin:0;flex:1;">
-            <div class="barra-busqueda"><span class="icono-buscar">🔍</span><input type="text" placeholder="Buscar por curso, código o docente..."></div>
-            <select class="filtro-select"><option>I Semestre 2025</option><option>II Semestre 2024</option></select>
-            <select class="filtro-select"><option>Todas las modalidades</option><option>Presencial</option><option>Virtual</option><option>Híbrido</option></select>
-            <select class="filtro-select"><option>Todos los estados</option><option>Abierta</option><option>Llena</option><option>Cerrada</option></select>
+            <div class="barra-busqueda"><span class="icono-buscar">&#128269;</span><input id="input-buscar-secciones" type="text" placeholder="Buscar por seccion, curso, docente o aula..."></div>
+            <select id="filtro-periodo" class="filtro-select"><option value="">Todos los periodos</option></select>
+            <select id="filtro-aula" class="filtro-select"><option value="">Todas las aulas</option></select>
+            <select id="filtro-estado" class="filtro-select"><option value="">Todos los estados</option><option value="Abierta">Abierta</option><option value="Cerrada">Cerrada</option><option value="Cancelada">Cancelada</option></select>
           </div>
         </div>
 
@@ -35,148 +34,97 @@
           <table class="tabla">
             <thead>
               <tr>
-                <th>Sección</th>
+                <th>Sesion</th>
                 <th>Curso</th>
                 <th>Docente</th>
-                <th>Aula</th>
+                <th>Aula asignada</th>
                 <th>Horario</th>
-                <th>Cupos</th>
-                <th>Modalidad</th>
+                <th>Cupos maximos</th>
                 <th>Estado</th>
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody id="tbody-secciones">
-              <tr>
-                <td><span style="font-family:monospace;font-weight:700;color:var(--verde-principal);">IS-1101-01</span></td>
-                <td><div class="nombre-principal">Fundamentos de Programación</div><div class="detalle-secundario">IS-1101 · 4 créditos</div></td>
-                <td><div class="nombre-principal">Dr. Carlos Ugalde</div></td>
-                <td class="texto-muted">A-204</td>
-                <td class="texto-muted">L-Mi 7:00–9:00</td>
-                <td>
-                  <div style="min-width:100px;">
-                    <div style="display:flex;justify-content:space-between;font-size:.75rem;margin-bottom:.25rem;"><span>35 / 40</span><span style="color:var(--verde-principal);">87.5%</span></div>
-                    <div class="progreso-contenedor"><div class="progreso-barra" style="width:87%;"></div></div>
-                  </div>
-                </td>
-                <td><span class="badge badge-info">Presencial</span></td>
-                <td><span class="badge badge-activo">Abierta</span></td>
-                <td><div class="acciones-fila"><button class="btn btn-secundario btn-sm">Ver</button><button class="btn btn-secundario btn-sm">Editar</button></div></td>
-              </tr>
-              <tr>
-                <td><span style="font-family:monospace;font-weight:700;color:var(--verde-principal);">IS-1101-02</span></td>
-                <td><div class="nombre-principal">Fundamentos de Programación</div><div class="detalle-secundario">IS-1101 · 4 créditos</div></td>
-                <td><div class="nombre-principal">M.Sc. Patricia Vega</div></td>
-                <td class="texto-muted">Lab B-101</td>
-                <td class="texto-muted">Ma-Ju 9:00–11:00</td>
-                <td>
-                  <div style="min-width:100px;">
-                    <div style="display:flex;justify-content:space-between;font-size:.75rem;margin-bottom:.25rem;"><span>40 / 40</span><span style="color:var(--rojo-peligro);">100%</span></div>
-                    <div class="progreso-contenedor"><div class="progreso-barra rojo" style="width:100%;"></div></div>
-                  </div>
-                </td>
-                <td><span class="badge badge-info">Presencial</span></td>
-                <td><span class="badge badge-error">Llena</span></td>
-                <td><div class="acciones-fila"><button class="btn btn-secundario btn-sm">Ver</button><button class="btn btn-secundario btn-sm">Editar</button></div></td>
-              </tr>
-              <tr>
-                <td><span style="font-family:monospace;font-weight:700;color:var(--verde-principal);">IS-2202-01</span></td>
-                <td><div class="nombre-principal">Base de Datos I</div><div class="detalle-secundario">IS-2202 · 3 créditos</div></td>
-                <td><div class="nombre-principal">Ing. Manuel Salas</div></td>
-                <td class="texto-muted">Virtual</td>
-                <td class="texto-muted">L-Mi-V 11:00–12:00</td>
-                <td>
-                  <div style="min-width:100px;">
-                    <div style="display:flex;justify-content:space-between;font-size:.75rem;margin-bottom:.25rem;"><span>18 / 30</span><span style="color:var(--amarillo-alerta);">60%</span></div>
-                    <div class="progreso-contenedor"><div class="progreso-barra amarillo" style="width:60%;"></div></div>
-                  </div>
-                </td>
-                <td><span class="badge badge-verde">Virtual</span></td>
-                <td><span class="badge badge-activo">Abierta</span></td>
-                <td><div class="acciones-fila"><button class="btn btn-secundario btn-sm">Ver</button><button class="btn btn-secundario btn-sm">Editar</button></div></td>
-              </tr>
-              <tr>
-                <td><span style="font-family:monospace;font-weight:700;color:var(--amarillo-alerta);">IS-3301-01</span></td>
-                <td><div class="nombre-principal">Ingeniería de Software</div><div class="detalle-secundario">IS-3301 · 4 créditos</div></td>
-                <td><div class="nombre-principal" style="color:var(--rojo-peligro);">⚠ Sin docente asignado</div></td>
-                <td class="texto-muted">B-305</td>
-                <td class="texto-muted">Vi 7:00–11:00</td>
-                <td>
-                  <div style="min-width:100px;">
-                    <div style="display:flex;justify-content:space-between;font-size:.75rem;margin-bottom:.25rem;"><span>0 / 35</span><span>0%</span></div>
-                    <div class="progreso-contenedor"><div class="progreso-barra" style="width:0%;"></div></div>
-                  </div>
-                </td>
-                <td><span class="badge badge-info">Presencial</span></td>
-                <td><span class="badge badge-pendiente">Pendiente</span></td>
-                <td><div class="acciones-fila"><button class="btn btn-secundario btn-sm">Ver</button><button class="btn btn-primario btn-sm">Asignar</button></div></td>
-              </tr>
+              <tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando...</td></tr>
             </tbody>
           </table>
         </div>
-        <div id="paginacion-secciones" class="paginacion"></div>
       </div>
     </main>
   </div>
 </div>
-<!-- Modal crear sección -->
+
 <div id="modal-crear-seccion" class="modal">
   <div class="modal-overlay" onclick="U.closeModal('modal-crear-seccion')"></div>
   <div class="modal-caja" style="max-width:560px;">
     <div class="modal-cabecera">
-      <div class="modal-titulo">Nueva sección</div>
-      <button class="modal-cerrar" onclick="U.closeModal('modal-crear-seccion')">✕</button>
+      <div class="modal-titulo">Nueva seccion</div>
+      <button class="modal-cerrar" onclick="U.closeModal('modal-crear-seccion')">&times;</button>
     </div>
     <form id="form-crear-seccion" class="modal-cuerpo" style="display:flex;flex-direction:column;gap:1rem;">
-      <div class="campo" style="margin:0;">
-        <label>Curso <span class="requerido">*</span></label>
-        <select id="sec-curso" name="id_curso" class="campo-input" required>
-          <option value="">Seleccionar curso…</option>
-        </select>
-      </div>
-      <div class="campo" style="margin:0;">
-        <label>Periodo <span class="requerido">*</span></label>
-        <select id="sec-periodo" name="id_periodo" class="campo-input" required>
-          <option value="">Seleccionar periodo…</option>
-        </select>
-      </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
         <div class="campo" style="margin:0;">
-          <label>Código de sección <span class="requerido">*</span></label>
+          <label>Sesion <span class="requerido">*</span></label>
           <input name="codigo_seccion" class="campo-input" required placeholder="ej. 01">
         </div>
         <div class="campo" style="margin:0;">
-          <label>Cupo máximo <span class="requerido">*</span></label>
-          <input name="cupo_maximo" class="campo-input" type="number" min="1" required placeholder="ej. 30">
+          <label>Periodo <span class="requerido">*</span></label>
+          <select id="sec-periodo" name="id_periodo" class="campo-input" required>
+            <option value="">Seleccionar periodo...</option>
+          </select>
         </div>
       </div>
       <div class="campo" style="margin:0;">
-        <label>Docente</label>
-        <select id="sec-docente" name="id_docente_usuario" class="campo-input">
-          <option value="">Sin asignar</option>
+        <label>Curso <span class="requerido">*</span></label>
+        <select id="sec-curso" name="id_curso" class="campo-input" required>
+          <option value="">Seleccionar curso...</option>
         </select>
       </div>
       <div class="campo" style="margin:0;">
-        <label>Aula</label>
-        <select id="sec-aula" name="id_aula" class="campo-input">
-          <option value="">Sin asignar</option>
+        <label>Docente <span class="requerido">*</span></label>
+        <select id="sec-docente" name="id_docente_usuario" class="campo-input" required>
+          <option value="">Seleccionar docente...</option>
         </select>
+      </div>
+      <div class="campo" style="margin:0;">
+        <label>Aula asignada <span class="requerido">*</span></label>
+        <select id="sec-aula" name="id_aula" class="campo-input" required>
+          <option value="">Seleccionar aula...</option>
+        </select>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;">
+        <div class="campo" style="margin:0;">
+          <label>Dia</label>
+          <select name="dia_semana" class="campo-input">
+            <option value="">Sin horario</option>
+            <option value="Lunes">Lunes</option>
+            <option value="Martes">Martes</option>
+            <option value="Miercoles">Miercoles</option>
+            <option value="Jueves">Jueves</option>
+            <option value="Viernes">Viernes</option>
+            <option value="Sabado">Sabado</option>
+            <option value="Domingo">Domingo</option>
+          </select>
+        </div>
+        <div class="campo" style="margin:0;">
+          <label>Hora inicio</label>
+          <input name="hora_inicio" class="campo-input" type="time">
+        </div>
+        <div class="campo" style="margin:0;">
+          <label>Hora fin</label>
+          <input name="hora_fin" class="campo-input" type="time">
+        </div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
         <div class="campo" style="margin:0;">
-          <label>Modalidad</label>
-          <select name="modalidad" class="campo-input">
-            <option value="Presencial">Presencial</option>
-            <option value="Virtual">Virtual</option>
-            <option value="Híbrido">Híbrido</option>
-          </select>
+          <label>Cantidad maxima de cupos <span class="requerido">*</span></label>
+          <input id="sec-cupo" name="cupo_maximo" class="campo-input" type="number" min="1" required placeholder="Se ajusta por capacidad del aula">
+          <small id="sec-capacidad-help" style="color:var(--gris-suave);">Seleccione un aula para validar la capacidad.</small>
         </div>
         <div class="campo" style="margin:0;">
           <label>Estado</label>
-          <select name="estado" class="campo-input">
-            <option value="Abierta">Abierta</option>
-            <option value="Cerrada">Cerrada</option>
-          </select>
+          <input class="campo-input" value="Si" readonly>
+          <input type="hidden" name="estado" value="Abierta">
         </div>
       </div>
       <div style="display:flex;gap:.75rem;justify-content:flex-end;margin-top:.5rem;">
@@ -186,6 +134,137 @@
     </form>
   </div>
 </div>
+
+<div id="modal-editar-seccion" class="modal">
+  <div class="modal-overlay" onclick="U.closeModal('modal-editar-seccion')"></div>
+  <div class="modal-caja" style="max-width:560px;">
+    <div class="modal-cabecera">
+      <div class="modal-titulo">Editar seccion</div>
+      <button class="modal-cerrar" onclick="U.closeModal('modal-editar-seccion')">&times;</button>
+    </div>
+    <form id="form-editar-seccion" class="modal-cuerpo" style="display:flex;flex-direction:column;gap:1rem;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="campo" style="margin:0;">
+          <label>Sesion <span class="requerido">*</span></label>
+          <input name="codigo_seccion" class="campo-input" required>
+        </div>
+        <div class="campo" style="margin:0;">
+          <label>Periodo <span class="requerido">*</span></label>
+          <select id="sec-periodo-ed" name="id_periodo" class="campo-input" required>
+            <option value="">Seleccionar periodo...</option>
+          </select>
+        </div>
+      </div>
+      <div class="campo" style="margin:0;">
+        <label>Curso <span class="requerido">*</span></label>
+        <select id="sec-curso-ed" name="id_curso" class="campo-input" required>
+          <option value="">Seleccionar curso...</option>
+        </select>
+      </div>
+      <div class="campo" style="margin:0;">
+        <label>Docente <span class="requerido">*</span></label>
+        <select id="sec-docente-ed" name="id_docente_usuario" class="campo-input" required>
+          <option value="">Seleccionar docente...</option>
+        </select>
+      </div>
+      <div class="campo" style="margin:0;">
+        <label>Aula asignada <span class="requerido">*</span></label>
+        <select id="sec-aula-ed" name="id_aula" class="campo-input" required>
+          <option value="">Seleccionar aula...</option>
+        </select>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;">
+        <div class="campo" style="margin:0;">
+          <label>Dia</label>
+          <select name="dia_semana" class="campo-input">
+            <option value="">Sin horario</option>
+            <option value="Lunes">Lunes</option>
+            <option value="Martes">Martes</option>
+            <option value="Miercoles">Miercoles</option>
+            <option value="Jueves">Jueves</option>
+            <option value="Viernes">Viernes</option>
+            <option value="Sabado">Sabado</option>
+            <option value="Domingo">Domingo</option>
+          </select>
+        </div>
+        <div class="campo" style="margin:0;">
+          <label>Hora inicio</label>
+          <input name="hora_inicio" class="campo-input" type="time">
+        </div>
+        <div class="campo" style="margin:0;">
+          <label>Hora fin</label>
+          <input name="hora_fin" class="campo-input" type="time">
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="campo" style="margin:0;">
+          <label>Cantidad maxima de cupos <span class="requerido">*</span></label>
+          <input id="sec-cupo-ed" name="cupo_maximo" class="campo-input" type="number" min="1" required>
+          <small id="sec-capacidad-help-ed" style="color:var(--gris-suave);">Seleccione un aula para validar la capacidad.</small>
+        </div>
+        <div class="campo" style="margin:0;">
+          <label>Estado</label>
+          <input class="campo-input" value="Si" readonly>
+          <input type="hidden" name="estado" value="Abierta">
+        </div>
+      </div>
+      <div style="display:flex;gap:.75rem;justify-content:flex-end;margin-top:.5rem;">
+        <button type="button" class="btn btn-secundario" onclick="U.closeModal('modal-editar-seccion')">Cancelar</button>
+        <button type="submit" class="btn btn-primario">Actualizar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+  #modal-crear-seccion,
+  #modal-editar-seccion {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    max-width: none;
+    max-height: none;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    z-index: 1200;
+    background: rgba(15, 23, 42, .55);
+  }
+  #modal-crear-seccion.abierto,
+  #modal-editar-seccion.abierto { display: flex; }
+
+  #modal-crear-seccion .modal-overlay,
+  #modal-editar-seccion .modal-overlay { position: absolute; inset: 0; }
+
+  #modal-crear-seccion .modal-caja,
+  #modal-editar-seccion .modal-caja {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: var(--fondo-carta);
+    border-radius: var(--radio-grande);
+    box-shadow: var(--sombra-modal);
+  }
+
+  #modal-crear-seccion .modal-cerrar,
+  #modal-editar-seccion .modal-cerrar {
+    background: none;
+    border: none;
+    color: var(--gris-suave);
+    font-size: 1.25rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+  #modal-crear-seccion .modal-cerrar:hover,
+  #modal-editar-seccion .modal-cerrar:hover { color: var(--gris-oscuro); }
+</style>
+
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="/js/utils.js"></script>
 <script src="/js/academic-secciones.js"></script>

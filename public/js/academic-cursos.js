@@ -14,6 +14,7 @@
   let buscar = '';
   let creditos = '';
   let cacheCursos = [];
+  let cachePlanes = [];
 
   if (!tbody || !formCrear || !formEditar) return;
 
@@ -29,7 +30,7 @@
   }
 
   async function cargar() {
-    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando...</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando...</td></tr>';
     try {
       const { data } = await axios.get('/api/academic/cursos', { params: { buscar, creditos } });
       if (!data?.ok) throw new Error(data?.error || 'No se pudo cargar la lista de cursos');
@@ -37,13 +38,13 @@
       renderTabla();
     } catch (err) {
       cacheCursos = [];
-      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--rojo-peligro);padding:1.5rem;">${esc(errorMsg(err, 'Error cargando cursos'))}</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;color:var(--rojo-peligro);padding:1.5rem;">${esc(errorMsg(err, 'Error cargando cursos'))}</td></tr>`;
     }
   }
 
   function renderTabla() {
     if (!cacheCursos.length) {
-      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:2rem;">Sin resultados</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:2rem;">Sin resultados</td></tr>';
       document.getElementById('paginacion-cursos').innerHTML = '';
       return;
     }
@@ -58,6 +59,7 @@
         <tr>
           <td><span style="font-family:monospace;color:var(--verde-principal);font-weight:700;">${esc(c.codigo)}</span></td>
           <td><div class="nombre-principal">${esc(c.nombre)}</div><div class="detalle-secundario">${esc((c.descripcion || '').slice(0, 70))}</div></td>
+          <td class="texto-muted">${esc(`${c.plan_codigo || ''} ${c.plan_nombre || '-'}`.trim())}</td>
           <td style="text-align:center;font-weight:700;">${Number(c.creditos) || 0}</td>
           <td style="text-align:center;">${c.horas_semanales ? Number(c.horas_semanales) : '-'}</td>
           <td class="texto-muted" style="font-size:.8rem;">${esc(c.prerrequisitos || '-')}</td>
@@ -80,8 +82,32 @@
     if (activo) activo.value = '1';
   }
 
+  function llenarSelectPlanes(select, selectedValue) {
+    if (!select) return;
+    const opts = ['<option value="">Seleccionar plan...</option>'];
+    cachePlanes.forEach(p => {
+      const id = Number(p.id_plan);
+      const selected = String(selectedValue || '') === String(id) ? ' selected' : '';
+      opts.push(`<option value="${id}"${selected}>${esc(p.codigo)} - ${esc(p.nombre)}</option>`);
+    });
+    select.innerHTML = opts.join('');
+  }
+
+  async function cargarPlanes() {
+    try {
+      const { data } = await axios.get('/api/academic/planes');
+      if (!data?.ok) throw new Error(data?.error || 'No se pudo cargar planes');
+      cachePlanes = Array.isArray(data.data) ? data.data : [];
+    } catch (_) {
+      cachePlanes = [];
+    }
+    llenarSelectPlanes(formCrear.querySelector('[name=id_plan]'));
+    llenarSelectPlanes(formEditar.querySelector('[name=id_plan]'));
+  }
+
   function abrirCrear() {
     limpiarFormulario(formCrear);
+    llenarSelectPlanes(formCrear.querySelector('[name=id_plan]'));
     U.openModal('modal-crear-curso');
     formCrear.querySelector('[name=codigo]')?.focus();
   }
@@ -112,6 +138,7 @@
     formEditar.querySelector('[name=horas_semanales]').value = curso.horas_semanales || '';
     formEditar.querySelector('[name=descripcion]').value = curso.descripcion || '';
     formEditar.querySelector('[name=activo]').value = curso.activo ? '1' : '0';
+    llenarSelectPlanes(formEditar.querySelector('[name=id_plan]'), curso.id_plan);
     U.openModal('modal-editar-curso');
     formEditar.querySelector('[name=nombre]')?.focus();
   }
@@ -123,12 +150,14 @@
   function validarCurso(form) {
     const codigo = form.querySelector('[name=codigo]').value.trim().toUpperCase();
     const nombre = form.querySelector('[name=nombre]').value.trim();
+    const idPlan = parseInt(form.querySelector('[name=id_plan]').value, 10);
     const creditosVal = parseInt(form.querySelector('[name=creditos]').value, 10);
     const horasRaw = form.querySelector('[name=horas_semanales]').value;
     const horasVal = horasRaw === '' ? null : parseInt(horasRaw, 10);
 
     if (!codigo) return { ok: false, msg: 'El codigo es obligatorio.', focus: '[name=codigo]' };
     if (!nombre) return { ok: false, msg: 'El nombre es obligatorio.', focus: '[name=nombre]' };
+    if (!Number.isInteger(idPlan)) return { ok: false, msg: 'Debes seleccionar un plan de estudio.', focus: '[name=id_plan]' };
     if (!Number.isInteger(creditosVal) || creditosVal <= 0) return { ok: false, msg: 'Los creditos deben ser mayores a cero.', focus: '[name=creditos]' };
     if (horasVal !== null && (!Number.isInteger(horasVal) || horasVal <= 0)) return { ok: false, msg: 'Las horas semanales deben ser mayores a cero.', focus: '[name=horas_semanales]' };
 
@@ -137,6 +166,7 @@
       payload: {
         codigo,
         nombre,
+        id_plan: idPlan,
         creditos: creditosVal,
         horas_semanales: horasVal,
         descripcion: form.querySelector('[name=descripcion]').value.trim() || null,
@@ -208,5 +238,8 @@
     cargar();
   });
 
-  cargar();
+  (async function init() {
+    await cargarPlanes();
+    await cargar();
+  })();
 })();

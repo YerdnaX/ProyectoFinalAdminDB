@@ -60,6 +60,7 @@
           <td>${p.activo ? '<span class="badge badge-activo">Activo</span>' : '<span class="badge badge-inactivo">Inactivo</span>'}</td>
           <td>
             <div class="acciones-fila">
+              <button type="button" class="btn btn-secundario btn-sm" onclick="verPlanCursos(${id})">Ver</button>
               <button type="button" class="btn btn-secundario btn-sm" onclick="editarPlan(${id})">Editar</button>
             </div>
           </td>
@@ -128,6 +129,44 @@
 
   window.editarPlan = function (id) {
     abrirEditar(id);
+  };
+
+  window.verPlanCursos = async function (id) {
+    const idNum = Number(id);
+    if (!Number.isInteger(idNum) || idNum <= 0) {
+      U.toast('No se pudo determinar el plan.', 'error');
+      return;
+    }
+
+    const plan = cachePlanes.find(x => Number(x.id_plan) === idNum);
+    const titulo = document.getElementById('modal-ver-plan-cursos-titulo');
+    const tbodyCursos = document.getElementById('tbody-plan-cursos');
+    if (!tbodyCursos) return;
+
+    if (titulo) titulo.textContent = `Cursos del plan ${plan?.codigo || ''} ${plan?.nombre || ''}`.trim();
+    tbodyCursos.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:1.5rem;color:var(--gris-suave);">Cargando...</td></tr>';
+    U.openModal('modal-ver-plan-cursos');
+
+    try {
+      const { data } = await axios.get(`/api/academic/planes/${idNum}/cursos`);
+      if (!data?.ok) throw new Error(data?.error || 'No se pudo cargar los cursos');
+      const rows = Array.isArray(data.data) ? data.data : [];
+      if (!rows.length) {
+        tbodyCursos.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:1.5rem;color:var(--gris-suave);">Este plan no tiene cursos asignados.</td></tr>';
+        return;
+      }
+      tbodyCursos.innerHTML = rows.map(c => `
+        <tr>
+          <td><span style="font-family:monospace;font-weight:700;">${esc(c.codigo)}</span></td>
+          <td>${esc(c.nombre)}</td>
+          <td style="text-align:center;">${Number(c.creditos) || 0}</td>
+          <td style="text-align:center;">${c.horas_semanales ? Number(c.horas_semanales) : '-'}</td>
+          <td>${c.activo ? '<span class="badge badge-activo">Activo</span>' : '<span class="badge badge-inactivo">Inactivo</span>'}</td>
+        </tr>
+      `).join('');
+    } catch (err) {
+      tbodyCursos.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:1.5rem;color:var(--rojo-peligro);">${esc(errorMsg(err, 'Error cargando cursos del plan'))}</td></tr>`;
+    }
   };
 
   form.addEventListener('submit', async function (e) {

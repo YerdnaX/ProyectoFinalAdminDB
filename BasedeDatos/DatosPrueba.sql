@@ -160,7 +160,6 @@ INSERT INTO plan_estudio_curso (id_plan, id_curso, ciclo, obligatorio) VALUES
 (2, 6, 1, 1),  -- ADM101 ciclo 1
 (2, 7, 1, 1),  -- ADM102 ciclo 1
 -- Plan ING (id_plan=3)
-(3, 1, 1, 1),  -- TI101 ciclo 1 (compartido)
 (3, 8, 1, 1),  -- ING101 ciclo 1
 (3, 9, 2, 1),  -- ING102 ciclo 2
 (3, 10,3, 1);  -- ING103 ciclo 3

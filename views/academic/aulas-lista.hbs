@@ -7,22 +7,22 @@
     </header>
     <main class="area-pagina">
       <div class="encabezado-pagina">
-        <div><h1>Gestión de aulas</h1><p>Administra los espacios físicos y virtuales disponibles.</p></div>
+        <div><h1>Gestion de aulas</h1><p>Administra los espacios fisicos y virtuales disponibles.</p></div>
         <div class="acciones-encabezado"><button id="btn-nueva-aula" class="btn btn-primario">+ Nueva aula</button></div>
       </div>
       <div class="carta">
         <div class="carta-cabecera">
           <div class="barra-filtros" style="margin:0;flex:1;">
-            <div class="barra-busqueda"><span class="icono-buscar">🔍</span><input type="text" placeholder="Buscar por código, nombre o edificio..."></div>
-            <select class="filtro-select"><option>Todos los edificios</option><option>Edificio A</option><option>Edificio B</option><option>Edificio C</option><option>Laboratorios</option></select>
-            <select class="filtro-select"><option>Todos los estados</option><option>Disponible</option><option>En uso</option><option>Mantenimiento</option></select>
+            <div class="barra-busqueda"><span class="icono-buscar">&#128269;</span><input id="aulas-buscar" type="text" placeholder="Buscar por codigo, nombre o edificio..."></div>
+            <select id="aulas-edificio" class="filtro-select"><option value="">Todos los edificios</option></select>
+            <select id="aulas-estado" class="filtro-select"><option value="">Todos los estados</option><option value="1">Activas</option><option value="0">Inactivas</option></select>
           </div>
         </div>
         <div class="tabla-contenedor">
           <table class="tabla">
-            <thead><tr><th>Código</th><th>Nombre</th><th>Edificio</th><th>Capacidad</th><th>Estado</th><th>Secciones asignadas</th><th>Acciones</th></tr></thead>
+            <thead><tr><th>Codigo</th><th>Nombre</th><th>Edificio</th><th>Cantidad (Cupo)</th><th>Estado</th><th>Acciones</th></tr></thead>
             <tbody id="tbody-aulas">
-              <tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando…</td></tr>
+              <tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando...</td></tr>
             </tbody>
           </table>
         </div>
@@ -30,17 +30,17 @@
     </main>
   </div>
 </div>
-<!-- Modal crear aula -->
+
 <div id="modal-crear-aula" class="modal">
   <div class="modal-overlay" onclick="U.closeModal('modal-crear-aula')"></div>
   <div class="modal-caja" style="max-width:480px;">
     <div class="modal-cabecera">
       <div class="modal-titulo">Nueva aula</div>
-      <button class="modal-cerrar" onclick="U.closeModal('modal-crear-aula')">✕</button>
+      <button class="modal-cerrar" onclick="U.closeModal('modal-crear-aula')">&times;</button>
     </div>
     <form id="form-crear-aula" class="modal-cuerpo" style="display:flex;flex-direction:column;gap:1rem;">
       <div class="campo" style="margin:0;">
-        <label>Código <span class="requerido">*</span></label>
+        <label>Codigo <span class="requerido">*</span></label>
         <input name="codigo" class="campo-input" required placeholder="ej. A-101">
       </div>
       <div class="campo" style="margin:0;">
@@ -53,9 +53,16 @@
           <input name="edificio" class="campo-input" placeholder="ej. Edificio A">
         </div>
         <div class="campo" style="margin:0;">
-          <label>Capacidad <span class="requerido">*</span></label>
+          <label>Cantidad (Cupo) <span class="requerido">*</span></label>
           <input name="capacidad" class="campo-input" type="number" min="1" required placeholder="ej. 30">
         </div>
+      </div>
+      <div class="campo" style="margin:0;">
+        <label>Estado</label>
+        <select name="activa" class="campo-input">
+          <option value="1">Activa</option>
+          <option value="0">Inactiva</option>
+        </select>
       </div>
       <div style="display:flex;gap:.75rem;justify-content:flex-end;margin-top:.5rem;">
         <button type="button" class="btn btn-secundario" onclick="U.closeModal('modal-crear-aula')">Cancelar</button>
@@ -64,6 +71,97 @@
     </form>
   </div>
 </div>
+
+<div id="modal-editar-aula" class="modal">
+  <div class="modal-overlay" onclick="U.closeModal('modal-editar-aula')"></div>
+  <div class="modal-caja" style="max-width:480px;">
+    <div class="modal-cabecera">
+      <div class="modal-titulo">Editar aula</div>
+      <button class="modal-cerrar" onclick="U.closeModal('modal-editar-aula')">&times;</button>
+    </div>
+    <form id="form-editar-aula" class="modal-cuerpo" style="display:flex;flex-direction:column;gap:1rem;">
+      <div class="campo" style="margin:0;">
+        <label>Codigo <span class="requerido">*</span></label>
+        <input name="codigo" class="campo-input" required>
+      </div>
+      <div class="campo" style="margin:0;">
+        <label>Nombre <span class="requerido">*</span></label>
+        <input name="nombre" class="campo-input" required>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="campo" style="margin:0;">
+          <label>Edificio</label>
+          <input name="edificio" class="campo-input">
+        </div>
+        <div class="campo" style="margin:0;">
+          <label>Cantidad (Cupo) <span class="requerido">*</span></label>
+          <input name="capacidad" class="campo-input" type="number" min="1" required>
+        </div>
+      </div>
+      <div class="campo" style="margin:0;">
+        <label>Estado</label>
+        <select name="activa" class="campo-input">
+          <option value="1">Activa</option>
+          <option value="0">Inactiva</option>
+        </select>
+      </div>
+      <div style="display:flex;gap:.75rem;justify-content:flex-end;margin-top:.5rem;">
+        <button type="button" class="btn btn-secundario" onclick="U.closeModal('modal-editar-aula')">Cancelar</button>
+        <button type="submit" class="btn btn-primario">Actualizar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+  #modal-crear-aula,
+  #modal-editar-aula {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    max-width: none;
+    max-height: none;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    z-index: 1200;
+    background: rgba(15, 23, 42, .55);
+  }
+  #modal-crear-aula.abierto,
+  #modal-editar-aula.abierto { display: flex; }
+
+  #modal-crear-aula .modal-overlay,
+  #modal-editar-aula .modal-overlay { position: absolute; inset: 0; }
+
+  #modal-crear-aula .modal-caja,
+  #modal-editar-aula .modal-caja {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: var(--fondo-carta);
+    border-radius: var(--radio-grande);
+    box-shadow: var(--sombra-modal);
+  }
+
+  #modal-crear-aula .modal-cerrar,
+  #modal-editar-aula .modal-cerrar {
+    background: none;
+    border: none;
+    color: var(--gris-suave);
+    font-size: 1.25rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+  #modal-crear-aula .modal-cerrar:hover,
+  #modal-editar-aula .modal-cerrar:hover { color: var(--gris-oscuro); }
+</style>
+
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="/js/utils.js"></script>
 <script src="/js/academic-aulas.js"></script>

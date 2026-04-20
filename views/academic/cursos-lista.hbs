@@ -41,6 +41,7 @@
               <tr>
                 <th>Codigo</th>
                 <th>Nombre</th>
+                <th>Plan de estudio</th>
                 <th>Creditos</th>
                 <th>Horas/sem.</th>
                 <th>Prerrequisitos</th>
@@ -49,7 +50,7 @@
               </tr>
             </thead>
             <tbody id="tbody-cursos">
-              <tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando...</td></tr>
+              <tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando...</td></tr>
             </tbody>
           </table>
         </div>
@@ -75,6 +76,12 @@
       <div class="campo" style="margin:0;">
         <label>Nombre <span class="requerido">*</span></label>
         <input name="nombre" class="campo-input" maxlength="150" required placeholder="Nombre del curso">
+      </div>
+      <div class="campo" style="margin:0;">
+        <label>Plan de estudio <span class="requerido">*</span></label>
+        <select name="id_plan" class="campo-input" required>
+          <option value="">Seleccionar plan...</option>
+        </select>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
         <div class="campo" style="margin:0;">
@@ -121,6 +128,12 @@
       <div class="campo" style="margin:0;">
         <label>Nombre <span class="requerido">*</span></label>
         <input name="nombre" class="campo-input" maxlength="150" required>
+      </div>
+      <div class="campo" style="margin:0;">
+        <label>Plan de estudio <span class="requerido">*</span></label>
+        <select name="id_plan" class="campo-input" required>
+          <option value="">Seleccionar plan...</option>
+        </select>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
         <div class="campo" style="margin:0;">

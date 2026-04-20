@@ -1,6 +1,6 @@
 /**
  * routes/api/academic.js
- * APIs para gestiÃƒÂ³n acadÃƒÂ©mica: programas, planes, cursos, periodos, secciones, aulas
+ * APIs para gestiÃƒÆ’Ã‚Â³n acadÃƒÆ’Ã‚Â©mica: programas, planes, cursos, periodos, secciones, aulas
  */
 const express = require('express');
 const router  = express.Router();
@@ -40,9 +40,9 @@ function normalizarTipoPeriodo(valor) {
   return mapa[key] || null;
 }
 
-/* Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+/* ÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â
    PROGRAMAS ACADEMICOS
-Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â */
+ÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â */
 
 router.get('/programas', async (req, res) => {
   try {
@@ -55,7 +55,7 @@ router.get('/programas', async (req, res) => {
     }
     if (nivel) {
       const nivelSql = normalizarNivel(nivel);
-      if (!nivelSql) return res.status(400).json({ ok: false, error: 'Nivel acadÃƒÂ©mico invÃƒÂ¡lido' });
+      if (!nivelSql) return res.status(400).json({ ok: false, error: 'Nivel acadÃƒÆ’Ã‚Â©mico invÃƒÆ’Ã‚Â¡lido' });
       where += ' AND pa.nivel = @nivel';
       params.nivel = nivelSql;
     }
@@ -83,7 +83,7 @@ router.get('/programas', async (req, res) => {
 router.get('/programas/:id', async (req, res) => {
   try {
     const id = parseInt(req.params.id, 10);
-    if (!Number.isInteger(id)) return res.status(400).json({ ok: false, error: 'ID invÃƒÂ¡lido' });
+    if (!Number.isInteger(id)) return res.status(400).json({ ok: false, error: 'ID invÃƒÆ’Ã‚Â¡lido' });
     const row = await queryOne(
       `SELECT id_programa, codigo, nombre, nivel, activo
        FROM programa_academico
@@ -97,6 +97,29 @@ router.get('/programas/:id', async (req, res) => {
   }
 });
 
+router.get('/programas/:id/planes', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    if (!Number.isInteger(id)) return res.status(400).json({ ok: false, error: 'ID invalido' });
+
+    const rows = await query(
+      `SELECT pl.id_plan, pl.codigo, pl.nombre, pl.activo,
+              CONVERT(varchar,pl.fecha_vigencia_inicio,23) AS fecha_inicio,
+              CONVERT(varchar,pl.fecha_vigencia_fin,23)    AS fecha_fin,
+              COUNT(pc.id_curso) AS total_cursos
+       FROM plan_estudio pl
+       LEFT JOIN plan_estudio_curso pc ON pc.id_plan = pl.id_plan
+       WHERE pl.id_programa = @id
+       GROUP BY pl.id_plan, pl.codigo, pl.nombre, pl.activo, pl.fecha_vigencia_inicio, pl.fecha_vigencia_fin
+       ORDER BY pl.nombre`,
+      { id: { type: sql.Int, value: id } }
+    );
+    return res.json({ ok: true, data: rows });
+  } catch (e) {
+    return res.status(500).json({ ok: false, error: e.message });
+  }
+});
+
 router.post('/programas', async (req, res) => {
   try {
     const { codigo, nombre, nivel, activo = 1 } = req.body;
@@ -104,7 +127,7 @@ router.post('/programas', async (req, res) => {
     const nombreClean = String(nombre || '').trim();
     const nivelSql = normalizarNivel(nivel);
     if (!codigoClean || !nombreClean || !nivelSql) {
-      return res.status(400).json({ ok: false, error: 'codigo, nombre y nivel vÃƒÂ¡lidos son requeridos' });
+      return res.status(400).json({ ok: false, error: 'codigo, nombre y nivel vÃƒÆ’Ã‚Â¡lidos son requeridos' });
     }
     const r = await query(
       `INSERT INTO programa_academico(codigo,nombre,nivel,activo) OUTPUT INSERTED.id_programa VALUES(@c,@n,@nv,@a)`,
@@ -113,7 +136,7 @@ router.post('/programas', async (req, res) => {
     res.status(201).json({ ok: true, id: r[0].id_programa });
   } catch (e) {
     if (e && (e.number === 2627 || e.number === 2601)) {
-      return res.status(409).json({ ok: false, error: 'Ya existe un programa con ese cÃƒÂ³digo' });
+      return res.status(409).json({ ok: false, error: 'Ya existe un programa con ese cÃƒÆ’Ã‚Â³digo' });
     }
     return res.status(500).json({ ok: false, error: e.message });
   }
@@ -126,9 +149,9 @@ router.put('/programas/:id', async (req, res) => {
     const codigoClean = String(codigo || '').trim();
     const nombreClean = String(nombre || '').trim();
     const nivelSql = normalizarNivel(nivel);
-    if (!Number.isInteger(id)) return res.status(400).json({ ok: false, error: 'ID invÃƒÂ¡lido' });
+    if (!Number.isInteger(id)) return res.status(400).json({ ok: false, error: 'ID invÃƒÆ’Ã‚Â¡lido' });
     if (!codigoClean || !nombreClean || !nivelSql) {
-      return res.status(400).json({ ok: false, error: 'codigo, nombre y nivel vÃƒÂ¡lidos son requeridos' });
+      return res.status(400).json({ ok: false, error: 'codigo, nombre y nivel vÃƒÆ’Ã‚Â¡lidos son requeridos' });
     }
 
     const updated = await query(
@@ -148,15 +171,15 @@ router.put('/programas/:id', async (req, res) => {
     res.json({ ok: true, mensaje: 'Programa actualizado' });
   } catch (e) {
     if (e && (e.number === 2627 || e.number === 2601)) {
-      return res.status(409).json({ ok: false, error: 'Ya existe un programa con ese cÃƒÂ³digo' });
+      return res.status(409).json({ ok: false, error: 'Ya existe un programa con ese cÃƒÆ’Ã‚Â³digo' });
     }
     return res.status(500).json({ ok: false, error: e.message });
   }
 });
 
-/* Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+/* ÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â
    PLANES DE ESTUDIO
-Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â */
+ÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â */
 
 router.get('/planes', async (req, res) => {
   try {
@@ -211,6 +234,25 @@ router.get('/planes/:id', async (req, res) => {
     );
     if (!row) return res.status(404).json({ ok: false, error: 'Plan no encontrado' });
     return res.json({ ok: true, data: row });
+  } catch (e) {
+    return res.status(500).json({ ok: false, error: e.message });
+  }
+});
+
+router.get('/planes/:id/cursos', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    if (!Number.isInteger(id)) return res.status(400).json({ ok: false, error: 'ID invalido' });
+
+    const rows = await query(
+      `SELECT c.id_curso, c.codigo, c.nombre, c.descripcion, c.creditos, c.horas_semanales, c.activo
+       FROM plan_estudio_curso pc
+       INNER JOIN curso c ON c.id_curso = pc.id_curso
+       WHERE pc.id_plan = @id
+       ORDER BY c.codigo`,
+      { id: { type: sql.Int, value: id } }
+    );
+    return res.json({ ok: true, data: rows });
   } catch (e) {
     return res.status(500).json({ ok: false, error: e.message });
   }
@@ -290,13 +332,13 @@ router.put('/planes/:id', async (req, res) => {
   }
 });
 
-/* Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+/* ÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â
    CURSOS
-Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â */
+ÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â */
 
 router.get('/cursos', async (req, res) => {
   try {
-    const { buscar = '', estado = '', creditos = '' } = req.query;
+    const { buscar = '', estado = '', creditos = '', plan = '' } = req.query;
     let where = 'WHERE 1=1';
     const params = {};
     if (buscar) { where += ' AND (c.nombre LIKE @b OR c.codigo LIKE @b)'; params.b = `%${buscar}%`; }
@@ -310,15 +352,24 @@ router.get('/cursos', async (req, res) => {
       where += ' AND c.creditos=@cr';
       params.cr = { type: sql.Int, value: credits };
     }
+    if (plan) {
+      const idPlan = parseInt(plan, 10);
+      if (!Number.isInteger(idPlan)) return res.status(400).json({ ok: false, error: 'Filtro de plan invalido' });
+      where += ' AND pc.id_plan=@pl';
+      params.pl = { type: sql.Int, value: idPlan };
+    }
 
     const rows = await query(`
       SELECT c.id_curso, c.codigo, c.nombre, c.descripcion, c.creditos, c.horas_semanales, c.activo,
+             pc.id_plan, pl.codigo AS plan_codigo, pl.nombre AS plan_nombre,
              STRING_AGG(cp.codigo, ', ') AS prerrequisitos
       FROM curso c
+      INNER JOIN plan_estudio_curso pc ON pc.id_curso = c.id_curso
+      INNER JOIN plan_estudio pl ON pl.id_plan = pc.id_plan
       LEFT JOIN curso_prerrequisito pre ON pre.id_curso = c.id_curso
       LEFT JOIN curso cp ON cp.id_curso = pre.id_curso_prerrequisito
       ${where}
-      GROUP BY c.id_curso,c.codigo,c.nombre,c.descripcion,c.creditos,c.horas_semanales,c.activo
+      GROUP BY c.id_curso,c.codigo,c.nombre,c.descripcion,c.creditos,c.horas_semanales,c.activo,pc.id_plan,pl.codigo,pl.nombre
       ORDER BY c.codigo
     `, params);
     res.json({ ok: true, data: rows });
@@ -327,9 +378,15 @@ router.get('/cursos', async (req, res) => {
 
 router.get('/cursos/:id', async (req, res) => {
   try {
+    const id = parseInt(req.params.id, 10);
+    if (!Number.isInteger(id)) return res.status(400).json({ ok: false, error: 'ID invalido' });
     const curso = await queryOne(
-      `SELECT * FROM curso WHERE id_curso=@id`,
-      { id: { type: sql.Int, value: parseInt(req.params.id) } }
+      `SELECT c.*, pc.id_plan, pl.codigo AS plan_codigo, pl.nombre AS plan_nombre
+       FROM curso c
+       INNER JOIN plan_estudio_curso pc ON pc.id_curso = c.id_curso
+       INNER JOIN plan_estudio pl ON pl.id_plan = pc.id_plan
+       WHERE c.id_curso=@id`,
+      { id: { type: sql.Int, value: id } }
     );
     if (!curso) return res.status(404).json({ ok: false, error: 'Curso no encontrado' });
     res.json({ ok: true, data: curso });
@@ -338,16 +395,17 @@ router.get('/cursos/:id', async (req, res) => {
 
 router.post('/cursos', async (req, res) => {
   try {
-    const { codigo, nombre, descripcion, creditos, horas_semanales, activo = 1 } = req.body;
+    const { codigo, nombre, descripcion, creditos, horas_semanales, id_plan, activo = 1 } = req.body;
     const codigoClean = String(codigo || '').trim();
     const nombreClean = String(nombre || '').trim();
     const creditosVal = parseInt(creditos, 10);
+    const idPlanVal = parseInt(id_plan, 10);
     const horasVal = (horas_semanales === undefined || horas_semanales === null || horas_semanales === '')
       ? null
       : parseInt(horas_semanales, 10);
 
-    if (!codigoClean || !nombreClean || !Number.isInteger(creditosVal) || creditosVal <= 0)
-      return res.status(400).json({ ok: false, error: 'codigo, nombre y creditos son requeridos' });
+    if (!codigoClean || !nombreClean || !Number.isInteger(creditosVal) || creditosVal <= 0 || !Number.isInteger(idPlanVal))
+      return res.status(400).json({ ok: false, error: 'codigo, nombre, creditos e id_plan son requeridos' });
     if (horasVal !== null && (!Number.isInteger(horasVal) || horasVal <= 0)) {
       return res.status(400).json({ ok: false, error: 'horas_semanales debe ser mayor a cero' });
     }
@@ -360,10 +418,25 @@ router.post('/cursos', async (req, res) => {
         h:  { type: sql.Int, value: horasVal },
         a:  activo ? 1 : 0 }
     );
-    res.status(201).json({ ok: true, id: r[0].id_curso });
+    const idCurso = r[0].id_curso;
+
+    try {
+      await query(
+        `INSERT INTO plan_estudio_curso(id_plan,id_curso,ciclo,obligatorio)
+         VALUES(@p,@c,NULL,1)`,
+        {
+          p: { type: sql.Int, value: idPlanVal },
+          c: { type: sql.Int, value: idCurso }
+        }
+      );
+    } catch (relErr) {
+      await query('DELETE FROM curso WHERE id_curso=@id', { id: { type: sql.Int, value: idCurso } });
+      throw relErr;
+    }
+    res.status(201).json({ ok: true, id: idCurso });
   } catch (e) {
     if (e && (e.number === 2627 || e.number === 2601)) {
-      return res.status(409).json({ ok: false, error: 'Ya existe un curso con ese codigo' });
+      return res.status(409).json({ ok: false, error: 'Ya existe un curso con ese codigo o ya esta asignado en otro plan' });
     }
     return res.status(500).json({ ok: false, error: e.message });
   }
@@ -372,17 +445,18 @@ router.post('/cursos', async (req, res) => {
 router.put('/cursos/:id', async (req, res) => {
   try {
     const id = parseInt(req.params.id, 10);
-    const { codigo, nombre, descripcion, creditos, horas_semanales, activo } = req.body;
+    const { codigo, nombre, descripcion, creditos, horas_semanales, id_plan, activo } = req.body;
     const codigoClean = String(codigo || '').trim();
     const nombreClean = String(nombre || '').trim();
     const creditosVal = parseInt(creditos, 10);
+    const idPlanVal = parseInt(id_plan, 10);
     const horasVal = (horas_semanales === undefined || horas_semanales === null || horas_semanales === '')
       ? null
       : parseInt(horas_semanales, 10);
 
     if (!Number.isInteger(id)) return res.status(400).json({ ok: false, error: 'ID invalido' });
-    if (!codigoClean || !nombreClean || !Number.isInteger(creditosVal) || creditosVal <= 0) {
-      return res.status(400).json({ ok: false, error: 'codigo, nombre y creditos son requeridos' });
+    if (!codigoClean || !nombreClean || !Number.isInteger(creditosVal) || creditosVal <= 0 || !Number.isInteger(idPlanVal)) {
+      return res.status(400).json({ ok: false, error: 'codigo, nombre, creditos e id_plan son requeridos' });
     }
     if (horasVal !== null && (!Number.isInteger(horasVal) || horasVal <= 0)) {
       return res.status(400).json({ ok: false, error: 'horas_semanales debe ser mayor a cero' });
@@ -400,18 +474,38 @@ router.put('/cursos/:id', async (req, res) => {
         id: { type: sql.Int, value: id } }
     );
     if (!updated.length) return res.status(404).json({ ok: false, error: 'Curso no encontrado' });
+
+    await query(
+      `DELETE FROM plan_estudio_curso
+       WHERE id_curso=@c AND id_plan<>@p`,
+      {
+        c: { type: sql.Int, value: id },
+        p: { type: sql.Int, value: idPlanVal }
+      }
+    );
+
+    await query(
+      `IF NOT EXISTS(SELECT 1 FROM plan_estudio_curso WHERE id_curso=@c AND id_plan=@p)
+         INSERT INTO plan_estudio_curso(id_plan,id_curso,ciclo,obligatorio)
+         VALUES(@p,@c,NULL,1)`,
+      {
+        c: { type: sql.Int, value: id },
+        p: { type: sql.Int, value: idPlanVal }
+      }
+    );
+
     res.json({ ok: true, mensaje: 'Curso actualizado' });
   } catch (e) {
     if (e && (e.number === 2627 || e.number === 2601)) {
-      return res.status(409).json({ ok: false, error: 'Ya existe un curso con ese codigo' });
+      return res.status(409).json({ ok: false, error: 'Ya existe un curso con ese codigo o ya esta asignado en otro plan' });
     }
     return res.status(500).json({ ok: false, error: e.message });
   }
 });
 
-/* Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+/* ÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â
    PERIODOS ACADEMICOS
-Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â */
+ÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â */
 
 router.get('/periodos', async (req, res) => {
   try {
@@ -565,71 +659,148 @@ router.put('/periodos/:id', async (req, res) => {
   }
 });
 
-/* Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+/* ÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â
    AULAS
-Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â */
+ÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â */
 
 router.get('/aulas', async (req, res) => {
   try {
+    const { buscar = '', edificio = '', estado = '' } = req.query;
+    let where = 'WHERE 1=1';
+    const params = {};
+    if (buscar) {
+      where += ' AND (a.codigo LIKE @b OR a.nombre LIKE @b OR ISNULL(a.edificio, \'\') LIKE @b)';
+      params.b = `%${buscar}%`;
+    }
+    if (edificio) {
+      where += ' AND a.edificio = @ed';
+      params.ed = edificio;
+    }
+    if (estado === '1' || String(estado).toLowerCase() === 'activa') where += ' AND a.activa = 1';
+    if (estado === '0' || String(estado).toLowerCase() === 'inactiva') where += ' AND a.activa = 0';
+
     const rows = await query(`
       SELECT a.id_aula, a.codigo, a.nombre, a.edificio, a.capacidad, a.activa,
              COUNT(s.id_seccion) AS secciones_activas
       FROM aula a
       LEFT JOIN seccion s ON s.id_aula = a.id_aula AND s.estado='Abierta'
+      ${where}
       GROUP BY a.id_aula,a.codigo,a.nombre,a.edificio,a.capacidad,a.activa
       ORDER BY a.edificio, a.codigo
-    `);
+    `, params);
     res.json({ ok: true, data: rows });
   } catch (e) { res.status(500).json({ ok: false, error: e.message }); }
+});
+
+router.get('/aulas/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    if (!Number.isInteger(id)) return res.status(400).json({ ok: false, error: 'ID invalido' });
+    const aula = await queryOne(
+      `SELECT id_aula, codigo, nombre, edificio, capacidad, activa
+       FROM aula
+       WHERE id_aula=@id`,
+      { id: { type: sql.Int, value: id } }
+    );
+    if (!aula) return res.status(404).json({ ok: false, error: 'Aula no encontrada' });
+    return res.json({ ok: true, data: aula });
+  } catch (e) { return res.status(500).json({ ok: false, error: e.message }); }
 });
 
 router.post('/aulas', async (req, res) => {
   try {
     const { codigo, nombre, edificio, capacidad, activa = 1 } = req.body;
-    if (!codigo || !nombre || !capacidad)
+    const codigoClean = String(codigo || '').trim();
+    const nombreClean = String(nombre || '').trim();
+    const cap = parseInt(capacidad, 10);
+    if (!codigoClean || !nombreClean || !Number.isInteger(cap) || cap <= 0)
       return res.status(400).json({ ok: false, error: 'codigo, nombre y capacidad son requeridos' });
     const r = await query(
       `INSERT INTO aula(codigo,nombre,edificio,capacidad,activa) OUTPUT INSERTED.id_aula VALUES(@c,@n,@e,@cap,@a)`,
-      { c: codigo, n: nombre, e: edificio || null,
-        cap: { type: sql.Int, value: parseInt(capacidad) }, a: activa ? 1 : 0 }
+      { c: codigoClean, n: nombreClean, e: edificio || null,
+        cap: { type: sql.Int, value: cap }, a: activa ? 1 : 0 }
     );
     res.status(201).json({ ok: true, id: r[0].id_aula });
-  } catch (e) { res.status(500).json({ ok: false, error: e.message }); }
+  } catch (e) {
+    if (e && (e.number === 2627 || e.number === 2601)) {
+      return res.status(409).json({ ok: false, error: 'Ya existe un aula con ese codigo' });
+    }
+    return res.status(500).json({ ok: false, error: e.message });
+  }
 });
 
 router.put('/aulas/:id', async (req, res) => {
   try {
-    const { nombre, edificio, capacidad, activa } = req.body;
-    await query(
-      `UPDATE aula SET nombre=@n,edificio=@e,capacidad=@cap,activa=@a WHERE id_aula=@id`,
-      { n: nombre, e: edificio || null,
-        cap: { type: sql.Int, value: parseInt(capacidad) },
-        a: activa ? 1 : 0,
-        id: { type: sql.Int, value: parseInt(req.params.id) } }
+    const id = parseInt(req.params.id, 10);
+    const { codigo, nombre, edificio, capacidad, activa } = req.body;
+    const codigoClean = String(codigo || '').trim();
+    const nombreClean = String(nombre || '').trim();
+    const cap = parseInt(capacidad, 10);
+    if (!Number.isInteger(id)) return res.status(400).json({ ok: false, error: 'ID invalido' });
+    if (!codigoClean || !nombreClean || !Number.isInteger(cap) || cap <= 0) {
+      return res.status(400).json({ ok: false, error: 'codigo, nombre y capacidad son requeridos' });
+    }
+
+    const updated = await query(
+      `UPDATE aula SET codigo=@c,nombre=@n,edificio=@e,capacidad=@cap,activa=@a
+       OUTPUT INSERTED.id_aula
+       WHERE id_aula=@id`,
+      { c: codigoClean, n: nombreClean, e: edificio || null,
+        cap: { type: sql.Int, value: cap },
+        a: (activa === undefined ? 1 : (activa ? 1 : 0)),
+        id: { type: sql.Int, value: id } }
     );
+    if (!updated.length) return res.status(404).json({ ok: false, error: 'Aula no encontrada' });
     res.json({ ok: true, mensaje: 'Aula actualizada' });
-  } catch (e) { res.status(500).json({ ok: false, error: e.message }); }
+  } catch (e) {
+    if (e && (e.number === 2627 || e.number === 2601)) {
+      return res.status(409).json({ ok: false, error: 'Ya existe un aula con ese codigo' });
+    }
+    return res.status(500).json({ ok: false, error: e.message });
+  }
 });
 
-/* Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+/* ÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â
    SECCIONES
-Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â */
+ÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚ÂÃƒÂ¢Ã¢â‚¬Â¢Ã‚Â */
 
 router.get('/secciones', async (req, res) => {
   try {
-    const { periodo = '', buscar = '' } = req.query;
+    const { periodo = '', estado = '', aula = '', buscar = '' } = req.query;
     let where = 'WHERE 1=1';
     const params = {};
-    if (periodo) { where += ' AND s.id_periodo=@per'; params.per = { type: sql.Int, value: parseInt(periodo) }; }
-    if (buscar)  { where += ' AND (c.nombre LIKE @b OR c.codigo LIKE @b)'; params.b = `%${buscar}%`; }
+    if (periodo) {
+      const idPeriodo = parseInt(periodo, 10);
+      if (!Number.isInteger(idPeriodo)) return res.status(400).json({ ok: false, error: 'Periodo invalido' });
+      where += ' AND s.id_periodo=@per';
+      params.per = { type: sql.Int, value: idPeriodo };
+    }
+    if (estado) {
+      where += ' AND s.estado = @est';
+      params.est = estado;
+    }
+    if (aula) {
+      const idAula = parseInt(aula, 10);
+      if (!Number.isInteger(idAula)) return res.status(400).json({ ok: false, error: 'Aula invalida' });
+      where += ' AND s.id_aula = @aula';
+      params.aula = { type: sql.Int, value: idAula };
+    }
+    if (buscar) {
+      where += ` AND (
+        s.codigo_seccion LIKE @b OR c.codigo LIKE @b OR c.nombre LIKE @b
+        OR (u.nombre + ' ' + u.apellido) LIKE @b
+        OR ISNULL(a.codigo, '') LIKE @b OR ISNULL(a.nombre, '') LIKE @b
+      )`;
+      params.b = `%${buscar}%`;
+    }
 
     const rows = await query(`
-      SELECT s.id_seccion, s.codigo_seccion, s.cupo_maximo, s.cupo_disponible,
-             s.modalidad, s.estado,
+      SELECT s.id_seccion, s.id_curso, s.id_periodo, s.id_docente_usuario, s.id_aula,
+             s.codigo_seccion, s.cupo_maximo, s.cupo_disponible, s.estado,
              c.codigo AS curso_codigo, c.nombre AS curso_nombre, c.creditos,
-             u.nombre + ' ' + u.apellido AS docente,
-             a.nombre AS aula, a.edificio,
-             p.nombre AS periodo,
+             LTRIM(RTRIM(ISNULL(u.nombre, '') + ' ' + ISNULL(u.apellido, ''))) AS docente,
+             a.codigo AS aula_codigo, a.nombre AS aula_nombre, a.edificio,
+             p.nombre AS periodo_nombre,
              (SELECT STRING_AGG(hs.dia_semana+' '+CONVERT(varchar,hs.hora_inicio,108)+'-'+CONVERT(varchar,hs.hora_fin,108),', ')
               FROM horario_seccion hs WHERE hs.id_seccion=s.id_seccion) AS horario
       FROM seccion s
@@ -638,33 +809,333 @@ router.get('/secciones', async (req, res) => {
       LEFT JOIN usuario u ON u.id_usuario = s.id_docente_usuario
       LEFT JOIN aula a ON a.id_aula = s.id_aula
       ${where}
-      ORDER BY c.codigo, s.codigo_seccion
+      ORDER BY p.fecha_inicio DESC, c.codigo, s.codigo_seccion
     `, params);
     res.json({ ok: true, data: rows });
   } catch (e) { res.status(500).json({ ok: false, error: e.message }); }
 });
 
+router.get('/secciones/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    if (!Number.isInteger(id)) return res.status(400).json({ ok: false, error: 'ID invalido' });
+    const row = await queryOne(
+      `SELECT s.id_seccion, s.id_curso, s.id_periodo, s.id_docente_usuario, s.id_aula,
+              s.codigo_seccion, s.cupo_maximo, s.cupo_disponible, s.estado,
+              (SELECT TOP 1 hs.dia_semana FROM horario_seccion hs WHERE hs.id_seccion = s.id_seccion ORDER BY hs.id_horario) AS dia_semana,
+              (SELECT TOP 1 CONVERT(varchar, hs.hora_inicio, 8) FROM horario_seccion hs WHERE hs.id_seccion = s.id_seccion ORDER BY hs.id_horario) AS hora_inicio,
+              (SELECT TOP 1 CONVERT(varchar, hs.hora_fin, 8) FROM horario_seccion hs WHERE hs.id_seccion = s.id_seccion ORDER BY hs.id_horario) AS hora_fin
+       FROM seccion s
+       WHERE s.id_seccion = @id`,
+      { id: { type: sql.Int, value: id } }
+    );
+    if (!row) return res.status(404).json({ ok: false, error: 'Seccion no encontrada' });
+    return res.json({ ok: true, data: row });
+  } catch (e) {
+    return res.status(500).json({ ok: false, error: e.message });
+  }
+});
+
+async function validarDocente(idDocente) {
+  if (!idDocente) return true;
+  const row = await queryOne(
+    `SELECT u.id_usuario
+     FROM usuario u
+     INNER JOIN rol r ON r.id_rol = u.id_rol
+     WHERE u.id_usuario = @id AND LOWER(r.nombre) LIKE '%docente%'`,
+    { id: { type: sql.Int, value: idDocente } }
+  );
+  return !!row;
+}
+
+async function capacidadAula(idAula) {
+  if (!idAula) return null;
+  const row = await queryOne(
+    `SELECT id_aula, capacidad FROM aula WHERE id_aula = @id AND activa = 1`,
+    { id: { type: sql.Int, value: idAula } }
+  );
+  return row || null;
+}
+
+async function validarDisponibilidadHorario({ idPeriodo, idDocente, idAula, diaSemana, horaInicio, horaFin, excluirSeccionId = null }) {
+  if (!diaSemana || !horaInicio || !horaFin) return null;
+
+  if (idDocente) {
+    const conflictoDocente = await queryOne(
+      `SELECT TOP 1 s.id_seccion, s.codigo_seccion,
+              c.codigo AS curso_codigo, c.nombre AS curso_nombre,
+              CONVERT(varchar,hs.hora_inicio,108) AS hi,
+              CONVERT(varchar,hs.hora_fin,108)    AS hf
+       FROM seccion s
+       INNER JOIN curso c ON c.id_curso = s.id_curso
+       INNER JOIN horario_seccion hs ON hs.id_seccion = s.id_seccion
+       WHERE s.id_periodo = @per
+         AND s.id_docente_usuario = @doc
+         AND s.estado <> 'Cancelada'
+         AND hs.dia_semana = @dia
+         AND hs.hora_inicio < @hf
+         AND hs.hora_fin > @hi
+         AND (@excluir IS NULL OR s.id_seccion <> @excluir)
+       ORDER BY hs.hora_inicio`,
+      {
+        per: { type: sql.Int, value: idPeriodo },
+        doc: { type: sql.Int, value: idDocente },
+        dia: diaSemana,
+        hi: horaInicio,
+        hf: horaFin,
+        excluir: excluirSeccionId ? { type: sql.Int, value: excluirSeccionId } : null
+      }
+    );
+    if (conflictoDocente) {
+      return {
+        tipo: 'docente',
+        mensaje: `El docente ya tiene una sesion en ese horario (${conflictoDocente.curso_codigo} ${conflictoDocente.codigo_seccion}, ${conflictoDocente.hi}-${conflictoDocente.hf})`
+      };
+    }
+  }
+
+  const conflictoAula = await queryOne(
+    `SELECT TOP 1 s.id_seccion, s.codigo_seccion,
+            c.codigo AS curso_codigo, c.nombre AS curso_nombre,
+            CONVERT(varchar,hs.hora_inicio,108) AS hi,
+            CONVERT(varchar,hs.hora_fin,108)    AS hf
+     FROM seccion s
+     INNER JOIN curso c ON c.id_curso = s.id_curso
+     INNER JOIN horario_seccion hs ON hs.id_seccion = s.id_seccion
+     WHERE s.id_periodo = @per
+       AND s.id_aula = @aula
+       AND s.estado <> 'Cancelada'
+       AND hs.dia_semana = @dia
+       AND hs.hora_inicio < @hf
+       AND hs.hora_fin > @hi
+       AND (@excluir IS NULL OR s.id_seccion <> @excluir)
+     ORDER BY hs.hora_inicio`,
+    {
+      per: { type: sql.Int, value: idPeriodo },
+      aula: { type: sql.Int, value: idAula },
+      dia: diaSemana,
+      hi: horaInicio,
+      hf: horaFin,
+      excluir: excluirSeccionId ? { type: sql.Int, value: excluirSeccionId } : null
+    }
+  );
+  if (conflictoAula) {
+    return {
+      tipo: 'aula',
+      mensaje: `El aula ya esta ocupada en ese horario (${conflictoAula.curso_codigo} ${conflictoAula.codigo_seccion}, ${conflictoAula.hi}-${conflictoAula.hf})`
+    };
+  }
+
+  return null;
+}
+
 router.post('/secciones', async (req, res) => {
   try {
     const { id_curso, id_periodo, codigo_seccion, id_docente_usuario,
-            id_aula, cupo_maximo, modalidad, estado = 'Abierta' } = req.body;
-    if (!id_curso || !id_periodo || !codigo_seccion || !cupo_maximo)
-      return res.status(400).json({ ok: false, error: 'Faltan campos' });
+            id_aula, cupo_maximo, estado = 'Abierta', dia_semana, hora_inicio, hora_fin } = req.body;
+    const idCurso = parseInt(id_curso, 10);
+    const idPeriodo = parseInt(id_periodo, 10);
+    const idDocente = id_docente_usuario ? parseInt(id_docente_usuario, 10) : null;
+    const idAula = id_aula ? parseInt(id_aula, 10) : null;
+    const codigo = String(codigo_seccion || '').trim();
+    if (!Number.isInteger(idCurso) || !Number.isInteger(idPeriodo) || !codigo || !Number.isInteger(idAula)) {
+      return res.status(400).json({ ok: false, error: 'Curso, periodo, seccion y aula son requeridos' });
+    }
+    if (idDocente && !Number.isInteger(idDocente)) {
+      return res.status(400).json({ ok: false, error: 'Docente invalido' });
+    }
+    const aula = await capacidadAula(idAula);
+    if (!aula) return res.status(400).json({ ok: false, error: 'Aula invalida o inactiva' });
+    if (!(await validarDocente(idDocente))) {
+      return res.status(400).json({ ok: false, error: 'El usuario seleccionado no es docente' });
+    }
+    const cupoSolicitado = cupo_maximo === undefined || cupo_maximo === null || String(cupo_maximo).trim() === ''
+      ? aula.capacidad
+      : parseInt(cupo_maximo, 10);
+    if (!Number.isInteger(cupoSolicitado) || cupoSolicitado <= 0) {
+      return res.status(400).json({ ok: false, error: 'Cupo maximo invalido' });
+    }
+    if (cupoSolicitado > aula.capacidad) {
+      return res.status(400).json({ ok: false, error: `El cupo maximo no puede superar la capacidad del aula (${aula.capacidad})` });
+    }
+    if (dia_semana && hora_inicio && hora_fin) {
+      const conflicto = await validarDisponibilidadHorario({
+        idPeriodo,
+        idDocente,
+        idAula,
+        diaSemana: dia_semana,
+        horaInicio: hora_inicio,
+        horaFin: hora_fin
+      });
+      if (conflicto) {
+        return res.status(409).json({ ok: false, error: conflicto.mensaje });
+      }
+    }
+
     const r = await query(
       `INSERT INTO seccion(id_curso,id_periodo,codigo_seccion,id_docente_usuario,id_aula,
          cupo_maximo,cupo_disponible,modalidad,estado)
        OUTPUT INSERTED.id_seccion
        VALUES(@ic,@ip,@cs,@doc,@aula,@cm,@cm,@mod,@est)`,
-      { ic: { type: sql.Int, value: parseInt(id_curso) },
-        ip: { type: sql.Int, value: parseInt(id_periodo) },
-        cs: codigo_seccion,
-        doc: { type: sql.Int, value: id_docente_usuario ? parseInt(id_docente_usuario) : null },
-        aula: { type: sql.Int, value: id_aula ? parseInt(id_aula) : null },
-        cm: { type: sql.Int, value: parseInt(cupo_maximo) },
-        mod: modalidad || 'Presencial', est: estado }
+      {
+        ic: { type: sql.Int, value: idCurso },
+        ip: { type: sql.Int, value: idPeriodo },
+        cs: codigo,
+        doc: { type: sql.Int, value: idDocente },
+        aula: { type: sql.Int, value: idAula },
+        cm: { type: sql.Int, value: cupoSolicitado },
+        mod: null,
+        est: estado || 'Abierta'
+      }
     );
-    res.status(201).json({ ok: true, id: r[0].id_seccion });
-  } catch (e) { res.status(500).json({ ok: false, error: e.message }); }
+    const idSeccion = r[0].id_seccion;
+
+    if (dia_semana && hora_inicio && hora_fin) {
+      await query(
+        `INSERT INTO horario_seccion(id_seccion,dia_semana,hora_inicio,hora_fin)
+         VALUES(@id,@dia,@hi,@hf)`,
+        {
+          id: { type: sql.Int, value: idSeccion },
+          dia: dia_semana,
+          hi: hora_inicio,
+          hf: hora_fin
+        }
+      );
+    }
+
+    res.status(201).json({ ok: true, id: idSeccion });
+  } catch (e) {
+    if (e && (e.number === 2627 || e.number === 2601)) {
+      return res.status(409).json({ ok: false, error: 'Ya existe una seccion con ese codigo para el curso y periodo seleccionados' });
+    }
+    res.status(500).json({ ok: false, error: e.message });
+  }
+});
+
+router.put('/secciones/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    const { id_curso, id_periodo, codigo_seccion, id_docente_usuario,
+            id_aula, cupo_maximo, estado = 'Abierta', dia_semana, hora_inicio, hora_fin } = req.body;
+    const idCurso = parseInt(id_curso, 10);
+    const idPeriodo = parseInt(id_periodo, 10);
+    const idDocente = id_docente_usuario ? parseInt(id_docente_usuario, 10) : null;
+    const idAula = id_aula ? parseInt(id_aula, 10) : null;
+    const codigo = String(codigo_seccion || '').trim();
+    if (!Number.isInteger(id)) return res.status(400).json({ ok: false, error: 'ID invalido' });
+    if (!Number.isInteger(idCurso) || !Number.isInteger(idPeriodo) || !codigo || !Number.isInteger(idAula)) {
+      return res.status(400).json({ ok: false, error: 'Curso, periodo, seccion y aula son requeridos' });
+    }
+    if (idDocente && !Number.isInteger(idDocente)) {
+      return res.status(400).json({ ok: false, error: 'Docente invalido' });
+    }
+    const aula = await capacidadAula(idAula);
+    if (!aula) return res.status(400).json({ ok: false, error: 'Aula invalida o inactiva' });
+    if (!(await validarDocente(idDocente))) {
+      return res.status(400).json({ ok: false, error: 'El usuario seleccionado no es docente' });
+    }
+
+    const actual = await queryOne(
+      `SELECT cupo_maximo, cupo_disponible
+       FROM seccion
+       WHERE id_seccion = @id`,
+      { id: { type: sql.Int, value: id } }
+    );
+    if (!actual) return res.status(404).json({ ok: false, error: 'Seccion no encontrada' });
+
+    const inscritos = actual.cupo_maximo - actual.cupo_disponible;
+    const cupoSolicitado = cupo_maximo === undefined || cupo_maximo === null || String(cupo_maximo).trim() === ''
+      ? aula.capacidad
+      : parseInt(cupo_maximo, 10);
+    if (!Number.isInteger(cupoSolicitado) || cupoSolicitado <= 0) {
+      return res.status(400).json({ ok: false, error: 'Cupo maximo invalido' });
+    }
+    if (cupoSolicitado > aula.capacidad) {
+      return res.status(400).json({ ok: false, error: `El cupo maximo no puede superar la capacidad del aula (${aula.capacidad})` });
+    }
+    if (inscritos > cupoSolicitado) {
+      return res.status(400).json({ ok: false, error: `No se puede reducir cupo por debajo de matriculados actuales (${inscritos})` });
+    }
+    const nuevoDisponible = cupoSolicitado - inscritos;
+    if (dia_semana && hora_inicio && hora_fin) {
+      const conflicto = await validarDisponibilidadHorario({
+        idPeriodo,
+        idDocente,
+        idAula,
+        diaSemana: dia_semana,
+        horaInicio: hora_inicio,
+        horaFin: hora_fin,
+        excluirSeccionId: id
+      });
+      if (conflicto) {
+        return res.status(409).json({ ok: false, error: conflicto.mensaje });
+      }
+    }
+
+    const updated = await query(
+      `UPDATE seccion
+       SET id_curso=@ic,id_periodo=@ip,codigo_seccion=@cs,id_docente_usuario=@doc,id_aula=@aula,
+           cupo_maximo=@cm,cupo_disponible=@cd,modalidad=NULL,estado=@est
+       OUTPUT INSERTED.id_seccion
+       WHERE id_seccion=@id`,
+      {
+        ic: { type: sql.Int, value: idCurso },
+        ip: { type: sql.Int, value: idPeriodo },
+        cs: codigo,
+        doc: { type: sql.Int, value: idDocente },
+        aula: { type: sql.Int, value: idAula },
+        cm: { type: sql.Int, value: cupoSolicitado },
+        cd: { type: sql.Int, value: nuevoDisponible },
+        est: estado || 'Abierta',
+        id: { type: sql.Int, value: id }
+      }
+    );
+    if (!updated.length) return res.status(404).json({ ok: false, error: 'Seccion no encontrada' });
+
+    await query('DELETE FROM horario_seccion WHERE id_seccion=@id', { id: { type: sql.Int, value: id } });
+    if (dia_semana && hora_inicio && hora_fin) {
+      await query(
+        `INSERT INTO horario_seccion(id_seccion,dia_semana,hora_inicio,hora_fin)
+         VALUES(@id,@dia,@hi,@hf)`,
+        { id: { type: sql.Int, value: id }, dia: dia_semana, hi: hora_inicio, hf: hora_fin }
+      );
+    }
+
+    res.json({ ok: true, mensaje: 'Seccion actualizada' });
+  } catch (e) {
+    if (e && (e.number === 2627 || e.number === 2601)) {
+      return res.status(409).json({ ok: false, error: 'Ya existe una seccion con ese codigo para el curso y periodo seleccionados' });
+    }
+    return res.status(500).json({ ok: false, error: e.message });
+  }
+});
+
+router.delete('/secciones/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    if (!Number.isInteger(id)) return res.status(400).json({ ok: false, error: 'ID invalido' });
+
+    await query('DELETE FROM horario_seccion WHERE id_seccion=@id', { id: { type: sql.Int, value: id } });
+    const deleted = await query(
+      `DELETE FROM seccion
+       OUTPUT DELETED.id_seccion
+       WHERE id_seccion=@id`,
+      { id: { type: sql.Int, value: id } }
+    );
+    if (deleted.length) return res.json({ ok: true, mensaje: 'Seccion eliminada' });
+
+    return res.status(404).json({ ok: false, error: 'Seccion no encontrada' });
+  } catch (e) {
+    if (e && e.number === 547) {
+      const id = parseInt(req.params.id, 10);
+      await query(
+        `UPDATE seccion SET estado='Cancelada' WHERE id_seccion=@id`,
+        { id: { type: sql.Int, value: id } }
+      );
+      return res.json({ ok: true, mensaje: 'Seccion con matriculas: se marco como Cancelada' });
+    }
+    return res.status(500).json({ ok: false, error: e.message });
+  }
 });
 
 module.exports = router;
