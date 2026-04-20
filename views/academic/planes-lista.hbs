@@ -5,17 +5,19 @@
       <div><div class="navbar-titulo">Planes de Estudio</div><div class="navbar-breadcrumb"><a href="/academic/programas">Programas</a><span class="separador"></span><span class="actual">Planes de estudio</span></div></div>
       <div class="navbar-acciones"><div class="navbar-usuario"><div class="avatar">AM</div><div><div class="navbar-usuario-nombre">Ana Mora</div><div class="navbar-usuario-rol">Administradora TI</div></div></div></div>
     </header>
+
     <main class="area-pagina">
       <div class="encabezado-pagina">
         <div><h1>Planes de estudio</h1><p>Administra los planes curriculares de todos los programas.</p></div>
         <div class="acciones-encabezado"><button id="btn-nuevo-plan" class="btn btn-primario">+ Nuevo plan</button></div>
       </div>
+
       <div class="carta">
         <div class="tabla-contenedor">
           <table class="tabla">
-            <thead><tr><th>Código</th><th>Nombre</th><th>Programa</th><th>Vigencia inicio</th><th>Vigencia fin</th><th>Total cursos</th><th>Estado</th><th>Acciones</th></tr></thead>
+            <thead><tr><th>Codigo</th><th>Nombre</th><th>Programa</th><th>Vigencia inicio</th><th>Vigencia fin</th><th>Total cursos</th><th>Estado</th><th>Acciones</th></tr></thead>
             <tbody id="tbody-planes">
-              <tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando…</td></tr>
+              <tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando...</td></tr>
             </tbody>
           </table>
         </div>
@@ -27,25 +29,25 @@
 <!-- Modal crear/editar plan -->
 <div id="modal-plan" class="modal">
   <div class="modal-overlay" onclick="U.closeModal('modal-plan')"></div>
-  <div class="modal-caja" style="max-width:520px;">
+  <div class="modal-caja" style="max-width:560px;">
     <div class="modal-cabecera">
       <div class="modal-titulo" id="modal-plan-titulo">Nuevo plan de estudio</div>
-      <button class="modal-cerrar" onclick="U.closeModal('modal-plan')">✕</button>
+      <button type="button" class="modal-cerrar" onclick="U.closeModal('modal-plan')">x</button>
     </div>
     <form id="form-plan" class="modal-cuerpo" style="display:flex;flex-direction:column;gap:1rem;">
       <input type="hidden" id="plan-id">
       <div class="campo" style="margin:0;">
-        <label>Código <span class="requerido">*</span></label>
-        <input id="plan-codigo" name="codigo" class="campo-input" required placeholder="ej. IS-2025">
+        <label>Codigo <span class="requerido">*</span></label>
+        <input id="plan-codigo" name="codigo" class="campo-input" maxlength="20" required placeholder="ej. IS-2026">
       </div>
       <div class="campo" style="margin:0;">
         <label>Nombre <span class="requerido">*</span></label>
-        <input id="plan-nombre" name="nombre" class="campo-input" required placeholder="Nombre del plan">
+        <input id="plan-nombre" name="nombre" class="campo-input" maxlength="150" required placeholder="Nombre del plan">
       </div>
       <div class="campo" style="margin:0;">
         <label>Programa <span class="requerido">*</span></label>
         <select id="plan-programa" name="id_programa" class="campo-input" required>
-          <option value="">Seleccionar programa…</option>
+          <option value="">Seleccionar programa...</option>
         </select>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
@@ -58,6 +60,13 @@
           <input id="plan-fin" name="fecha_vigencia_fin" class="campo-input" type="date">
         </div>
       </div>
+      <div class="campo" style="margin:0;">
+        <label>Estado</label>
+        <select id="plan-activo" name="activo" class="campo-input">
+          <option value="1">Activo</option>
+          <option value="0">Inactivo</option>
+        </select>
+      </div>
       <div style="display:flex;gap:.75rem;justify-content:flex-end;margin-top:.5rem;">
         <button type="button" class="btn btn-secundario" onclick="U.closeModal('modal-plan')">Cancelar</button>
         <button type="submit" class="btn btn-primario">Guardar</button>
@@ -65,6 +74,47 @@
     </form>
   </div>
 </div>
+
+<style>
+  #modal-plan {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    max-width: none;
+    max-height: none;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    z-index: 1200;
+    background: rgba(15, 23, 42, .55);
+  }
+  #modal-plan.abierto { display: flex; }
+  #modal-plan .modal-overlay { position: absolute; inset: 0; }
+  #modal-plan .modal-caja {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: var(--fondo-carta);
+    border-radius: var(--radio-grande);
+    box-shadow: var(--sombra-modal);
+  }
+  #modal-plan .modal-cerrar {
+    background: none;
+    border: none;
+    color: var(--gris-suave);
+    font-size: 1.25rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+  #modal-plan .modal-cerrar:hover { color: var(--gris-oscuro); }
+</style>
+
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="/js/utils.js"></script>
 <script src="/js/academic-planes.js"></script>

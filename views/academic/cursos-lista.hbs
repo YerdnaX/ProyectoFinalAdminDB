@@ -4,7 +4,7 @@
   <div class="contenido-principal">
     <header class="navbar">
       <div>
-        <div class="navbar-titulo">Catálogo de Cursos</div>
+        <div class="navbar-titulo">Catalogo de Cursos</div>
         <div class="navbar-breadcrumb"><span>Inicio</span><span class="separador"></span><span class="actual">Cursos</span></div>
       </div>
       <div class="navbar-acciones">
@@ -14,9 +14,8 @@
 
     <main class="area-pagina">
       <div class="encabezado-pagina">
-        <div><h1>Catálogo de cursos</h1><p>Administra el catálogo completo de cursos del sistema.</p></div>
+        <div><h1>Catalogo de cursos</h1><p>Administra el catalogo completo de cursos del sistema.</p></div>
         <div class="acciones-encabezado">
-          <button class="btn btn-secundario">Exportar</button>
           <button id="btn-nuevo-curso" class="btn btn-primario">+ Nuevo curso</button>
         </div>
       </div>
@@ -24,8 +23,15 @@
       <div class="carta">
         <div class="carta-cabecera">
           <div class="barra-filtros" style="margin:0;flex:1;">
-            <div class="barra-busqueda"><span class="icono-buscar">🔍</span><input id="input-buscar" type="text" placeholder="Buscar por nombre o código..."></div>
-            <select id="sel-creditos" class="filtro-select"><option value="">Todos los créditos</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select>
+            <div class="barra-busqueda"><span class="icono-buscar">Buscar</span><input id="input-buscar" type="text" placeholder="Buscar por nombre o codigo..."></div>
+            <select id="sel-creditos" class="filtro-select">
+              <option value="">Todos los creditos</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
           </div>
         </div>
 
@@ -33,9 +39,9 @@
           <table class="tabla">
             <thead>
               <tr>
-                <th>Código</th>
+                <th>Codigo</th>
                 <th>Nombre</th>
-                <th>Créditos</th>
+                <th>Creditos</th>
                 <th>Horas/sem.</th>
                 <th>Prerrequisitos</th>
                 <th>Estado</th>
@@ -43,7 +49,7 @@
               </tr>
             </thead>
             <tbody id="tbody-cursos">
-              <tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando…</td></tr>
+              <tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando...</td></tr>
             </tbody>
           </table>
         </div>
@@ -52,27 +58,28 @@
     </main>
   </div>
 </div>
+
 <!-- Modal crear curso -->
 <div id="modal-crear-curso" class="modal">
   <div class="modal-overlay" onclick="U.closeModal('modal-crear-curso')"></div>
-  <div class="modal-caja" style="max-width:520px;">
+  <div class="modal-caja" style="max-width:560px;">
     <div class="modal-cabecera">
       <div class="modal-titulo">Nuevo curso</div>
-      <button class="modal-cerrar" onclick="U.closeModal('modal-crear-curso')">✕</button>
+      <button type="button" class="modal-cerrar" onclick="U.closeModal('modal-crear-curso')">x</button>
     </div>
     <form id="form-crear-curso" class="modal-cuerpo" style="display:flex;flex-direction:column;gap:1rem;">
       <div class="campo" style="margin:0;">
-        <label>Código <span class="requerido">*</span></label>
-        <input name="codigo" class="campo-input" required placeholder="ej. IS-1101">
+        <label>Codigo <span class="requerido">*</span></label>
+        <input name="codigo" class="campo-input" maxlength="20" required placeholder="ej. IS-1101">
       </div>
       <div class="campo" style="margin:0;">
         <label>Nombre <span class="requerido">*</span></label>
-        <input name="nombre" class="campo-input" required placeholder="Nombre del curso">
+        <input name="nombre" class="campo-input" maxlength="150" required placeholder="Nombre del curso">
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
         <div class="campo" style="margin:0;">
-          <label>Créditos <span class="requerido">*</span></label>
-          <input name="creditos" class="campo-input" type="number" min="1" max="10" required placeholder="ej. 4">
+          <label>Creditos <span class="requerido">*</span></label>
+          <input name="creditos" class="campo-input" type="number" min="1" max="20" required placeholder="ej. 4">
         </div>
         <div class="campo" style="margin:0;">
           <label>Horas semanales</label>
@@ -80,8 +87,15 @@
         </div>
       </div>
       <div class="campo" style="margin:0;">
-        <label>Descripción</label>
-        <textarea name="descripcion" class="campo-input" rows="3" placeholder="Descripción opcional del curso"></textarea>
+        <label>Descripcion</label>
+        <textarea name="descripcion" class="campo-input" rows="3" maxlength="300" placeholder="Descripcion opcional del curso"></textarea>
+      </div>
+      <div class="campo" style="margin:0;">
+        <label>Estado</label>
+        <select name="activo" class="campo-input">
+          <option value="1">Activo</option>
+          <option value="0">Inactivo</option>
+        </select>
       </div>
       <div style="display:flex;gap:.75rem;justify-content:flex-end;margin-top:.5rem;">
         <button type="button" class="btn btn-secundario" onclick="U.closeModal('modal-crear-curso')">Cancelar</button>
@@ -90,6 +104,99 @@
     </form>
   </div>
 </div>
+
+<!-- Modal editar curso -->
+<div id="modal-editar-curso" class="modal">
+  <div class="modal-overlay" onclick="U.closeModal('modal-editar-curso')"></div>
+  <div class="modal-caja" style="max-width:560px;">
+    <div class="modal-cabecera">
+      <div class="modal-titulo">Editar curso</div>
+      <button type="button" class="modal-cerrar" onclick="U.closeModal('modal-editar-curso')">x</button>
+    </div>
+    <form id="form-editar-curso" class="modal-cuerpo" style="display:flex;flex-direction:column;gap:1rem;">
+      <div class="campo" style="margin:0;">
+        <label>Codigo <span class="requerido">*</span></label>
+        <input name="codigo" class="campo-input" maxlength="20" required>
+      </div>
+      <div class="campo" style="margin:0;">
+        <label>Nombre <span class="requerido">*</span></label>
+        <input name="nombre" class="campo-input" maxlength="150" required>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="campo" style="margin:0;">
+          <label>Creditos <span class="requerido">*</span></label>
+          <input name="creditos" class="campo-input" type="number" min="1" max="20" required>
+        </div>
+        <div class="campo" style="margin:0;">
+          <label>Horas semanales</label>
+          <input name="horas_semanales" class="campo-input" type="number" min="1">
+        </div>
+      </div>
+      <div class="campo" style="margin:0;">
+        <label>Descripcion</label>
+        <textarea name="descripcion" class="campo-input" rows="3" maxlength="300"></textarea>
+      </div>
+      <div class="campo" style="margin:0;">
+        <label>Estado</label>
+        <select name="activo" class="campo-input">
+          <option value="1">Activo</option>
+          <option value="0">Inactivo</option>
+        </select>
+      </div>
+      <div style="display:flex;gap:.75rem;justify-content:flex-end;margin-top:.5rem;">
+        <button type="button" class="btn btn-secundario" onclick="U.closeModal('modal-editar-curso')">Cancelar</button>
+        <button type="submit" class="btn btn-primario">Guardar cambios</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+  #modal-crear-curso,
+  #modal-editar-curso {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    max-width: none;
+    max-height: none;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    z-index: 1200;
+    background: rgba(15, 23, 42, .55);
+  }
+  #modal-crear-curso.abierto,
+  #modal-editar-curso.abierto { display: flex; }
+  #modal-crear-curso .modal-overlay,
+  #modal-editar-curso .modal-overlay { position: absolute; inset: 0; }
+  #modal-crear-curso .modal-caja,
+  #modal-editar-curso .modal-caja {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: var(--fondo-carta);
+    border-radius: var(--radio-grande);
+    box-shadow: var(--sombra-modal);
+  }
+  #modal-crear-curso .modal-cerrar,
+  #modal-editar-curso .modal-cerrar {
+    background: none;
+    border: none;
+    color: var(--gris-suave);
+    font-size: 1.25rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+  #modal-crear-curso .modal-cerrar:hover,
+  #modal-editar-curso .modal-cerrar:hover { color: var(--gris-oscuro); }
+</style>
+
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="/js/utils.js"></script>
 <script src="/js/academic-cursos.js"></script>

@@ -4,8 +4,8 @@
   <div class="contenido-principal">
     <header class="navbar">
       <div>
-        <div class="navbar-titulo">Programas Académicos</div>
-        <div class="navbar-breadcrumb"><span>Inicio</span><span class="separador"></span><span class="actual">Programas académicos</span></div>
+        <div class="navbar-titulo">Programas Academicos</div>
+        <div class="navbar-breadcrumb"><span>Inicio</span><span class="separador"></span><span class="actual">Programas academicos</span></div>
       </div>
       <div class="navbar-acciones">
         <div class="navbar-usuario"><div class="avatar">AM</div><div><div class="navbar-usuario-nombre">Ana Mora</div><div class="navbar-usuario-rol">Administradora TI</div></div></div>
@@ -14,23 +14,35 @@
 
     <main class="area-pagina">
       <div class="encabezado-pagina">
-        <div><h1>Programas académicos</h1><p>Gestiona las carreras y posgrados ofertados por la universidad.</p></div>
+        <div><h1>Programas academicos</h1><p>Gestiona las carreras y posgrados ofertados por la universidad.</p></div>
         <div class="acciones-encabezado"><button id="btn-nuevo-programa" class="btn btn-primario">+ Nuevo programa</button></div>
       </div>
 
       <div class="barra-filtros">
-        <div class="barra-busqueda"><span class="icono-buscar">🔍</span><input id="fil-buscar" type="text" placeholder="Buscar programa..."></div>
-        <select id="sel-nivel" class="filtro-select"><option value="">Todos los niveles</option><option>Bachillerato</option><option>Licenciatura</option><option>Maestría</option><option>Doctorado</option></select>
-        <select id="sel-estado" class="filtro-select"><option value="">Todos los estados</option><option value="1">Activo</option><option value="0">Inactivo</option></select>
+        <div class="barra-busqueda"><span class="icono-buscar">Buscar</span><input id="fil-buscar" type="text" placeholder="Buscar por codigo o nombre..."></div>
+        <select id="sel-nivel" class="filtro-select">
+          <option value="">Todos los niveles</option>
+          <option value="Tecnico">Tecnico</option>
+          <option value="Diplomado">Diplomado</option>
+          <option value="Bachillerato">Bachillerato</option>
+          <option value="Licenciatura">Licenciatura</option>
+          <option value="Maestria">Maestria</option>
+          <option value="Doctorado">Doctorado</option>
+        </select>
+        <select id="sel-estado" class="filtro-select">
+          <option value="">Todos los estados</option>
+          <option value="1">Activo</option>
+          <option value="0">Inactivo</option>
+        </select>
         <button id="btn-buscar" class="btn btn-primario btn-sm">Buscar</button>
       </div>
 
       <div class="carta">
         <div class="tabla-contenedor">
           <table class="tabla">
-            <thead><tr><th>Código</th><th>Nombre</th><th>Nivel</th><th>Planes</th><th>Estudiantes</th><th>Estado</th><th>Acciones</th></tr></thead>
+            <thead><tr><th>Codigo</th><th>Nombre</th><th>Nivel</th><th>Planes</th><th>Estudiantes</th><th>Estado</th><th>Acciones</th></tr></thead>
             <tbody id="tbody-programas">
-              <tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando…</td></tr>
+              <tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--gris-suave);">Cargando...</td></tr>
             </tbody>
           </table>
         </div>
@@ -46,36 +58,36 @@
   <div class="modal-caja" style="max-width:520px;">
     <div class="modal-cabecera">
       <div class="modal-titulo" id="modal-prog-titulo">Nuevo programa</div>
-      <button class="modal-cerrar" onclick="U.closeModal('modal-programa')">✕</button>
+      <button type="button" class="modal-cerrar" onclick="U.closeModal('modal-programa')">x</button>
     </div>
     <form id="form-programa" class="modal-cuerpo" style="display:flex;flex-direction:column;gap:1rem;">
       <input type="hidden" id="prog-id">
       <div class="campo" style="margin:0;">
-        <label>Código <span class="requerido">*</span></label>
-        <input id="prog-codigo" class="campo-input" required placeholder="ej. ING-SIS">
+        <label>Codigo <span class="requerido">*</span></label>
+        <input id="prog-codigo" class="campo-input" maxlength="20" required placeholder="ej. ING-SIS">
       </div>
       <div class="campo" style="margin:0;">
         <label>Nombre <span class="requerido">*</span></label>
-        <input id="prog-nombre" class="campo-input" required placeholder="Nombre completo del programa">
+        <input id="prog-nombre" class="campo-input" maxlength="150" required placeholder="Nombre del programa">
       </div>
       <div class="campo" style="margin:0;">
-        <label>Descripción</label>
-        <textarea id="prog-descripcion" class="campo-input" rows="3" placeholder="Descripción opcional"></textarea>
-      </div>
-      <div class="campo" style="margin:0;">
-        <label>Nivel académico <span class="requerido">*</span></label>
+        <label>Nivel academico <span class="requerido">*</span></label>
         <select id="prog-nivel" class="campo-input" required>
-          <option value="">Seleccionar…</option>
-          <option>Bachillerato</option>
-          <option>Licenciatura</option>
-          <option>Maestría</option>
-          <option>Doctorado</option>
-          <option>Técnico</option>
+          <option value="">Seleccionar...</option>
+          <option value="Tecnico">Tecnico</option>
+          <option value="Diplomado">Diplomado</option>
+          <option value="Bachillerato">Bachillerato</option>
+          <option value="Licenciatura">Licenciatura</option>
+          <option value="Maestria">Maestria</option>
+          <option value="Doctorado">Doctorado</option>
         </select>
       </div>
       <div class="campo" style="margin:0;">
-        <label>Créditos totales</label>
-        <input id="prog-creditos" class="campo-input" type="number" min="0" placeholder="0">
+        <label>Estado</label>
+        <select id="prog-activo" class="campo-input">
+          <option value="1">Activo</option>
+          <option value="0">Inactivo</option>
+        </select>
       </div>
       <div style="display:flex;gap:.75rem;justify-content:flex-end;margin-top:.5rem;">
         <button type="button" class="btn btn-secundario" onclick="U.closeModal('modal-programa')">Cancelar</button>
@@ -84,6 +96,45 @@
     </form>
   </div>
 </div>
+<style>
+  #modal-programa {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    max-width: none;
+    max-height: none;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    z-index: 1200;
+    background: rgba(15, 23, 42, .55);
+  }
+  #modal-programa.abierto { display: flex; }
+  #modal-programa .modal-overlay { position: absolute; inset: 0; }
+  #modal-programa .modal-caja {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: var(--fondo-carta);
+    border-radius: var(--radio-grande);
+    box-shadow: var(--sombra-modal);
+  }
+  #modal-programa .modal-cerrar {
+    background: none;
+    border: none;
+    color: var(--gris-suave);
+    font-size: 1.25rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+  #modal-programa .modal-cerrar:hover { color: var(--gris-oscuro); }
+</style>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="/js/utils.js"></script>
 <script src="/js/academic-programas.js"></script>
