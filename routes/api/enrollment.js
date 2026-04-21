@@ -6,6 +6,16 @@ const express = require('express');
 const router  = express.Router();
 const { sql, query, queryOne, getPool } = require('../../config/db');
 
+function getSessionStudentId(req) {
+  const raw = req.session?.user?.id_estudiante;
+  const id = parseInt(raw, 10);
+  return Number.isInteger(id) ? id : null;
+}
+
+function isStudentSession(req) {
+  return req.session?.user?.rol === 'Estudiante';
+}
+
 /* GET /api/enrollment/secciones — buscar secciones disponibles */
 router.get('/secciones', async (req, res) => {
   try {
@@ -183,11 +193,17 @@ router.get('/:idEstudiante', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const { id_estudiante, id_seccion } = req.body;
-    if (!id_estudiante || !id_seccion)
-      return res.status(400).json({ ok: false, error: 'Faltan id_estudiante e id_seccion' });
+    if (!id_seccion)
+      return res.status(400).json({ ok: false, error: 'Falta id_seccion' });
 
-    const idEst = parseInt(id_estudiante);
+    const idEst = isStudentSession(req) ? getSessionStudentId(req) : parseInt(id_estudiante, 10);
     const idSec = parseInt(id_seccion);
+    if (!Number.isInteger(idEst)) {
+      return res.status(400).json({ ok: false, error: 'No se pudo identificar el estudiante de la sesion' });
+    }
+    if (!Number.isInteger(idSec)) {
+      return res.status(400).json({ ok: false, error: 'Seccion invalida' });
+    }
 
     // Verificar estudiante sin bloqueos
     const est = await queryOne(
@@ -451,6 +467,7 @@ router.post('/:id/confirmar', async (req, res) => {
     if (!Number.isInteger(idMat)) {
       return res.status(400).json({ ok: false, error: 'ID de matricula invalido' });
     }
+    const sessionEstudianteId = getSessionStudentId(req);
     const mat = await queryOne(
       `SELECT m.*, e.id_estudiante, e.bloqueado_financiero
        FROM matricula m INNER JOIN estudiante e ON e.id_estudiante=m.id_estudiante
@@ -460,9 +477,20 @@ router.post('/:id/confirmar', async (req, res) => {
     if (!mat) return res.status(404).json({ ok: false, error: 'Matricula no encontrada' });
     if (mat.confirmada) return res.status(400).json({ ok: false, error: 'Matricula ya confirmada' });
     if (mat.bloqueado_financiero) return res.status(400).json({ ok: false, error: 'Tiene un bloqueo financiero activo' });
-    const idEstudiante = Number(mat.id_estudiante);
+    const idEstudiante = parseInt(mat.id_estudiante, 10);
     if (!Number.isInteger(idEstudiante)) {
+      if (isStudentSession(req) && Number.isInteger(sessionEstudianteId)) {
+        return res.status(409).json({ ok: false, error: 'Matricula inconsistente en base de datos. Contacte al administrador.' });
+      }
       return res.status(400).json({ ok: false, error: 'La matricula no tiene un estudiante valido asociado' });
+    }
+    if (isStudentSession(req)) {
+      if (!Number.isInteger(sessionEstudianteId)) {
+        return res.status(403).json({ ok: false, error: 'Sesion de estudiante invalida' });
+      }
+      if (idEstudiante !== sessionEstudianteId) {
+        return res.status(403).json({ ok: false, error: 'No puedes confirmar una matricula de otro estudiante' });
+      }
     }
 
     const numComprobante = `CMP-${new Date().getFullYear()}-${String(idMat).padStart(4,'0')}`;
