@@ -18,7 +18,8 @@
       "Bash(node -e ' *)",
       "Bash(node -e \"require\\('./app'\\); console.log\\('✅ app.js carga OK'\\)\")",
       "Bash(python -c ' *)",
-      "Bash(node -e \"require\\('./config/db'\\); console.log\\('✅ db.js OK'\\)\")"
+      "Bash(node -e \"require\\('./config/db'\\); console.log\\('✅ db.js OK'\\)\")",
+      "Bash(node -e \"require\\('./config/db'\\); require\\('./app'\\); console.log\\('✅ Full app load OK'\\)\")"
     ]
   }
 }
