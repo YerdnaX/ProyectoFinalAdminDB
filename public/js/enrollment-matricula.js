@@ -85,7 +85,7 @@
     try {
       const { data } = await axios.post(`/api/enrollment/${idMatricula}/confirmar`);
       if (!data.ok) throw new Error(data.error);
-      U.toast('¡Matrícula confirmada! Factura generada.', 'exito');
+      U.toast('Matricula confirmada. Factura pendiente para pagar en Realizar Pago.', 'exito');
       cargar();
     } catch (e) {
       U.toast('Error: ' + (e.response?.data?.error || e.message), 'error');

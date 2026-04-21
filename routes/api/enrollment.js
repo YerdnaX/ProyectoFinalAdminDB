@@ -448,6 +448,9 @@ router.delete('/:idEstudiante/seccion/:idSeccion', async (req, res) => {
 router.post('/:id/confirmar', async (req, res) => {
   try {
     const idMat = parseInt(req.params.id);
+    if (!Number.isInteger(idMat)) {
+      return res.status(400).json({ ok: false, error: 'ID de matricula invalido' });
+    }
     const mat = await queryOne(
       `SELECT m.*, e.id_estudiante, e.bloqueado_financiero
        FROM matricula m INNER JOIN estudiante e ON e.id_estudiante=m.id_estudiante
@@ -457,9 +460,20 @@ router.post('/:id/confirmar', async (req, res) => {
     if (!mat) return res.status(404).json({ ok: false, error: 'Matricula no encontrada' });
     if (mat.confirmada) return res.status(400).json({ ok: false, error: 'Matricula ya confirmada' });
     if (mat.bloqueado_financiero) return res.status(400).json({ ok: false, error: 'Tiene un bloqueo financiero activo' });
+    const idEstudiante = Number(mat.id_estudiante);
+    if (!Number.isInteger(idEstudiante)) {
+      return res.status(400).json({ ok: false, error: 'La matricula no tiene un estudiante valido asociado' });
+    }
 
     const numComprobante = `CMP-${new Date().getFullYear()}-${String(idMat).padStart(4,'0')}`;
     const numFactura     = `FAC-${new Date().getFullYear()}-${String(Date.now()).slice(-6)}`;
+    console.log('[enrollment.confirmar] init', {
+      id_matricula: idMat,
+      id_estudiante: idEstudiante,
+      id_periodo: mat.id_periodo,
+      total_monto: mat.total_monto,
+      confirmada: mat.confirmada
+    });
 
     const db = await getPool();
     const t  = new sql.Transaction(db);
@@ -474,7 +488,7 @@ router.post('/:id/confirmar', async (req, res) => {
 
       // Crear factura
       const rFac = new sql.Request(t);
-      rFac.input('est',   sql.Int,          mat.id_estudiante);
+      rFac.input('idmat', sql.Int,          idMat);
       rFac.input('per',   sql.Int,          mat.id_periodo);
       rFac.input('num',   sql.VarChar,      numFactura);
       rFac.input('sub',   sql.Decimal(10,2), mat.total_monto);
@@ -482,9 +496,17 @@ router.post('/:id/confirmar', async (req, res) => {
       rFac.input('sal',   sql.Decimal(10,2), mat.total_monto);
       const rFacResult = await rFac.query(
         `INSERT INTO factura(id_estudiante,id_periodo,numero_factura,subtotal,total,saldo,estado)
-         OUTPUT INSERTED.id_factura VALUES(@est,@per,@num,@sub,@tot,@sal,'Pendiente')`
+         OUTPUT INSERTED.id_factura
+         SELECT id_estudiante, @per, @num, @sub, @tot, @sal, 'Pendiente'
+         FROM matricula
+         WHERE id_matricula=@idmat`
       );
       const idFactura = rFacResult.recordset[0].id_factura;
+      console.log('[enrollment.confirmar] factura_creada', {
+        id_matricula: idMat,
+        id_factura: idFactura,
+        numero_factura: numFactura
+      });
 
       await t.commit();
 
@@ -498,16 +520,33 @@ router.post('/:id/confirmar', async (req, res) => {
       // RF-23: Notificación automática al confirmar matrícula
       query(`INSERT INTO notificacion(id_estudiante,tipo,asunto,mensaje,medio)
              VALUES(@est,'Matricula','Matrícula confirmada',@msg,'Portal')`,
-        { est: { type: sql.Int,     value: mat.id_estudiante },
-          msg: { type: sql.VarChar, value: `Tu matrícula fue confirmada. Comprobante: ${numComprobante}. Factura: ${numFactura}.` }
+        { est: { type: sql.Int,     value: idEstudiante },
+          msg: { type: sql.VarChar, value: `Tu matricula fue confirmada. Comprobante: ${numComprobante}. Factura: ${numFactura} en estado Pendiente.` }
         }).catch(() => {});
 
-      res.json({ ok: true, comprobante: numComprobante, id_factura: idFactura, mensaje: 'Matricula confirmada' });
+      res.json({
+        ok: true,
+        comprobante: numComprobante,
+        id_factura: idFactura,
+        estado_factura: 'Pendiente',
+        mensaje: 'Matricula confirmada. El pago queda pendiente para realizarse en Realizar Pago.'
+      });
     } catch (err2) {
+      console.error('[enrollment.confirmar] tx_error', {
+        id_matricula: idMat,
+        id_estudiante: idEstudiante,
+        error: err2?.message
+      });
       await t.rollback();
       throw err2;
     }
-  } catch (e) { res.status(500).json({ ok: false, error: e.message }); }
+  } catch (e) {
+    console.error('[enrollment.confirmar] error', {
+      id_matricula: req.params?.id,
+      error: e?.message
+    });
+    res.status(500).json({ ok: false, error: e.message });
+  }
 });
 
 
@@ -543,4 +582,5 @@ router.get('/lista/admin', async (req, res) => {
 });
 
 module.exports = router;
+
 
