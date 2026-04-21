@@ -16,7 +16,9 @@
       "Bash(find views/ -name \"*.hbs\" ! -path \"*/auth/*\" -exec sed -i 's|href=\"/auth/login\">🚪 Cerrar sesión|href=\"/auth/logout\">🚪 Cerrar sesión|g' {} \\\\;)",
       "Bash(node -e \"require\\('./app'\\); console.log\\('OK'\\);\")",
       "Bash(node -e ' *)",
-      "Bash(node -e \"require\\('./app'\\); console.log\\('✅ app.js carga OK'\\)\")"
+      "Bash(node -e \"require\\('./app'\\); console.log\\('✅ app.js carga OK'\\)\")",
+      "Bash(python -c ' *)",
+      "Bash(node -e \"require\\('./config/db'\\); console.log\\('✅ db.js OK'\\)\")"
     ]
   }
 }
