@@ -2,6 +2,15 @@
   let paginaActual = 1;
   const LIMIT = 15;
 
+  function formatearFecha(fecha) {
+    if (!fecha) return '-';
+    const txt = String(fecha).trim();
+    if (/^\d{2}\/\d{2}\/\d{4}$/.test(txt)) return txt;
+    const d = new Date(txt);
+    if (Number.isNaN(d.getTime())) return txt;
+    return d.toLocaleDateString('es-CR');
+  }
+
   async function cargarPeriodos() {
     try {
       const { data } = await axios.get('/api/academic/periodos');
@@ -52,7 +61,7 @@
       tbody.innerHTML = items.map(m => `<tr>
         <td><span style="font-family:monospace;font-weight:700;">${m.numero || m.id_matricula}</span></td>
         <td><div class="nombre-principal">${m.nombre_estudiante || '—'}</div><div class="detalle-secundario">${m.carne || '—'}</div></td>
-        <td class="texto-muted">${m.fecha ? new Date(m.fecha).toLocaleDateString('es-CR') : '—'}</td>
+        <td class="texto-muted">${formatearFecha(m.fecha)}</td>
         <td style="text-align:center;">${m.num_cursos || 0}</td>
         <td style="text-align:center;font-weight:700;">${m.creditos || 0}</td>
         <td style="font-weight:600;">${U.colones(m.monto || 0)}</td>
@@ -72,4 +81,3 @@
     document.getElementById('fil-buscar').addEventListener('keydown', e => { if (e.key === 'Enter') cargar(1); });
   });
 })();
-
