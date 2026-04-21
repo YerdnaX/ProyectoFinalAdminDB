@@ -1,56 +1,60 @@
 /**
  * config/db.js
- * Conexion a SQL Server usando mssql/msnodesqlv8 + ODBC.
- * Soporta autenticacion integrada (Trusted_Connection) y SQL Auth por .env.
+ * Conexion a SQL Server via TCP con autenticacion SQL Server.
+ * Compatible con Linux (Render) y Windows (local).
+ * NO usa ODBC ni msnodesqlv8.
  */
 require('dotenv').config();
-const sql = require('mssql/msnodesqlv8');
-
-const DB_SERVER = process.env.DB_SERVER || 'localhost';
-const DB_DATABASE = process.env.DB_DATABASE || 'SistemaMatriculaUniversitaria';
-const DB_PORT = process.env.DB_PORT || '1433';
-const DB_AUTH_TYPE = String(process.env.DB_AUTH_TYPE || 'trusted').toLowerCase();
-const DB_USER = process.env.DB_USER || '';
-const DB_PASSWORD = process.env.DB_PASSWORD || '';
-const DB_ENCRYPT = String(process.env.DB_ENCRYPT || 'yes').toLowerCase();
-const DB_TRUST_SERVER_CERT = String(process.env.DB_TRUST_SERVER_CERT || 'yes').toLowerCase();
-
-const useSqlAuth = DB_AUTH_TYPE === 'sql';
-const authPart = useSqlAuth
-  ? `Uid=${DB_USER};Pwd=${DB_PASSWORD};`
-  : 'Trusted_Connection=yes;';
+const sql = require('mssql');
 
 const config = {
-  connectionString:
-    `Driver={ODBC Driver 17 for SQL Server};Server=${DB_SERVER},${DB_PORT};Database=${DB_DATABASE};${authPart}Encrypt=${DB_ENCRYPT};TrustServerCertificate=${DB_TRUST_SERVER_CERT};`
+  server:   process.env.DB_SERVER   || 'localhost',
+  database: process.env.DB_DATABASE || 'SistemaMatriculaUniversitaria',
+  port:     parseInt(process.env.DB_PORT || '1433', 10),
+  user:     process.env.DB_USER     || '',
+  password: process.env.DB_PASSWORD || '',
+  pool: {
+    max: 10,
+    min: 0,
+    idleTimeoutMillis: 30000
+  },
+  options: {
+    encrypt:                /^(1|true|yes)$/i.test(process.env.DB_ENCRYPT            || 'yes'),
+    trustServerCertificate: /^(1|true|yes)$/i.test(process.env.DB_TRUST_SERVER_CERT || 'yes'),
+    enableArithAbort: true,
+    requestTimeout:  15000,
+    connectTimeout:  15000
+  }
 };
 
-// Pool compartido — mismo patron del proyecto funcional
-const poolPromise = new sql.ConnectionPool(config)
-  .connect()
-  .then(pool => {
-    console.log(`✅ Conectado a SQL Server — BD: ${DB_DATABASE}`);
-    return pool;
-  })
-  .catch(err => {
-    console.error('❌ Error al conectar a SQL Server:', err.message);
-    throw err;
-  });
+let poolPromise = null;
 
-/**
- * Obtiene el pool activo
- * @returns {Promise<sql.ConnectionPool>}
- */
-async function getPool() {
-  return await poolPromise;
+function getPoolPromise() {
+  if (!poolPromise) {
+    if (!config.user || !config.password) {
+      return Promise.reject(new Error(
+        'DB_USER o DB_PASSWORD no estan configurados. Revisa las variables de entorno.'
+      ));
+    }
+    poolPromise = new sql.ConnectionPool(config)
+      .connect()
+      .then(pool => {
+        console.log(`[DB] Conectado a SQL Server: ${config.server} / ${config.database}`);
+        return pool;
+      })
+      .catch(err => {
+        poolPromise = null;
+        console.error('[DB] Error de conexion:', err.message);
+        throw err;
+      });
+  }
+  return poolPromise;
 }
 
-/**
- * Ejecuta una consulta SQL parametrizada
- * @param {string} queryStr
- * @param {Object} params  - { nombre: { type, value } } o { nombre: valor }
- * @returns {Promise<Array>}
- */
+async function getPool() {
+  return getPoolPromise();
+}
+
 async function query(queryStr, params = {}) {
   const pool = await getPool();
   const request = pool.request();
@@ -65,13 +69,15 @@ async function query(queryStr, params = {}) {
   return result.recordset;
 }
 
-/**
- * Ejecuta una consulta y devuelve solo el primer registro
- * @returns {Promise<Object|null>}
- */
 async function queryOne(queryStr, params = {}) {
   const rows = await query(queryStr, params);
   return rows[0] || null;
 }
 
-module.exports = { sql, poolPromise, getPool, query, queryOne };
+module.exports = {
+  sql,
+  get poolPromise() { return getPoolPromise(); },
+  getPool,
+  query,
+  queryOne
+};

@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: sistema-matricula
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_SERVER
+        sync: false
+      - key: DB_DATABASE
+        sync: false
+      - key: DB_PORT
+        value: "1433"
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_ENCRYPT
+        value: "yes"
+      - key: DB_TRUST_SERVER_CERT
+        value: "yes"
+      - key: SESSION_SECRET
+        generateValue: true

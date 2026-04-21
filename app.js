@@ -56,12 +56,18 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.set('trust proxy', 1);
 
 app.use(session({
   secret: process.env.SESSION_SECRET || 'matricula_secret_2026',
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 8 * 60 * 60 * 1000 }   // 8 horas
+  cookie: {
+    maxAge:   8 * 60 * 60 * 1000,
+    secure:   process.env.NODE_ENV === 'production',
+    httpOnly: true,
+    sameSite: 'lax'
+  }
 }));
 
 // ── Inyectar usuario de sesión en todas las plantillas ─────────────────────
